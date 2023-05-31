@@ -5,12 +5,14 @@ import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./theme";
 import { CssBaseline } from "@mui/material";
+import "react-toastify/dist/ReactToastify.css";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import LogIn from "./pages/LogIn";
 import UserDashboard from "./pages/user/UserDashboard";
 import UserRoute from "./component/UserRoute";
 import Layout from "./pages/global/Layout";
 import UserJobsHistory from "./pages/user/UserJobsHistory";
+import { ToastContainer } from "react-toastify";
 
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
@@ -18,6 +20,8 @@ const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const App = () => {
   return (
     <>
+      {" "}
+      <ToastContainer />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ProSidebarProvider>

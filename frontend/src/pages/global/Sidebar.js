@@ -31,11 +31,8 @@ const SidebarAdm = () => {
   //log out
   const logOut = () => {
     // dispatch(userLogoutAction());
-    window.location.reload(true);
-    window.localStorage.removeItem("userInfo");
-    setTimeout(() => {
-      navigate("/");
-    }, 500);
+    //window.location.reload(true);
+    navigate("/");
   };
 
   return (
