@@ -45,8 +45,8 @@ const Navbar = () => {
   // log out user
   const logOutUser = () => {
     // dispatch(userLogoutAction());
-    window.location.reload(true);
     window.localStorage.removeItem("userInfo");
+    window.location.reload(true);
     setTimeout(() => {
       navigate("/");
     }, 500);
@@ -174,11 +174,23 @@ const Navbar = () => {
                     }}
                     to="/admin/dashboard"
                   >
-                    Dashboard
+                    Admin Dashboard
                   </Link>
                 </Typography>
               </MenuItem>
-
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      color: palette.primary.main,
+                    }}
+                    to="/user/dashboard"
+                  >
+                    User Dashboard
+                  </Link>
+                </Typography>
+              </MenuItem>
               {!userInfo ? (
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">

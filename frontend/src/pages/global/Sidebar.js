@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Sidebar,
   Menu,
@@ -17,7 +17,10 @@ import Avatar from "@mui/material/Avatar";
 import logoDashboard from "../../images/hr-project.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogoutAction } from "../../redux/actions/userAction";
+import {
+  userLogoutAction,
+  userProfileAction,
+} from "../../redux/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -27,7 +30,9 @@ const SidebarAdm = () => {
   const { collapsed } = useProSidebar();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    dispatch(userProfileAction());
+  }, []);
   //log out
   const logOut = () => {
     // dispatch(userLogoutAction());
@@ -91,7 +96,7 @@ const SidebarAdm = () => {
                 },
               }}
             >
-              {userInfo && userInfo.role === 1 ? (
+              {userInfo && userInfo.role.role === 1 ? (
                 <>
                   <MenuItem
                     component={<Link to="/admin/dashboard" />}

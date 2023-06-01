@@ -1,15 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { userProfileAction } from "../../redux/actions/userAction";
+import { useSelector } from "react-redux";
+
 import CardElement from "../../component/CardElement";
 
 const UserJobsHistory = () => {
   const { user } = useSelector((state) => state.userprofile);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(userProfileAction());
-  }, []);
+
   return (
     <>
       <Box>

@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import React from "react";
-
 import SidebarAdm from "./Sidebar";
 import HeaderTop from "./HeaderTop";
 
