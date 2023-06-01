@@ -48,7 +48,7 @@ const sendTokenResponse = async (user, codeStatus, res) => {
   res
     .status(codeStatus)
     .cookie("token", token, { maxAge: 60 * 60 * 1000, httpOnly: true })
-    .json({ success: true, role: user });
+    .json({ success: true, role: user, token });
 };
 // log out
 exports.logout = (req, res, next) => {

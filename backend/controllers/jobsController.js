@@ -43,10 +43,12 @@ exports.updateJob = async (req, res, next) => {
     })
       .populate("jobType", "jobTypeName")
       .populate("user", "firstName lastName");
+    console.log(job);
     res.status(200).json({
       success: true,
       job,
     });
+    console.log(job);
   } catch (error) {
     next(error);
   }
@@ -87,7 +89,6 @@ exports.showJobs = async (req, res, next) => {
   //pagination
   const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
-  // const count = await Job.find({}).estimatedDocumentCount();
   const count = await Job.find({
     ...keyword,
     jobType: categ,
@@ -100,9 +101,10 @@ exports.showJobs = async (req, res, next) => {
       location: locationFilter,
     })
       .sort({ createdAt: -1 })
+      .populate("jobType", "jobTypeName")
+      .populate("user", "firstName")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-
     res.status(200).json({
       success: true,
       jobs,
