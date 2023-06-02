@@ -24,6 +24,7 @@ const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
+
   useEffect(() => {
     if (isAuthenticated) {
       if (userInfo.role.role === 1) {
