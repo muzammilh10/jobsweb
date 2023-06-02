@@ -15,6 +15,7 @@ const UserJobsHistory = () => {
         </Typography>
         <Box>
           {user &&
+            user.jobsHistory &&
             user.jobsHistory.map((history, i) => (
               <CardElement
                 key={i}

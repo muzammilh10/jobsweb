@@ -19,12 +19,14 @@ const SingleJob = () => {
   }, [id]);
 
   const applyForAJob = () => {
+    let role = 0;
     dispatch(
       userApplyJobAction({
         title: singleJob && singleJob.title,
         description: singleJob && singleJob.description,
         salary: singleJob && singleJob.salary,
         location: singleJob && singleJob.location,
+        role: singleJob && singleJob.role,
       })
     );
   };

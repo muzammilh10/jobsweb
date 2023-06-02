@@ -3,7 +3,6 @@ import "./App.css";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "@emotion/react";
-import { theme } from "./theme";
 import { CssBaseline } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css";
 import { ProSidebarProvider } from "react-pro-sidebar";
@@ -19,6 +18,13 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import SingleJob from "./pages/SingleJob";
 import DashUsers from "./pages/admin/DashUsers";
 import DashJobs from "./pages/admin/DashJobs";
+
+import { createTheme } from '@mui/material/styles';
+import { themeColors } from './theme'
+import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
+
+
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC = Layout(UserInfoDashboard);
@@ -27,6 +33,8 @@ const DashUsersHOC = Layout(DashUsers);
 const DashJobsHOC = Layout(DashJobs);
 
 const App = () => {
+  const {mode}=useSelector(state=>state.mode);
+  const theme=useMemo(()=>createTheme(themeColors(mode)),[mode])
   return (
     <>
       <ToastContainer />

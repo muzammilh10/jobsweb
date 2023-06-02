@@ -10,6 +10,7 @@ import {
   userReducerProfile,
   userReducerSignIn,
 } from "./reducers/userReducer";
+import { modeReducer } from "./reducers/themeModeReducer";
 
 //combine reducers
 const reducer = combineReducers({
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   singleJob: loadJobSingleReducer,
   userJobApplication: userApplyJobReducer,
   allUsers: allUserReducer,
+  mode:modeReducer
 });
 
 //initial state
@@ -30,6 +32,9 @@ let initialState = {
       ? JSON.parse(localStorage.getItem("userInfo"))
       : null,
   },
+  mode:{
+    mode:"light"
+  }
 };
 const middleware = [thunk];
 const store = createStore(

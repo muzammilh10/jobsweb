@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 
 const CardElement = ({ jobTitle, description, category, location, id }) => {
+  console.log(description);
   const { palette } = useTheme();
   return (
     <Card sx={{ minWidth: 275, mb: 3, mt: 3 }}>
@@ -33,7 +34,8 @@ const CardElement = ({ jobTitle, description, category, location, id }) => {
           {category}
         </Typography>
         <Typography variant="body2">
-          Description: {description.split(" ").slice(0, 15).join(" ") + "..."}
+          Description:{" "}
+          {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}
         </Typography>
       </CardContent>
       <CardActions>
