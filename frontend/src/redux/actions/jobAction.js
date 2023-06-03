@@ -1,6 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
+  ADMIN_JOB_LOAD_FAIL,
+  ADMIN_JOB_LOAD_REQUEST,
+  ADMIN_JOB_LOAD_SUCCESS,
+  DELETE_JOB_FAIL,
+  DELETE_JOB_REQUEST,
+  DELETE_JOB_SUCCESS,
   JOB_LOAD_FAIL,
   JOB_LOAD_REQUEST,
   JOB_LOAD_SINGLE_FAIL,
@@ -67,5 +73,67 @@ export const registerAjobAction = (job) => async (dispatch) => {
       payload: error.response.data.error,
     });
     toast.error(error.response.data.error);
+  }
+};
+
+//
+// export const deleteJobTypeAction = (type_id) => async (dispatch) => {
+//   dispatch({ type: DELETE_JOB_TYPE_REQUEST });
+//   try {
+//     const { data } = await axios.delete(`/api/type/delete/${type_id}`);
+
+//     dispatch({
+//       type: DELETE_JOB_TYPE_SUCCESS,
+//       payload: data,
+//     });
+//     toast.success("Job type delete successfully");
+//   } catch (error) {
+//     dispatch({
+//       type: DELETE_JOB_TYPE_FAIL,
+//       payload: error.response.data.error,
+//     });
+//     toast.error(error.response.data.error);
+//   }
+// };
+
+// delete job action
+export const deleteAjobAction = (id) => async (dispatch) => {
+  console.log(id);
+  dispatch({ type: DELETE_JOB_REQUEST });
+
+  try {
+    console.log(id);
+    const { data } = await axios.delete(`/api/jobs/delete/${id}`); ///jobs/delete/:id
+    console.log(data);
+    console.log(data);
+    dispatch({
+      type: DELETE_JOB_SUCCESS,
+      payload: data,
+    });
+    toast.success("Job delete successfully");
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: DELETE_JOB_FAIL,
+      payload: error.response.data.error,
+    });
+    toast.error(error.response.data.error);
+  }
+};
+
+export const adminLoadAction = (id) => async (dispatch) => {
+  dispatch({ type: ADMIN_JOB_LOAD_REQUEST });
+  try {
+    const { data } = await axios.get(`/api/jobs/showByUser/${id}`);
+    console.log(data);
+    dispatch({
+      type: ADMIN_JOB_LOAD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_JOB_LOAD_FAIL,
+      payload: error.response.data.error,
+    });
   }
 };

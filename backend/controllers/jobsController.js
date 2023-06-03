@@ -117,3 +117,83 @@ exports.showJobs = async (req, res, next) => {
     next(error);
   }
 };
+
+//show job by id.
+exports.showJobsyByUser = async (req, res, next) => {
+  //search enable
+
+  // const keyword = req.query.keyword
+  //   ? {
+  //       title: {
+  //         $regex: req.query.keyword,
+  //         $options: "i",
+  //       },
+  //     }
+  //   : {};
+
+  // //filter by category ids
+  // let ids = [];
+  // const jobTypeCategory = await JobType.find({}, { _id: 1 });
+  // jobTypeCategory.forEach((cat) => {
+  //   ids.push(cat._id);
+  // });
+  // let cat = req.query.cat;
+  // let categ = cat !== "" ? cat : ids;
+
+  // //jobs by location
+  // let locations = [];
+  // const jobByLocation = await Job.find({}, { location: 1 });
+  // jobByLocation.forEach((val) => {
+  //   locations.push(val.location);
+  // });
+  // let setUniqueLocation = [...new Set(locations)];
+  // let location = req.query.location;
+  // let locationFilter = location !== "" ? location : setUniqueLocation;
+
+  // //pagination
+  // const pageSize = 5;
+  // const page = Number(req.query.pageNumber) || 1;
+  // const count = await Job.find({
+  //   ...keyword,
+  //   jobType: categ,
+  //   location: locationFilter,
+  // }).countDocuments();
+  try {
+    //   const jobs = await Job.find({
+    //     ...keyword,
+    //     jobType: categ,
+    //     location: locationFilter,
+    //   })
+    //     .sort({ createdAt: -1 })
+    //     .populate("jobType", "jobTypeName")
+    //     .populate("user", "firstName")
+    //     .skip(pageSize * (page - 1))
+    //     .limit(pageSize);
+
+    const id = req.params.id;
+
+    const jobs = await Job.find({
+      user: id,
+    });
+
+    res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+//delete job
+exports.deleteJobs = async (req, res, next) => {
+  try {
+    const jobT = await Job.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      success: true,
+      message: "Job deleted",
+    });
+  } catch (error) {
+    next(new ErrorResponse("server error", 500));
+  }
+};

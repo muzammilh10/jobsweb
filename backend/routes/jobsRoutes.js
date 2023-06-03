@@ -6,6 +6,8 @@ const {
   singleJob,
   updateJob,
   showJobs,
+  deleteJobs,
+  showJobsyByUser,
 } = require("../controllers/jobsController");
 
 //job router
@@ -20,6 +22,12 @@ router.get("/job/:id", singleJob);
 router.put("/job/update/:job_id", isAuthenticated, isAdmin, updateJob);
 
 // /api/jobs/show
-router.get("/jobs/show", showJobs);
+router.get("/jobs/show/", showJobs);
+
+// /api/jobs/show
+router.get("/jobs/showByUser/:id", showJobsyByUser);
+
+// /api/jobs/delete
+router.delete("/jobs/delete/:id", isAuthenticated, isAdmin, deleteJobs);
 
 module.exports = router;

@@ -4,22 +4,33 @@ import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { jobLoadAction } from "../../redux/actions/jobAction";
+import {
+  adminLoadAction,
+  deleteAjobAction,
+  jobLoadAction,
+} from "../../redux/actions/jobAction";
+import { deleteJobTypeAction } from "../../redux/actions/jobTypeAction";
 
 const DashJobs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(jobLoadAction());
+    const userInfo = localStorage.getItem("userInfo");
+    const user = JSON.parse(userInfo);
+    console.log(user.role._id);
+    const id = user.role._id;
+    dispatch(adminLoadAction(id));
   }, []);
 
-  const { jobs, loading } = useSelector((state) => state.loadJobs);
+  const { jobs, loading } = useSelector((state) => state.adminCreateJob);
+  console.log("naslafalfhaohlhasfhlfhasl", jobs);
   let data = [];
   data = jobs !== undefined && jobs.length > 0 ? jobs : [];
-
+  console.log("hshhd", jobs);
   //delete job by Id
   const deleteJobById = (e, id) => {
-    console.log(id);
+    console.log();
+    dispatch(deleteAjobAction(id));
   };
 
   const columns = [

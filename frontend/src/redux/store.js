@@ -2,6 +2,8 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "@redux-devtools/extension";
 import {
+  adminJobReducer,
+  deleteAjobReducer,
   loadJobReducer,
   loadJobSingleReducer,
   registerAjobReducer,
@@ -19,6 +21,7 @@ import {
 } from "./reducers/userReducer";
 import { modeReducer } from "./reducers/themeModeReducer";
 import { deleteJobTypeReducer } from "./reducers/jobTypeReducer";
+import { adminLoadAction, deleteAjobAction } from "./actions/jobAction";
 
 //combine reducers
 const reducer = combineReducers({
@@ -35,6 +38,8 @@ const reducer = combineReducers({
   registerJob: registerAjobReducer,
   createJobType: createJobTypeReducer,
   deleteJobType: deleteJobTypeReducer,
+  deleteJob: deleteAjobReducer,
+  adminCreateJob: adminJobReducer,
 });
 
 //initial state
