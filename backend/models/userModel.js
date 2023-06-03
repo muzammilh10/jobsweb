@@ -28,6 +28,10 @@ const jobsHistorySchema = new mongoose.Schema(
       enum: ["pending", "accepted", "rejected"],
       default: "pending",
     },
+    role: {
+      type: Number,
+      default: 0,
+    },
     user: {
       type: ObjectId,
       ref: "User",

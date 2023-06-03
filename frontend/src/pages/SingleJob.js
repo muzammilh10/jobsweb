@@ -19,7 +19,6 @@ const SingleJob = () => {
   }, [id]);
 
   const applyForAJob = () => {
-    let role = 0;
     dispatch(
       userApplyJobAction({
         title: singleJob && singleJob.title,

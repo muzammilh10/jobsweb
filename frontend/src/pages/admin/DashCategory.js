@@ -4,7 +4,10 @@ import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { jobTypeLoadAction } from "../../redux/actions/jobTypeAction";
+import {
+  deleteJobTypeAction,
+  jobTypeLoadAction,
+} from "../../redux/actions/jobTypeAction";
 
 import moment from "moment";
 
@@ -21,7 +24,7 @@ const DashCategory = () => {
 
   //delete job by Id
   const deleteJobCategoryById = (e, id) => {
-    console.log(id);
+    dispatch(deleteJobTypeAction(id));
   };
 
   const columns = [

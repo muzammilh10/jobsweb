@@ -26,7 +26,6 @@ import LoginIcon from "@mui/icons-material/Login";
 
 const SidebarAdm = () => {
   const { userInfo } = useSelector((state) => state.signIn);
-  console.log(userInfo);
   const { palette } = useTheme();
   const { collapsed } = useProSidebar();
   const dispatch = useDispatch();
