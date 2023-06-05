@@ -4,6 +4,7 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import {
   adminJobReducer,
   deleteAjobReducer,
+  editJobReducer,
   loadJobReducer,
   loadJobSingleReducer,
   registerAjobReducer,
@@ -21,7 +22,7 @@ import {
 } from "./reducers/userReducer";
 import { modeReducer } from "./reducers/themeModeReducer";
 import { deleteJobTypeReducer } from "./reducers/jobTypeReducer";
-import { adminLoadAction, deleteAjobAction } from "./actions/jobAction";
+import { generalReducer } from "./reducers/generalReducer";
 
 //combine reducers
 const reducer = combineReducers({
@@ -40,6 +41,8 @@ const reducer = combineReducers({
   deleteJobType: deleteJobTypeReducer,
   deleteJob: deleteAjobReducer,
   adminCreateJob: adminJobReducer,
+  editJob: editJobReducer,
+  general: generalReducer,
 });
 
 //initial state

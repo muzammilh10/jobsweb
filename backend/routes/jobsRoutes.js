@@ -8,6 +8,7 @@ const {
   showJobs,
   deleteJobs,
   showJobsyByUser,
+  showAdminUserApplyJob,
 } = require("../controllers/jobsController");
 
 //job router
@@ -19,14 +20,15 @@ router.post("/job/create", isAuthenticated, isAdmin, createJob);
 router.get("/job/:id", singleJob);
 
 // /api/job/update/job_id
-router.put("/job/update/:job_id", isAuthenticated, isAdmin, updateJob);
+router.patch("/job/update/:job_id", isAuthenticated, isAdmin, updateJob);
 
 // /api/jobs/show
 router.get("/jobs/show/", showJobs);
 
 // /api/jobs/show
 router.get("/jobs/showByUser/:id", showJobsyByUser);
-
+// /api/jobs/userapply/:id
+router.get("/jobs/userapply/:id", showAdminUserApplyJob);
 // /api/jobs/delete
 router.delete("/jobs/delete/:id", isAuthenticated, isAdmin, deleteJobs);
 

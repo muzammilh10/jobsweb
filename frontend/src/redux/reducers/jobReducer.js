@@ -7,6 +7,10 @@ import {
   DELETE_JOB_REQUEST,
   DELETE_JOB_RESET,
   DELETE_JOB_SUCCESS,
+  EDIT_JOB_FAIL,
+  EDIT_JOB_REQUEST,
+  EDIT_JOB_RESET,
+  EDIT_JOB_SUCCESS,
   JOB_LOAD_FAIL,
   JOB_LOAD_REQUEST,
   JOB_LOAD_RESET,
@@ -120,6 +124,28 @@ export const adminJobReducer = (state = { jobs: [] }, action) => {
         error: action.payload,
       };
     case ADMIN_JOB_LOAD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const editJobReducer = (state = { jobs: [] }, action) => {
+  switch (action.type) {
+    case EDIT_JOB_REQUEST:
+      return { loading: true };
+    case EDIT_JOB_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        jobs: action.payload.jobs,
+      };
+    case EDIT_JOB_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case EDIT_JOB_RESET:
       return {};
     default:
       return state;

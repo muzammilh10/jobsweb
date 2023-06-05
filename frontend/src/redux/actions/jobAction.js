@@ -7,6 +7,9 @@ import {
   DELETE_JOB_FAIL,
   DELETE_JOB_REQUEST,
   DELETE_JOB_SUCCESS,
+  EDIT_JOB_FAIL,
+  EDIT_JOB_REQUEST,
+  EDIT_JOB_SUCCESS,
   JOB_LOAD_FAIL,
   JOB_LOAD_REQUEST,
   JOB_LOAD_SINGLE_FAIL,
@@ -121,11 +124,12 @@ export const deleteAjobAction = (id) => async (dispatch) => {
   }
 };
 
+//admin create job
 export const adminLoadAction = (id) => async (dispatch) => {
   dispatch({ type: ADMIN_JOB_LOAD_REQUEST });
   try {
     const { data } = await axios.get(`/api/jobs/showByUser/${id}`);
-    console.log(data);
+
     dispatch({
       type: ADMIN_JOB_LOAD_SUCCESS,
       payload: data,
@@ -133,6 +137,24 @@ export const adminLoadAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ADMIN_JOB_LOAD_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
+export const editJobAction = (job_id, formdata, id) => async (dispatch) => {
+  dispatch({ type: EDIT_JOB_REQUEST });
+  try {
+    const { data } = await axios.patch(`/api/job/update/${job_id}`, formdata);
+    console.log(data);
+    dispatch({
+      type: EDIT_JOB_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: EDIT_JOB_FAIL,
       payload: error.response.data.error,
     });
   }

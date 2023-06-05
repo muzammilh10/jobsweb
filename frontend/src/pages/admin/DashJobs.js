@@ -9,24 +9,33 @@ import {
   deleteAjobAction,
   jobLoadAction,
 } from "../../redux/actions/jobAction";
-import { deleteJobTypeAction } from "../../redux/actions/jobTypeAction";
+import DeleteIcon from "@mui/icons-material/Delete";
+import UpdateJob from "./data/UpdateAdminData";
 
 const DashJobs = () => {
   const dispatch = useDispatch();
+  const [render, setRender] = React.useState(false);
+
+  const renderHandler = () => {
+    setRender(!render);
+  };
+
+  const { jobs } = useSelector((state) => state.adminCreateJob);
+  const { loadJobs } = useSelector((state) => state.general);
+
+  console.log(loadJobs);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
     const user = JSON.parse(userInfo);
-    console.log(user.role._id);
+
     const id = user.role._id;
     dispatch(adminLoadAction(id));
-  }, []);
+  }, [loadJobs]);
 
-  const { jobs, loading } = useSelector((state) => state.adminCreateJob);
-  console.log("naslafalfhaohlhasfhlfhasl", jobs);
   let data = [];
   data = jobs !== undefined && jobs.length > 0 ? jobs : [];
-  console.log("hshhd", jobs);
+
   //delete job by Id
   const deleteJobById = (e, id) => {
     console.log();
@@ -45,18 +54,18 @@ const DashJobs = () => {
       headerName: "Job name",
       width: 150,
     },
-    {
-      field: "jobType",
-      headerName: "Category",
-      width: 150,
-      valueGetter: (data) => data.row.jobType.jobTypeName,
-    },
-    {
-      field: "user",
-      headerName: "User",
-      width: 150,
-      valueGetter: (data) => data.row.user.firstName,
-    },
+    // {
+    //   field: "jobType",
+    //   headerName: "Category",
+    //   width: 150,
+    //   valueGetter: (data) => data.row.jobType.jobTypeName,
+    // },
+    // {
+    //   field: "user",
+    //   headerName: "User",
+    //   width: 150,
+    //   valueGetter: (data) => data.row.user.firstName,
+    // },
     {
       field: "available",
       headerName: "available",
@@ -80,24 +89,17 @@ const DashJobs = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            width: "170px",
+            width: "100px",
           }}
         >
-          <Button variant="contained">
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/job/${values.row._id}`}
-            >
-              Edit
-            </Link>
-          </Button>
-          <Button
+          <UpdateJob jobData={values.row} renderHandler={renderHandler} />
+          <DeleteIcon
             onClick={(e) => deleteJobById(e, values.row._id)}
             variant="contained"
             color="error"
           >
             Delete
-          </Button>
+          </DeleteIcon>
         </Box>
       ),
     },

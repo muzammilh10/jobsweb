@@ -38,6 +38,7 @@ exports.singleJob = async (req, res, next) => {
 //update job by id.
 exports.updateJob = async (req, res, next) => {
   try {
+    console.log("object");
     const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, {
       new: true,
     })
@@ -50,6 +51,7 @@ exports.updateJob = async (req, res, next) => {
     });
     console.log(job);
   } catch (error) {
+    console.log(err);
     next(error);
   }
 };
@@ -195,5 +197,23 @@ exports.deleteJobs = async (req, res, next) => {
     });
   } catch (error) {
     next(new ErrorResponse("server error", 500));
+  }
+};
+
+//apply user user find by id
+exports.showAdminUserApplyJob = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const jobs = await Job.find({
+      user: id,
+    });
+
+    res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    next(error);
   }
 };
