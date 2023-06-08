@@ -2,8 +2,10 @@ const express = require("express");
 const {
   signup,
   signin,
-  logout,
   userProfile,
+  forgotPassword,
+  resetPassword,
+  updatePassword,
 } = require("../controllers/authControllers");
 const { isAuthenticated } = require("../middleware/auth");
 const router = express.Router();
@@ -20,5 +22,7 @@ router.get("/logout", userProfile);
 
 //  /api/me
 router.get("/me", isAuthenticated, userProfile);
-
+//  /api/forgetpassword
+router.post("/forgetpassword", forgotPassword);
+router.patch("/resetPassword/:token", resetPassword);
 module.exports = router;

@@ -26,6 +26,9 @@ import { createTheme } from "@mui/material/styles";
 import { themeColors } from "./theme";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import ResetPassword from "./pages/ResetPassword";
+import ResetPassword1 from "./pages/ResetPassword1";
+import SendMail from "./pages/SendMail";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -128,6 +131,12 @@ const App = () => {
                   </UserRoute>
                 }
               />
+              <Route path="/user/ResetPassword" element={<ResetPassword />} />
+              <Route
+                path="/user/resetPassword/:token"
+                element={<ResetPassword1 />}
+              />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

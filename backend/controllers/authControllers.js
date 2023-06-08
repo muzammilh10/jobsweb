@@ -1,5 +1,25 @@
 const User = require("../models/userModel");
+const crypto = require("crypto");
 const ErrorResponse = require("../utils/errorResponse");
+const sendEmail = require("../utils/email");
+const jwt = require("jsonwebtoken");
+
+const signToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE_IN,
+  });
+};
+
+// generates a random token for forgot password functionality
+const generateToken = () => {
+  return crypto.randomBytes(32).toString("hex");
+};
+// hashes the same token for reset password functionality
+const hashToken = (token) => {
+  const sha256 = crypto.createHash("sha256");
+  sha256.update(token);
+  return sha256.digest("hex");
+};
 
 exports.signup = async (req, res, next) => {
   const { email } = req.body;
@@ -66,4 +86,91 @@ exports.userProfile = async (req, res, next) => {
     success: true,
     user,
   });
+};
+
+// sends a email with a token for authentication to change password
+exports.forgotPassword = async (req, res, next) => {
+  console.log(req.body);
+  const email = req.body.email;
+  console.log(email);
+  if (!email) return next(new ErrorResponse("Email field is compulsary", 403));
+
+  const user = await User.findOne({ email });
+  if (!user) return next(new ErrorResponse("Email is not registered yet", 403));
+
+  const resetToken = generateToken();
+  const tokenDB = hashToken(resetToken);
+  await user.updateOne({
+    passwordResetToken: tokenDB,
+  });
+
+  const resetURL = `http://127.0.0.1:3000/user/resetPassword/${resetToken}`;
+  const message = `Hey ${user.name}, \n Forgot your password? Don't Worry :) \n Submit a PATCH request with your new password to: ${resetURL} \n If you didn't forget your password, please ignore this email ! `;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "Your password reset token is only valid for 10 mins!",
+      message,
+    });
+
+    return res.status(200).json({
+      message: "Forgot Password Token sent to email!",
+      token: resetToken,
+    });
+  } catch (err) {
+    user.passwordResetToken = undefined;
+    await user.save({ validateBeforeSave: false });
+    return next(new ErrorResponse({ err }, 500));
+  }
+};
+
+// checks forgotpassword token and then resets password
+exports.resetPassword = async (req, res, next) => {
+  const { password, passwordConfirm } = req.body;
+
+  console.log(password, passwordConfirm);
+  console.log(typeof password.newPassword);
+  console.log(typeof passwordConfirm.confirmPassword);
+
+  if (!password.newPassword || !passwordConfirm.confirmPassword) {
+    return next(
+      new ErrorResponse("Both password & passwordConfirm fields are neccessary")
+    );
+  }
+  console.log("I was here");
+  if (password.newPassword !== passwordConfirm.confirmPassword) {
+    return next(
+      new ErrorResponse("Password and password fields are not the same", 400)
+    );
+  }
+  console.log("I was here");
+  const token = req.params.token;
+  if (token == "null") {
+    return next(
+      new ErrorResponse("Token not present, click forgot password again", 403)
+    );
+  }
+
+  const hashedToken = hashToken(token);
+  const user = await User.findOne({ passwordResetToken: hashedToken });
+  if (!user) {
+    return next(
+      new ErrorResponse(
+        "Reset Token must have expired, please click forgot password again",
+        401
+      )
+    );
+  }
+
+  user.password = password.newPassword;
+  user.passwordResetToken = undefined;
+  const created = await user.save();
+  if (created) {
+    res.status(200).json({
+      message: "Password successfully changed",
+    });
+  } else {
+    return next(new ErrorResponse("Something went wrong", 500));
+  }
 };

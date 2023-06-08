@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const jobsHistorySchema = new mongoose.Schema(
   {
@@ -71,24 +72,40 @@ const userSchema = new mongoose.Schema(
       required: [true, "password is required"],
       minlength: [6, "password must have at least (6) caracters"],
     },
+
     jobsHistory: [jobsHistorySchema],
     role: {
       type: Number,
       default: 0,
     },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   { timestamps: true }
 );
-//encrypting password
+
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  }
-  this.password = await bcrypt.hash(this.password, 10);
+  // Only run this function if password was actually modified
+  if (!this.isModified("password")) return next();
+
+  // Hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // Delete passwordConfirm field
+  this.passwordConfirm = undefined;
+  next();
 });
+
+userSchema.pre("save", function (next) {
+  if (!this.isModified("password") || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
 //compare password
 userSchema.methods.comparePassword = async function (enteredPassword) {
-  console.log(enteredPassword, "gvbuxb");
   return await bcrypt.compare(enteredPassword, this.password);
 };
 // return JWT token
@@ -97,4 +114,16 @@ userSchema.methods.getJwtToken = function () {
     expiresIn: 3600,
   });
 };
+// userSchema.methods.createPasswordResetToken = function () {
+//   const resetToken = crypto.randomBytes(32).toString("hex");
+
+//   this.passwordResetToken = crypto
+//     .createHash("sha256")
+//     .update(resetToken)
+//     .digest("hex");
+
+//   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+//   return resetToken;
+// };
 module.exports = mongoose.model("User", userSchema);

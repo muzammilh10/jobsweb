@@ -3,10 +3,18 @@ import {
   ALL_USER_LOAD_REQUEST,
   ALL_USER_LOAD_RESET,
   ALL_USER_LOAD_SUCCESS,
+  EDIT_USER_FAIL,
+  EDIT_USER_REQUEST,
+  EDIT_USER_RESET,
+  EDIT_USER_SUCCESS,
   USER_APPLY_JOB_FAIL,
   USER_APPLY_JOB_REQUEST,
   USER_APPLY_JOB_RESET,
   USER_APPLY_JOB_SUCCESS,
+  USER_FORGET_PASSWORD_FAIL,
+  USER_FORGET_PASSWORD_REQUEST,
+  USER_FORGET_PASSWORD_RESET,
+  USER_FORGET_PASSWORD_SUCCESS,
   USER_LOAD_FAIL,
   USER_LOAD_REQUEST,
   USER_LOAD_RESET,
@@ -19,6 +27,10 @@ import {
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_RESET,
   USER_SIGNIN_SUCCESS,
+  USER_SIGNUP_FAIL,
+  USER_SIGNUP_REQUEST,
+  USER_SIGNUP_RESET,
+  USER_SIGNUP_SUCCESS,
 } from "../constants/userConstant";
 
 export const userReducerSignIn = (state = {}, action) => {
@@ -44,7 +56,24 @@ export const userReducerSignIn = (state = {}, action) => {
       return state;
   }
 };
-
+// sign up reducer
+export const userReducerSignUp = (state = {}, action) => {
+  switch (action.type) {
+    case USER_SIGNUP_REQUEST:
+      return { loading: true };
+    case USER_SIGNUP_SUCCESS:
+      return {
+        loading: false,
+        userSignUp: action.payload,
+      };
+    case USER_SIGNUP_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_SIGNUP_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
 //logout reducer
 export const userReducerLogout = (state = {}, action) => {
   switch (action.type) {
@@ -115,6 +144,47 @@ export const allUserReducer = (state = { users: [] }, action) => {
     case ALL_USER_LOAD_FAIL:
       return { loading: false, users: [], error: action.payload };
     case ALL_USER_LOAD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+// apply for a REsetpassword
+export const resetPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_FORGET_PASSWORD_REQUEST:
+      return { loading: true };
+    case USER_FORGET_PASSWORD_SUCCESS:
+      return {
+        loading: false,
+        userJob: action.payload,
+      };
+    case USER_FORGET_PASSWORD_FAIL:
+      return { loading: false, error: action.payload };
+    case USER_FORGET_PASSWORD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const editUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_USER_REQUEST:
+      return { loading: true };
+    case EDIT_USER_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        jobs: action.payload,
+      };
+    case EDIT_USER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case EDIT_USER_RESET:
       return {};
     default:
       return state;

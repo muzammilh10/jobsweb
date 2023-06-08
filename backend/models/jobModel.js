@@ -35,6 +35,12 @@ const jobSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    applied: [
+      {
+        type: ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true }
 );

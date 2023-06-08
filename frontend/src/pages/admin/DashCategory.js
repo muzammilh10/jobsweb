@@ -5,22 +5,40 @@ import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  adminJobTypeLoadAction,
   deleteJobTypeAction,
   jobTypeLoadAction,
 } from "../../redux/actions/jobTypeAction";
-
+import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
+import UpdateJobType from "./data/AdminEditCategory";
 
 const DashCategory = () => {
   const dispatch = useDispatch();
+  const [render, setRender] = React.useState(false);
+  const renderHandler = () => {
+    setRender(!render);
+  };
+  // useEffect(() => {
+  //   dispatch(jobTypeLoadAction());
+  // }, []);
+
+  // const { jobType, loading } = useSelector((state) => state.jobTypeAll);
 
   useEffect(() => {
-    dispatch(jobTypeLoadAction());
+    const userInfo = localStorage.getItem("userInfo");
+    const user = JSON.parse(userInfo);
+    const id = user.role._id;
+    dispatch(adminJobTypeLoadAction(id));
   }, []);
 
-  const { jobType, loading } = useSelector((state) => state.jobTypeAll);
+  const { jobType, loading } = useSelector((state) => state.jobType);
   let data = [];
-  data = jobType !== undefined && jobType.length > 0 ? jobType : [];
+  let jobsT;
+  if (jobType) {
+    jobsT = jobType.jobs;
+  }
+  data = jobsT !== undefined && jobsT.length > 0 ? jobsT : [];
 
   //delete job by Id
   const deleteJobCategoryById = (e, id) => {
@@ -55,24 +73,17 @@ const DashCategory = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            width: "170px",
+            width: "100px",
           }}
         >
-          <Button variant="contained">
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/user/${values.row._id}`}
-            >
-              Edit
-            </Link>
-          </Button>
-          <Button
+          <UpdateJobType jobData={values.row} renderHandler={renderHandler} />
+          <DeleteIcon
             onClick={(e) => deleteJobCategoryById(e, values.row._id)}
             variant="contained"
             color="error"
           >
             Delete
-          </Button>
+          </DeleteIcon>
         </Box>
       ),
     },

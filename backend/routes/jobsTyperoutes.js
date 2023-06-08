@@ -6,6 +6,7 @@ const {
   allJobsType,
   updateJobsType,
   deleteJobsType,
+  showAdminUserJobType,
 } = require("../controllers/jobsTypeController");
 
 //job type routes router
@@ -17,8 +18,14 @@ router.post("/type/create", isAuthenticated, createJobType);
 router.get("/type/jobs", allJobsType);
 
 // /api/type/update/type_id
-router.put("/type/update/:type_id", isAuthenticated, isAdmin, updateJobsType);
-
+router.patch("/type/update/:type_id", isAuthenticated, isAdmin, updateJobsType);
+// /api/type/showcategory/type_id
+router.get(
+  "/type/showcategory/:id",
+  isAuthenticated,
+  isAdmin,
+  showAdminUserJobType
+);
 // /api/type/delete/type_id
 router.delete(
   "/type/delete/:type_id",

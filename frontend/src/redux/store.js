@@ -10,15 +10,20 @@ import {
   registerAjobReducer,
 } from "./reducers/jobReducer";
 import {
+  AdminLoadJobTypeReducer,
   createJobTypeReducer,
+  editJobTypeReducer,
   loadJobTypeReducer,
 } from "./reducers/jobTypeReducer";
 import {
   allUserReducer,
+  editUserReducer,
+  resetPasswordReducer,
   userApplyJobReducer,
   userReducerLogout,
   userReducerProfile,
   userReducerSignIn,
+  userReducerSignUp,
 } from "./reducers/userReducer";
 import { modeReducer } from "./reducers/themeModeReducer";
 import { deleteJobTypeReducer } from "./reducers/jobTypeReducer";
@@ -34,7 +39,7 @@ const reducer = combineReducers({
   singleJob: loadJobSingleReducer,
   userJobApplication: userApplyJobReducer,
   allUsers: allUserReducer,
-  signUp: userReducerSignIn,
+  signUp: userReducerSignUp,
   mode: modeReducer,
   registerJob: registerAjobReducer,
   createJobType: createJobTypeReducer,
@@ -43,6 +48,10 @@ const reducer = combineReducers({
   adminCreateJob: adminJobReducer,
   editJob: editJobReducer,
   general: generalReducer,
+  jobType: AdminLoadJobTypeReducer,
+  editJobType: editJobTypeReducer,
+  resetPassword: resetPasswordReducer,
+  editUser: editUserReducer,
 });
 
 //initial state

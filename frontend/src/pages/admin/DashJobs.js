@@ -23,12 +23,9 @@ const DashJobs = () => {
   const { jobs } = useSelector((state) => state.adminCreateJob);
   const { loadJobs } = useSelector((state) => state.general);
 
-  console.log(loadJobs);
-
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
     const user = JSON.parse(userInfo);
-
     const id = user.role._id;
     dispatch(adminLoadAction(id));
   }, [loadJobs]);

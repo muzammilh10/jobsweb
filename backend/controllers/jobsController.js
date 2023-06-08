@@ -58,8 +58,6 @@ exports.updateJob = async (req, res, next) => {
 
 //show job by id.
 exports.showJobs = async (req, res, next) => {
-  //search enable
-
   const keyword = req.query.keyword
     ? {
         title: {
@@ -215,5 +213,42 @@ exports.showAdminUserApplyJob = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+};
+
+// exports.adminShowUserApplyJob = async (req, res, next) => {
+//   try {
+//     const id = req.params.id;
+
+//     const jobs = await Job.find({
+//       user: id,
+//     });
+
+//     res.status(200).json({
+//       success: true,
+//       jobs,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+exports.adminShowUserApplyJob = async (req, res) => {
+  try {
+    // const id = "6470afd84c52295d604c360b";
+    // const id2 = "648064aa7852edf9a77e019b";
+    const ids = ["6470afd84c52295d604c360b", "648064aa7852edf9a77e019b"];
+    let jobs = [];
+    // Fetch the job records with applied users populated
+    for (let i = 0; i < ids.length; i++) {
+      const job = await Job.find({ _id: ids[i] });
+      console.log(jobs);
+      jobs.push(job);
+    }
+
+    res.json(jobs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
   }
 };

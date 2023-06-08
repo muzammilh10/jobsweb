@@ -1,11 +1,19 @@
 import { useTheme } from "@emotion/react";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import EditUser from "./EditUser";
+import React from "react";
+import EditIcon from "@mui/icons-material/Edit";
 
 const UserInfoDashboard = () => {
   const { user } = useSelector((state) => state.userprofile);
-  console.log(user);
   const { palette } = useTheme();
+  const [render, setRender] = React.useState(false);
+
+  const renderHandler = () => {
+    setRender(!render);
+  };
+  // console.log(user);
   return (
     <>
       <Box sx={{ maxWidth: "50%", margin: "auto", pt: 10 }}>
@@ -24,12 +32,7 @@ const UserInfoDashboard = () => {
             <Typography variant="h6" component="div" sx={{ color: "#fafafa" }}>
               E-mail: {user && user.email}
             </Typography>
-            <Typography
-              sx={{ mb: 1.5, color: "grey", pt: 2 }}
-              color="text.secondary"
-            >
-              Status: {user && user.role === 0 ? "Regular user" : "Admin"}
-            </Typography>
+            <EditUser onClick={renderHandler}>Edit</EditUser>
           </CardContent>
         </Card>
       </Box>

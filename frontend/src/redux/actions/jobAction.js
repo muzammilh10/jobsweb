@@ -79,26 +79,6 @@ export const registerAjobAction = (job) => async (dispatch) => {
   }
 };
 
-//
-// export const deleteJobTypeAction = (type_id) => async (dispatch) => {
-//   dispatch({ type: DELETE_JOB_TYPE_REQUEST });
-//   try {
-//     const { data } = await axios.delete(`/api/type/delete/${type_id}`);
-
-//     dispatch({
-//       type: DELETE_JOB_TYPE_SUCCESS,
-//       payload: data,
-//     });
-//     toast.success("Job type delete successfully");
-//   } catch (error) {
-//     dispatch({
-//       type: DELETE_JOB_TYPE_FAIL,
-//       payload: error.response.data.error,
-//     });
-//     toast.error(error.response.data.error);
-//   }
-// };
-
 // delete job action
 export const deleteAjobAction = (id) => async (dispatch) => {
   console.log(id);

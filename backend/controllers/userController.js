@@ -5,8 +5,9 @@ const ErrorResponse = require("../utils/errorResponse");
 
 exports.allUser = async (req, res, next) => {
   //pagination
-  const pageSize = 5;
+  // const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
+  const pageSize = Number(req.query.pageSize) || 10;
   // console.log(page);
   const count = await User.find({}).estimatedDocumentCount();
 
