@@ -8,6 +8,7 @@ import {
   loadJobReducer,
   loadJobSingleReducer,
   registerAjobReducer,
+  useApplyLoadJobReducer,
 } from "./reducers/jobReducer";
 import {
   AdminLoadJobTypeReducer,
@@ -52,6 +53,7 @@ const reducer = combineReducers({
   editJobType: editJobTypeReducer,
   resetPassword: resetPasswordReducer,
   editUser: editUserReducer,
+  applyByUser: useApplyLoadJobReducer,
 });
 
 //initial state

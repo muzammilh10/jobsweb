@@ -14,6 +14,8 @@ const SingleJob = () => {
   const dispatch = useDispatch();
   const { singleJob, loading } = useSelector((state) => state.singleJob);
   const { id } = useParams();
+  // console.log(singleJob);
+
   useEffect(() => {
     dispatch(jobLoadSingleAction(id));
   }, [id]);
@@ -26,6 +28,8 @@ const SingleJob = () => {
         salary: singleJob && singleJob.salary,
         location: singleJob && singleJob.location,
         role: singleJob && singleJob.role,
+        id: singleJob && singleJob._id,
+        singleJob,
       })
     );
   };

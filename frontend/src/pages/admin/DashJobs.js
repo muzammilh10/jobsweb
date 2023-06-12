@@ -126,12 +126,8 @@ const DashJobs = () => {
               "& .MuiTablePagination-displayedRows": {
                 color: "white",
               },
-              color: "white",
-              [`& .${gridClasses.row}`]: {
-                bgcolor: (theme) =>
-                  // theme.palette.mode === 'light' ? grey[200] : grey[900],
-                  theme.palette.secondary.main,
-              },
+              color: "black",
+              [`& .${gridClasses.row}`]: {},
               button: {
                 color: "#ffffff",
               },

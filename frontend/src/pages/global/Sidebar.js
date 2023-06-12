@@ -36,13 +36,13 @@ const SidebarAdm = () => {
   //log out
   const logOut = () => {
     // dispatch(userLogoutAction());
-    //window.location.reload(true);
+    // window.location.reload(true);
     navigate("/");
   };
 
   return (
     <>
-      <Sidebar backgroundColor="#003366" style={{ borderRightStyle: "none" }}>
+      <Sidebar backgroundColor="white" style={{ borderRightStyle: "none" }}>
         <Box
           sx={{
             display: "flex",
@@ -102,29 +102,26 @@ const SidebarAdm = () => {
                     component={<Link to="/admin/dashboard" />}
                     icon={<DashboardIcon />}
                   >
-                    {" "}
-                    Dashboard{" "}
+                    <div style={{ color: "black" }}> Dashboard </div>{" "}
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/users" />}
                     icon={<GroupAddIcon />}
                   >
                     {" "}
-                    Users{" "}
+                    <div style={{ color: "black" }}> Users </div>
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/jobs" />}
                     icon={<WorkIcon />}
                   >
-                    {" "}
-                    Jobs{" "}
+                    <div style={{ color: "black" }}> Jobs </div>
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/category" />}
                     icon={<CategoryIcon />}
                   >
-                    {" "}
-                    Category{" "}
+                    <div style={{ color: "black" }}> Category </div>{" "}
                   </MenuItem>
                 </>
               ) : (
@@ -177,8 +174,7 @@ const SidebarAdm = () => {
               }}
             >
               <MenuItem onClick={logOut} icon={<LoginIcon />}>
-                {" "}
-                Back{" "}
+                <div style={{ color: "black" }}> Back </div>{" "}
               </MenuItem>
             </Menu>
           </Box>

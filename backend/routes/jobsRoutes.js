@@ -30,7 +30,7 @@ router.get("/jobs/show/", showJobs);
 router.get("/jobs/showByUser/:id", showJobsyByUser);
 // /api/jobs/userapply/:id
 router.get("/jobs/userapply/:id", showAdminUserApplyJob);
-router.get("/admin/applied-jobs", adminShowUserApplyJob);
+router.get("/admin/applied-jobs/:id?", adminShowUserApplyJob);
 // // /api/jobs/applieduser/:id
 // router.get("/jobs/applieduser/:id", adminShowUserApplyJob);
 // /api/jobs/delete

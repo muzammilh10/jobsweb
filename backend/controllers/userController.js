@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const ErrorResponse = require("../utils/errorResponse");
+const UserHistory = require("./../models/jobHistory");
 
 //load all user
 
@@ -7,7 +8,7 @@ exports.allUser = async (req, res, next) => {
   //pagination
   // const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
-  const pageSize = Number(req.query.pageSize) || 10;
+  const pageSize = Number(req.query.pageSize) || 3;
   // console.log(page);
   const count = await User.find({}).estimatedDocumentCount();
 
@@ -76,7 +77,7 @@ exports.deleteUser = async (req, res, next) => {
 
 // jobs history
 exports.createUserJobsHistory = async (req, res, next) => {
-  const { title, description, salary, location } = req.body;
+  const { title, description, salary, location, id } = req.body;
   try {
     const currentUser = await User.findOne({ _id: req.user._id });
     if (!currentUser) {
@@ -88,16 +89,20 @@ exports.createUserJobsHistory = async (req, res, next) => {
         salary,
         location,
         user: req.user._id,
+        jobId: id,
       };
-      currentUser.jobsHistory.push(addJobHostory);
-      await currentUser.save();
+      // currentUser.jobsHistory.push(addJobHostory);
+      const currentUser = await UserHistory.create(addJobHostory);
+      // await currentUser.save();
+
+      res.status(200).json({
+        success: true,
+        currentUser,
+      });
     }
-    res.status(200).json({
-      success: true,
-      currentUser,
-    });
     next();
   } catch (error) {
+    console.log(error);
     return next(error);
   }
 };

@@ -58,6 +58,8 @@ export const userSignUpAction = (user) => async (dispatch) => {
     });
     toast.success("Register Successfully!");
   } catch (error) {
+    console.log("ERROR------------------->", error);
+
     dispatch({
       type: USER_SIGNUP_FAIL,
       payload: error.response.data.error,
@@ -104,10 +106,12 @@ export const userProfileAction = () => async (dispatch) => {
 };
 
 //all user action
-export const allUserAction = () => async (dispatch) => {
+export const allUserAction = (page, pageSize) => async (dispatch) => {
   dispatch({ type: ALL_USER_LOAD_REQUEST });
   try {
-    const { data } = await axios.get("/api/allusers");
+    const { data } = await axios.get(
+      `/api/allusers?pageNumber=${page}&pageSize=${pageSize}`
+    );
     dispatch({
       type: ALL_USER_LOAD_SUCCESS,
       payload: data,
@@ -121,10 +125,11 @@ export const allUserAction = () => async (dispatch) => {
 };
 
 //user job apply action
-export const userApplyJobAction = (job) => async (dispatch) => {
+export const userApplyJobAction = (Job) => async (dispatch) => {
   dispatch({ type: USER_APPLY_JOB_REQUEST });
+
   try {
-    const { data } = await axios.post("/api/user/jobhistory", job);
+    const { data } = await axios.post("/api/user/jobhistory", Job);
 
     dispatch({
       type: USER_APPLY_JOB_SUCCESS,

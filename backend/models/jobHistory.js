@@ -1,39 +1,42 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
-const jobSchema = new mongoose.Schema(
+const jobsHistorySchema = new mongoose.Schema(
   {
     title: {
       type: String,
       trim: true,
-      required: [true, "Title is require"],
       maxlength: 32,
     },
     description: {
       type: String,
       trim: true,
-      required: [true, "Description is require"],
     },
     salary: {
       type: String,
       trim: true,
-      required: [true, "Salary is require"],
     },
     location: {
       type: String,
     },
-    available: {
-      type: Boolean,
-      default: true,
+    interviewDate: {
+      type: String,
     },
-    jobType: {
+    applicationStatus: {
+      type: String,
+      enum: ["pending", "accepted", "rejected"],
+      default: "pending",
+    },
+    role: {
+      type: Number,
+      default: 0,
+    },
+    jobId: {
       type: ObjectId,
-      ref: "JobType",
-      required: true,
+      ref: "Job",
     },
     user: {
       type: ObjectId,
       ref: "User",
-      required: true,
     },
   },
   {
@@ -42,12 +45,5 @@ const jobSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
-jobSchema.virtual("userAppliedForJob", {
-  ref: "UserHistory",
-  localField: "_id",
-  foreignField: "jobId",
-});
-
-const Job = new mongoose.model("Job", jobSchema);
-module.exports = Job;
+const UserHistory = new mongoose.model("UserHistory", jobsHistorySchema);
+module.exports = UserHistory;

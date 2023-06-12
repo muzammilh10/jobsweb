@@ -46,6 +46,7 @@ const LogIn = () => {
     onSubmit: (values, actions) => {
       //  alert(JSON.stringify(values, null, 2));
       dispatch(userSignInAction(values));
+
       actions.resetForm();
     },
   });

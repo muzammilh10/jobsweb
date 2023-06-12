@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Box>
-        <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
+        <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
           Dashboard
         </Typography>
         <Stack

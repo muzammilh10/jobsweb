@@ -3,44 +3,6 @@ const { ObjectId } = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-const jobsHistorySchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      trim: true,
-      maxlength: 32,
-    },
-    description: {
-      type: String,
-      trim: true,
-    },
-    salary: {
-      type: String,
-      trim: true,
-    },
-    location: {
-      type: String,
-    },
-    interviewDate: {
-      type: String,
-    },
-    applicationStatus: {
-      type: String,
-      enum: ["pending", "accepted", "rejected"],
-      default: "pending",
-    },
-    role: {
-      type: Number,
-      default: 0,
-    },
-    user: {
-      type: ObjectId,
-      ref: "User",
-      required: true,
-    },
-  },
-  { timestamps: true }
-);
 
 const userSchema = new mongoose.Schema(
   {
@@ -72,8 +34,12 @@ const userSchema = new mongoose.Schema(
       required: [true, "password is required"],
       minlength: [6, "password must have at least (6) caracters"],
     },
+    resume: {
+      type: String,
+      required: [true, "A user must have upload resume"],
+    },
 
-    jobsHistory: [jobsHistorySchema],
+    jobsHistory: [{ type: ObjectId, ref: "UserHistory" }],
     role: {
       type: Number,
       default: 0,
@@ -82,7 +48,11 @@ const userSchema = new mongoose.Schema(
     passwordResetToken: String,
     passwordResetExpires: Date,
   },
-  { timestamps: true }
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    timestamps: true,
+  }
 );
 
 userSchema.pre("save", async function (next) {
@@ -114,16 +84,12 @@ userSchema.methods.getJwtToken = function () {
     expiresIn: 3600,
   });
 };
-// userSchema.methods.createPasswordResetToken = function () {
-//   const resetToken = crypto.randomBytes(32).toString("hex");
 
-//   this.passwordResetToken = crypto
-//     .createHash("sha256")
-//     .update(resetToken)
-//     .digest("hex");
+userSchema.virtual("userAppliedForJob", {
+  ref: "UserHistory",
+  localField: "_id",
+  foreignField: "user",
+});
 
-//   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-
-//   return resetToken;
-// };
-module.exports = mongoose.model("User", userSchema);
+const User = new mongoose.model("User", userSchema);
+module.exports = User;

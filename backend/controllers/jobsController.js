@@ -1,6 +1,9 @@
+const expressAsyncHandler = require("express-async-handler");
 const Job = require("../models/jobModel");
 const JobType = require("../models/jobTypeModel");
 const ErrorResponse = require("../utils/errorResponse");
+const User = require("../models/userModel");
+const UserHistory = require("../models/jobHistory");
 
 //create jobtype
 exports.createJob = async (req, res, next) => {
@@ -216,39 +219,22 @@ exports.showAdminUserApplyJob = async (req, res, next) => {
   }
 };
 
-// exports.adminShowUserApplyJob = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
+exports.adminShowUserApplyJob = expressAsyncHandler(async (req, res) => {
+  // const id = req.params.id;
 
-//     const jobs = await Job.find({
-//       user: id,
-//     });
+  const availableJobs = await Job.find()
+    .populate({
+      path: "userAppliedForJob",
+      select:
+        "_id  title description salary location interviewDate applicationStatus",
+      populate: {
+        path: "user",
+        select: "firstName lastName email",
+      },
+    })
+    .lean();
 
-//     res.status(200).json({
-//       success: true,
-//       jobs,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-exports.adminShowUserApplyJob = async (req, res) => {
-  try {
-    // const id = "6470afd84c52295d604c360b";
-    // const id2 = "648064aa7852edf9a77e019b";
-    const ids = ["6470afd84c52295d604c360b", "648064aa7852edf9a77e019b"];
-    let jobs = [];
-    // Fetch the job records with applied users populated
-    for (let i = 0; i < ids.length; i++) {
-      const job = await Job.find({ _id: ids[i] });
-      console.log(jobs);
-      jobs.push(job);
-    }
-
-    res.json(jobs);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: error.message });
-  }
-};
+  return res.status(200).json({
+    availableJobs,
+  });
+});

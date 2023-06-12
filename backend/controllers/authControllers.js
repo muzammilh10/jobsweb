@@ -3,7 +3,7 @@ const crypto = require("crypto");
 const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/email");
 const jwt = require("jsonwebtoken");
-
+const UserHistory = require("../models/jobHistory");
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE_IN,
@@ -82,6 +82,10 @@ exports.logout = (req, res, next) => {
 // user profile
 exports.userProfile = async (req, res, next) => {
   const user = await User.findById(req.user.id).select("-password");
+  const userHistory = await UserHistory.find({ user: req.user.id });
+  console.log(userHistory);
+  // Push all user history data into the user's jobsHistory field
+  await user.jobsHistory.push(...userHistory);
   res.status(200).json({
     success: true,
     user,

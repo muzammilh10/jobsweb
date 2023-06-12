@@ -1,26 +1,51 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
-import { gridClasses, GridToolbar } from "@mui/x-data-grid";
+import { Box, Button } from "@mui/material";
+import { GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { allUserAction } from "../../redux/actions/userAction";
+import { useApplyLoadJobAction } from "../../redux/actions/jobAction";
+
 const DashUsers = () => {
   const dispatch = useDispatch();
+  const [jobDetail, setJobDetail] = React.useState([]);
+  const success = useSelector((state) => state.applyByUser);
+  const admin = useSelector((state) => state.signIn);
+  let data = [];
+  data = success !== undefined && success.length > 0 ? success : [];
+
+  const FetchData = (admin) => {
+    dispatch(useApplyLoadJobAction(admin.userInfo.role._id));
+  };
+  // console.log(success.success !== undefined && success.success.availableJobs);
+  if (jobDetail !== false) {
+    const outdata = jobDetail?.availableJobs;
+    if (outdata) {
+      // console.log(outdata);
+      for (let i = 0; i < outdata.length; i++) {
+        const element = outdata[i].userAppliedForJob;
+        for (let j = 0; j < element.length; j++) {
+          let temp = element[j];
+          delete temp.user._id;
+          temp = { ...temp, ...temp.user };
+          data.push(temp);
+        }
+      }
+    }
+  }
+  React.useEffect(() => {
+    FetchData(admin);
+  }, [admin]);
 
   React.useEffect(() => {
-    dispatch(allUserAction());
-  }, []);
+    console.log(success);
+    if (success.success?.availableJobs) {
+      setJobDetail(success.success);
+    }
+  }, [success]);
 
-  const { users, loading } = useSelector((state) => state.allUsers);
-  let data = [];
-  data = users !== undefined && users.length > 0 ? users : [];
-
-  const deleteUserById = (e, id) => {
-    console.log(id);
-  };
+  const deleteUserById = (e, id) => {};
 
   const columns = [
     {
@@ -29,11 +54,17 @@ const DashUsers = () => {
       width: 150,
       editable: true,
     },
-
+    {
+      field: "salary",
+      headerName: "salary",
+      width: 150,
+      editable: true,
+    },
     {
       field: "email",
       headerName: "E_mail",
       width: 150,
+      editable: true,
     },
 
     {
@@ -94,7 +125,7 @@ const DashUsers = () => {
         slots={{ toolbar: GridToolbar }}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 2 },
+            paginationModel: { page: 0, pageSize: 5 },
           },
         }}
         pageSizeOptions={[5, 10]}
@@ -102,11 +133,16 @@ const DashUsers = () => {
     </div>
   );
 };
-
+export default DashUsers;
 //=========================================
-// import React, { useEffect } from "react";
+// import React, { useEffect, useState } from "react";
 // import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
-// import { DataGrid, gridClasses, GridToolbar } from "@mui/x-data-grid";
+// import {
+//   DataGrid,
+//   gridClasses,
+//   GridToolbar,
+//   GridPagination,
+// } from "@mui/x-data-grid";
 // import { Link } from "react-router-dom";
 // import AddIcon from "@mui/icons-material/Add";
 // import { useDispatch, useSelector } from "react-redux";
@@ -114,15 +150,25 @@ const DashUsers = () => {
 // import { allUserAction } from "../../redux/actions/userAction";
 
 // const DashUsers = () => {
+//   const [page, setPage] = useState(1);
+//   const [pageSize, setPageSize] = useState(3);
 //   const dispatch = useDispatch();
 
 //   useEffect(() => {
-//     dispatch(allUserAction());
+//     dispatch(allUserAction(page, pageSize));
 //   }, []);
 
 //   const { users, loading } = useSelector((state) => state.allUsers);
 //   let data = [];
 //   data = users !== undefined && users.length > 0 ? users : [];
+
+//   // const fetchData = async (page, pageSize) => {
+//   //   // Make an API request to your server-side endpoint
+
+//   //   // Update the state with the fetched data and total rows
+//   //   setData(response.data.rows);
+//   //   setTotalRows(response.data.totalRows);
+//   // };
 
 //   const deleteUserById = (e, id) => {
 //     console.log(id);
@@ -189,6 +235,10 @@ const DashUsers = () => {
 //     },
 //   ];
 
+//   // useEffect(() => {
+//   //   fetchData(1, 10);
+//   // }, []);
+
 //   return (
 //     <>
 //       <Box>
@@ -218,13 +268,21 @@ const DashUsers = () => {
 //                   color: "#ffffff",
 //                 },
 //               }}
-// getRowId={(row) => row._id}
-// rows={data}
-// columns={columns}
-// pageSize={3}
-// rowsPerPageOptions={[3]}
-// checkboxSelection
-// slots={{ toolbar: GridToolbar }}
+//               getRowId={(row) => row._id}
+//               rows={data}
+//               columns={columns}
+//               pageSize={10}
+//               components={{
+//                 Toolbar: GridToolbar,
+//                 Pagination: GridPagination,
+//               }}
+//               onPageChange={(params) => {
+//                 const { page, pageSize } = params;
+//                 console.log(page, pageSize);
+//                 setPage(page);
+//                 setPageSize(pageSize);
+//               }}
+//               pageSizeOptions={[3, 5]}
 //             />
 //           </Box>
 //         </Paper>
@@ -233,4 +291,4 @@ const DashUsers = () => {
 //   );
 // };
 
-export default DashUsers;
+// export default DashUsers;

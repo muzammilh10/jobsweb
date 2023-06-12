@@ -110,14 +110,10 @@ const DashCategory = () => {
             getRowId={(row) => row._id}
             sx={{
               "& .MuiTablePagination-displayedRows": {
-                color: "white",
+                color: "black",
               },
-              color: "white",
-              [`& .${gridClasses.row}`]: {
-                bgcolor: (theme) =>
-                  // theme.palette.mode === 'light' ? grey[200] : grey[900],
-                  theme.palette.secondary.main,
-              },
+              color: "black",
+              [`& .${gridClasses.row}`]: {},
               button: {
                 color: "#ffffff",
               },
