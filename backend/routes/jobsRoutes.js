@@ -7,6 +7,7 @@ const {
   updateJob,
   showJobs,
   deleteJobs,
+  updateStatus,
   showJobsyByUser,
   showAdminUserApplyJob,
   adminShowUserApplyJob,
@@ -31,9 +32,9 @@ router.get("/jobs/showByUser/:id", showJobsyByUser);
 // /api/jobs/userapply/:id
 router.get("/jobs/userapply/:id", showAdminUserApplyJob);
 router.get("/admin/applied-jobs/:id?", adminShowUserApplyJob);
-// // /api/jobs/applieduser/:id
-// router.get("/jobs/applieduser/:id", adminShowUserApplyJob);
+
 // /api/jobs/delete
 router.delete("/jobs/delete/:id", isAuthenticated, isAdmin, deleteJobs);
-
+// /api/updatestatus/:id
+router.patch("/updatestatus/:id", isAuthenticated, updateStatus);
 module.exports = router;

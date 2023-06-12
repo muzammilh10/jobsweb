@@ -219,7 +219,7 @@ exports.showAdminUserApplyJob = async (req, res, next) => {
   }
 };
 
-exports.adminShowUserApplyJob = expressAsyncHandler(async (req, res) => {
+exports.adminShowUserApplyJob = async (req, res) => {
   // const id = req.params.id;
 
   const availableJobs = await Job.find()
@@ -229,7 +229,7 @@ exports.adminShowUserApplyJob = expressAsyncHandler(async (req, res) => {
         "_id  title description salary location interviewDate applicationStatus",
       populate: {
         path: "user",
-        select: "firstName lastName email",
+        select: "firstName lastName email resume",
       },
     })
     .lean();
@@ -237,4 +237,27 @@ exports.adminShowUserApplyJob = expressAsyncHandler(async (req, res) => {
   return res.status(200).json({
     availableJobs,
   });
-});
+};
+
+exports.updateStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const currentApplication = await UserHistory.findOne({
+      _id: req.params.id,
+    }).populate("userId recruiterId");
+    if (status === "accepted") {
+      await UserHistory.updateOne({ _id: req.params.id }, { status });
+      return res
+        .status(200)
+        .json({ message: `Request: ${req.params.id} accepted.` });
+    } else if (status === "rejected") {
+      await UserHistory.updateOne({ _id: req.params.id }, { status });
+      return res
+        .status(200)
+        .json({ message: `Request: ${req.params.id} accepted.` });
+    }
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};

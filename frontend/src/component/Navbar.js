@@ -22,7 +22,6 @@ import { toggleActionTheme } from "../redux/actions/themeAction";
 const pages = ["Home", "Log In"];
 
 const Navbar = () => {
-  //show / hide button
   const { userInfo } = useSelector((state) => state.signIn);
 
   const dispatch = useDispatch();
@@ -51,6 +50,7 @@ const Navbar = () => {
     // dispatch(userLogoutAction());
     window.localStorage.removeItem("userInfo");
     // document.cookie = `token='' expires=${new Date().getTime() - 1000}`;
+    // cookie.remove("token");
     window.location.reload(true);
     setTimeout(() => {
       navigate("/");

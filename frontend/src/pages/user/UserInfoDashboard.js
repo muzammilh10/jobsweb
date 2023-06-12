@@ -19,17 +19,17 @@ const UserInfoDashboard = () => {
       <Box sx={{ maxWidth: "50%", margin: "auto", pt: 10 }}>
         <Card sx={{ minWidth: 275, bgcolor: palette.secondary.midNightBlue }}>
           <CardContent>
-            <Typography sx={{ fontSize: 16 }} color="#fafafa" gutterBottom>
+            <Typography sx={{ fontSize: 16 }} color="black" gutterBottom>
               Personal Info
             </Typography>
             <hr style={{ marginBottom: "30px" }} />
-            <Typography variant="h6" component="div" sx={{ color: "#fafafa" }}>
+            <Typography variant="h6" component="div" sx={{ color: "black" }}>
               First name: {user && user.firstName}
             </Typography>
-            <Typography variant="h6" component="div" sx={{ color: "#fafafa" }}>
+            <Typography variant="h6" component="div" sx={{ color: "black" }}>
               Last name: {user && user.lastName}
             </Typography>
-            <Typography variant="h6" component="div" sx={{ color: "#fafafa" }}>
+            <Typography variant="h6" component="div" sx={{ color: "black" }}>
               E-mail: {user && user.email}
             </Typography>
             <EditUser onClick={renderHandler}>Edit</EditUser>

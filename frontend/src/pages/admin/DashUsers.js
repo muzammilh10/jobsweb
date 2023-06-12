@@ -45,12 +45,24 @@ const DashUsers = () => {
     }
   }, [success]);
 
-  const deleteUserById = (e, id) => {};
+  const rejectUserById = (e, id) => {};
 
   const columns = [
     {
-      field: "_id",
-      headerName: "User ID",
+      field: "firstName",
+      headerName: "name",
+      width: 150,
+      editable: true,
+    },
+    // {
+    //   field: "lastName",
+    //   headerName: "lastname",
+    //   width: 150,
+    //   editable: true,
+    // },
+    {
+      field: "title",
+      headerName: "title",
       width: 150,
       editable: true,
     },
@@ -66,14 +78,30 @@ const DashUsers = () => {
       width: 150,
       editable: true,
     },
-
     {
-      field: "role",
-      headerName: "User status",
+      field: "applicationStatus",
+      headerName: "status",
       width: 150,
-      renderCell: (params) =>
-        params.row.role === 1 ? "Admin" : "Regular user",
+      editable: true,
     },
+    {
+      field: "resume",
+      headerName: "Resume",
+      width: 150,
+      renderCell: (params) => (
+        <a href={params.row.resume} target="_blank" rel="noopener noreferrer">
+          View Resume
+        </a>
+      ),
+    },
+
+    // {
+    //   field: "role",
+    //   headerName: "User status",
+    //   width: 150,
+    //   renderCell: (params) =>
+    //     params.row.role === 1 ? "Admin" : "Regular user",
+    // },
 
     {
       field: "createdAt",
@@ -99,15 +127,15 @@ const DashUsers = () => {
               style={{ color: "white", textDecoration: "none" }}
               to={`/admin/edit/user/${values.row._id}`}
             >
-              Edit
+              Accept
             </Link>
           </Button>
           <Button
-            onClick={(e) => deleteUserById(e, values.row._id)}
+            onClick={(e) => rejectUserById(e, values.row._id)}
             variant="contained"
             color="error"
           >
-            Delete
+            Reject
           </Button>
         </Box>
       ),

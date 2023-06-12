@@ -133,10 +133,6 @@ exports.forgotPassword = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
   const { password, passwordConfirm } = req.body;
 
-  console.log(password, passwordConfirm);
-  console.log(typeof password.newPassword);
-  console.log(typeof passwordConfirm.confirmPassword);
-
   if (!password.newPassword || !passwordConfirm.confirmPassword) {
     return next(
       new ErrorResponse("Both password & passwordConfirm fields are neccessary")
