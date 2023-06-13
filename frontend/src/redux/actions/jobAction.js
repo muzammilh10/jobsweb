@@ -19,6 +19,9 @@ import {
   REGISTER_JOB_FAIL,
   REGISTER_JOB_REQUEST,
   REGISTER_JOB_SUCCESS,
+  UPDATE_JOB_FAIL,
+  UPDATE_JOB_REQUEST,
+  UPDATE_JOB_SUCCESS,
   USER_APPLY_JOB_FAIL,
   USER_APPLY_JOB_REQUEST,
   USER_APPLY_JOB_SUCCESS,
@@ -162,3 +165,23 @@ export const useApplyLoadJobAction =
       });
     }
   };
+
+export const updateJobStatusAction = (updatedData) => async (dispatch) => {
+  dispatch({ type: UPDATE_JOB_REQUEST });
+  console.log("??????????");
+  console.log(updatedData);
+  try {
+    const { data } = await axios.patch(`/api/updatestatus`, updatedData);
+    console.log(data);
+    dispatch({
+      type: UPDATE_JOB_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.response.data);
+    dispatch({
+      type: UPDATE_JOB_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};

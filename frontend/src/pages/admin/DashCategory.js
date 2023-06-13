@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { DataGrid, gridClasses } from "@mui/x-data-grid";
+import { DataGrid, gridClasses, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
@@ -122,8 +122,13 @@ const DashCategory = () => {
             columns={columns}
             pageSize={3}
             rowsPerPageOptions={[3]}
-            checkboxSelection
-            // components={{ Toolbar: GridToolbarExport }}
+            slots={{ toolbar: GridToolbar }}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 3 },
+              },
+            }}
+            pageSizeOptions={[5, 10]}
           />
         </Box>
       </Paper>

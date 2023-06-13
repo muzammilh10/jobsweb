@@ -226,7 +226,7 @@ exports.adminShowUserApplyJob = async (req, res) => {
     .populate({
       path: "userAppliedForJob",
       select:
-        "_id  title description salary location interviewDate applicationStatus",
+        "_id  title description salary location interviewDate applicationStatus ",
       populate: {
         path: "user",
         select: "firstName lastName email resume",
@@ -241,21 +241,31 @@ exports.adminShowUserApplyJob = async (req, res) => {
 
 exports.updateStatus = async (req, res) => {
   try {
-    const { status } = req.body;
+    const { applicationStatus } = req.body;
+    console.log(">>>>>", applicationStatus);
 
     const currentApplication = await UserHistory.findOne({
-      _id: req.params.id,
-    }).populate("userId recruiterId");
-    if (status === "accepted") {
-      await UserHistory.updateOne({ _id: req.params.id }, { status });
-      return res
-        .status(200)
-        .json({ message: `Request: ${req.params.id} accepted.` });
-    } else if (status === "rejected") {
-      await UserHistory.updateOne({ _id: req.params.id }, { status });
-      return res
-        .status(200)
-        .json({ message: `Request: ${req.params.id} accepted.` });
+      _id: req.body.user,
+    });
+    console.log(currentApplication, "brufebre");
+    // currentApplication.applicationStatus = applicationStatus;
+    // await currentApplication.save();
+
+    // return res.status(200).json({
+    //   message: `Request: ${req.params.id} ${currentApplication.applicationStatus}.`,
+    // });
+    if (applicationStatus === "accepted") {
+      currentApplication.applicationStatus = "accepted";
+      await currentApplication.save();
+
+      return res.status(200).json("sucess");
+      // .json({ message: `Request: ${req.params.id} accepted.` });
+    } else if (applicationStatus === "rejected") {
+      currentApplication.applicationStatus = "rejected";
+      await currentApplication.save();
+
+      return res.status(200).json("reject");
+      // .json({ message: `Request: ${req.params.id} rejected.` });
     }
   } catch (error) {
     return res.status(400).json({ error: error.message });

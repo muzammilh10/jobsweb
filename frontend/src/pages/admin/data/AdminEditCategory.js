@@ -9,8 +9,6 @@ import Slide from "@mui/material/Slide";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
-import { editJobAction } from "../../../redux/actions/jobAction";
-import { loadJobAction } from "../../../redux/actions/generalActions";
 import { editJobTypeAction } from "../../../redux/actions/jobTypeAction";
 
 const Transition = React.forwardRef(function Transition(props, ref) {

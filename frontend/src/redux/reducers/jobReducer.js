@@ -23,6 +23,10 @@ import {
   REGISTER_JOB_REQUEST,
   REGISTER_JOB_RESET,
   REGISTER_JOB_SUCCESS,
+  UPDATE_JOB_FAIL,
+  UPDATE_JOB_REQUEST,
+  UPDATE_JOB_RESET,
+  UPDATE_JOB_SUCCESS,
   USER_APPLY_JOB_FAIL,
   USER_APPLY_JOB_REQUEST,
   USER_APPLY_JOB_RESET,
@@ -172,6 +176,28 @@ export const useApplyLoadJobReducer = (state = { jobs: [] }, action) => {
         error: action.payload,
       };
     case USER_APPLY_JOB_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const updateJobStatusReducer = (state = { jobs: [] }, action) => {
+  switch (action.type) {
+    case UPDATE_JOB_REQUEST:
+      return { loading: true };
+    case UPDATE_JOB_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        jobs: action.payload.jobs,
+      };
+    case UPDATE_JOB_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_JOB_RESET:
       return {};
     default:
       return state;

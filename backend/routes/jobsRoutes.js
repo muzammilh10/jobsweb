@@ -36,5 +36,5 @@ router.get("/admin/applied-jobs/:id?", adminShowUserApplyJob);
 // /api/jobs/delete
 router.delete("/jobs/delete/:id", isAuthenticated, isAdmin, deleteJobs);
 // /api/updatestatus/:id
-router.patch("/updatestatus/:id", isAuthenticated, updateStatus);
+router.patch("/updatestatus", isAuthenticated, updateStatus);
 module.exports = router;

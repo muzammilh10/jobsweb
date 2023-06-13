@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 
 import CardElement from "../../component/CardElement";
 import CardElementFor from "../../component/CardElement1";
+import CardElement1 from "../../component/CardElement1";
 
 const UserJobsHistory = () => {
   const { user } = useSelector((state) => state.userprofile);
-  console.log(user && user.jobsHistory);
   return (
     <>
       <Box>
@@ -18,9 +18,10 @@ const UserJobsHistory = () => {
           {user &&
             user.jobsHistory &&
             user.jobsHistory.map((history, i) => (
-              <CardElementFor
+              <CardElement1
                 key={i}
                 id={history._id}
+                applicationStatus={history.applicationStatus}
                 jobTitle={history.title}
                 description={history.description}
                 salary={history.salary}

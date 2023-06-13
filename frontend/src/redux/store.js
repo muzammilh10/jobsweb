@@ -8,6 +8,7 @@ import {
   loadJobReducer,
   loadJobSingleReducer,
   registerAjobReducer,
+  updateJobStatusReducer,
   useApplyLoadJobReducer,
 } from "./reducers/jobReducer";
 import {
@@ -54,6 +55,7 @@ const reducer = combineReducers({
   resetPassword: resetPasswordReducer,
   editUser: editUserReducer,
   applyByUser: useApplyLoadJobReducer,
+  updateStatus: updateJobStatusReducer,
 });
 
 //initial state

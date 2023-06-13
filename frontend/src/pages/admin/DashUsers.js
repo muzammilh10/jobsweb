@@ -1,11 +1,15 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button } from "@mui/material";
-import { GridToolbar } from "@mui/x-data-grid";
+import { Box, Button, Paper, Typography } from "@mui/material";
+import { GridToolbar, gridClasses } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
+import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { useApplyLoadJobAction } from "../../redux/actions/jobAction";
+import {
+  updateJobStatusAction,
+  useApplyLoadJobAction,
+} from "../../redux/actions/jobAction";
 
 const DashUsers = () => {
   const dispatch = useDispatch();
@@ -30,6 +34,7 @@ const DashUsers = () => {
           delete temp.user._id;
           temp = { ...temp, ...temp.user };
           data.push(temp);
+          console.log(temp);
         }
       }
     }
@@ -39,13 +44,36 @@ const DashUsers = () => {
   }, [admin]);
 
   React.useEffect(() => {
-    console.log(success);
     if (success.success?.availableJobs) {
       setJobDetail(success.success);
     }
   }, [success]);
-
-  const rejectUserById = (e, id) => {};
+  // const acceptUserById = (id) => {
+  //   console.log(">>>>>>>");
+  //   console.log(id);
+  //   dispatch(updateJobStatusAction(id));
+  // };
+  const acceptUserById = (rowData) => {
+    console.log("Accepted User Data:", rowData._id);
+    if (rowData) {
+      const updatedData = {
+        ...rowData,
+        user: rowData._id,
+        applicationStatus: "accepted",
+      };
+      dispatch(updateJobStatusAction(updatedData));
+    }
+  };
+  const rejectUserById = (rowData) => {
+    if (rowData) {
+      const updatedData = {
+        ...rowData,
+        user: rowData._id,
+        applicationStatus: "rejected",
+      };
+      dispatch(updateJobStatusAction(updatedData));
+    }
+  };
 
   const columns = [
     {
@@ -54,12 +82,7 @@ const DashUsers = () => {
       width: 150,
       editable: true,
     },
-    // {
-    //   field: "lastName",
-    //   headerName: "lastname",
-    //   width: 150,
-    //   editable: true,
-    // },
+
     {
       field: "title",
       headerName: "title",
@@ -94,15 +117,6 @@ const DashUsers = () => {
         </a>
       ),
     },
-
-    // {
-    //   field: "role",
-    //   headerName: "User status",
-    //   width: 150,
-    //   renderCell: (params) =>
-    //     params.row.role === 1 ? "Admin" : "Regular user",
-    // },
-
     {
       field: "createdAt",
       headerName: "Creation date",
@@ -122,16 +136,15 @@ const DashUsers = () => {
             width: "170px",
           }}
         >
-          <Button variant="contained">
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/user/${values.row._id}`}
-            >
-              Accept
-            </Link>
+          <Button
+            onClick={() => acceptUserById(values.row)}
+            variant="contained"
+            color="error"
+          >
+            Accept
           </Button>
           <Button
-            onClick={(e) => rejectUserById(e, values.row._id)}
+            onClick={() => rejectUserById(values.row)}
             variant="contained"
             color="error"
           >
@@ -142,26 +155,53 @@ const DashUsers = () => {
     },
   ];
   return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        getRowId={(row) => row._id}
-        rows={data}
-        columns={columns}
-        pageSize={3}
-        rowsPerPageOptions={[3]}
-        checkboxSelection
-        slots={{ toolbar: GridToolbar }}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-      />
-    </div>
+    <>
+      <Box>
+        <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
+          All users
+        </Typography>
+        <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
+          <Button variant="contained" color="success" startIcon={<AddIcon />}>
+            {" "}
+            Create user
+          </Button>
+        </Box>
+        <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
+          <Box sx={{ height: 400, width: "100%" }}>
+            <DataGrid
+              getRowId={(row) => row._id}
+              sx={{
+                "& .MuiTablePagination-displayedRows": {
+                  color: "black",
+                },
+                color: "black",
+                [`& .${gridClasses.row}`]: {},
+                button: {
+                  color: "#ffffff",
+                },
+              }}
+              rows={data}
+              job={jobDetail}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5]}
+              checkboxSelection
+              slots={{ toolbar: GridToolbar }}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
+              pageSizeOptions={[5, 10]}
+            />
+          </Box>
+        </Paper>
+      </Box>
+    </>
   );
 };
 export default DashUsers;
+
 //=========================================
 // import React, { useEffect, useState } from "react";
 // import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
@@ -270,17 +310,17 @@ export default DashUsers;
 //   return (
 //     <>
 //       <Box>
-//         <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
-//           All users
-//         </Typography>
-//         <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-//           <Button variant="contained" color="success" startIcon={<AddIcon />}>
-//             {" "}
-//             Create user
-//           </Button>
-//         </Box>
-//         <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-//           <Box sx={{ height: 400, width: "100%" }}>
+// <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
+//   All users
+// </Typography>
+// <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
+//   <Button variant="contained" color="success" startIcon={<AddIcon />}>
+//     {" "}
+//     Create user
+//   </Button>
+// </Box>
+// <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
+//   <Box sx={{ height: 400, width: "100%" }}>
 //             <DataGrid
 //               sx={{
 //                 "& .MuiTablePagination-displayedRows": {
@@ -312,10 +352,10 @@ export default DashUsers;
 //               }}
 //               pageSizeOptions={[3, 5]}
 //             />
-//           </Box>
-//         </Paper>
 //       </Box>
-//     </>
+//     </Paper>
+//   </Box>
+// </>
 //   );
 // };
 
