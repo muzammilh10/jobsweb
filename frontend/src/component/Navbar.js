@@ -2,6 +2,7 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -29,6 +30,7 @@ const Navbar = () => {
   const { palette } = useTheme();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [search, setSearch] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -43,6 +45,10 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const handleSearch = () => {
+    setSearch(true);
+    navigate("/search");
   };
 
   // log out user
@@ -161,17 +167,12 @@ const Navbar = () => {
               </Button>
             )}
           </Box>
-          <IconButton
-            sx={{ mr: 4 }}
-            onClick={() => dispatch(toggleActionTheme())}
-          >
-            {palette.mode === "dark" ? (
-              <DarkMode sx={{ color: "#ffffff", fontSize: "25px" }} />
-            ) : (
-              <LightMode sx={{ color: "#ffffff", fontSize: "25px" }} />
-            )}
-          </IconButton>
-
+          <ManageSearchIcon onClick={handleSearch}>
+            <Link
+              to="/search"
+              style={{ color: "white", textDecoration: "none" }}
+            ></Link>
+          </ManageSearchIcon>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

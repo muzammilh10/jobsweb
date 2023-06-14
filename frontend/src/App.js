@@ -29,6 +29,7 @@ import { useMemo } from "react";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPassword1 from "./pages/ResetPassword1";
 import SendMail from "./pages/SendMail";
+import YoutubeVideo from "./component/youtube/YoutubeViedo";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -57,7 +58,7 @@ const App = () => {
               <Route path="/search/location/:location" element={<Home />} />
               <Route path="/search/:keyword" element={<Home />} />
               <Route path="/login" element={<LogIn />} />
-              <Route path="/register" element={<Register />} />
+              <Route path="/search" element={<YoutubeVideo />} />
               <Route path="/job/:id" element={<SingleJob />} />
               <Route
                 path="/admin/dashboard"
