@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { jobTypeLoadAction } from "../../redux/actions/jobTypeAction";
 import { registerAjobAction } from "../../redux/actions/jobAction";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   title: yup.string("Enter a job title").required("title is required"),
@@ -21,6 +22,7 @@ const validationSchema = yup.object({
 
 const DashCreateJob = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //job type
   useEffect(() => {
@@ -40,8 +42,8 @@ const DashCreateJob = () => {
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       dispatch(registerAjobAction(values));
-      // alert(JSON.stringify(values, null, 2));
-      actions.resetForm();
+      navigate("/admin/jobs");
+      window.location.reload();
     },
   });
 

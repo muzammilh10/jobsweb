@@ -9,7 +9,6 @@ exports.allUser = async (req, res, next) => {
   // const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
   const pageSize = Number(req.query.pageSize) || 3;
-  // console.log(page);
   const count = await User.find({}).estimatedDocumentCount();
 
   try {
@@ -79,6 +78,15 @@ exports.deleteUser = async (req, res, next) => {
 exports.createUserJobsHistory = async (req, res, next) => {
   const { title, description, salary, location, id } = req.body;
   try {
+    const existingApplication = await UserHistory.findOne({
+      user: req.user._id,
+      jobId: id,
+    });
+    if (existingApplication) {
+      return res.status(400).json({
+        message: "You have already applied for this job.",
+      });
+    }
     const currentUser = await User.findOne({ _id: req.user._id });
     if (!currentUser) {
       return next(new ErrorResponse("You must log in", 401));

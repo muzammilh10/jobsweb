@@ -22,11 +22,10 @@ const DashUsers = () => {
   const FetchData = (admin) => {
     dispatch(useApplyLoadJobAction(admin.userInfo.role._id));
   };
-  // console.log(success.success !== undefined && success.success.availableJobs);
+
   if (jobDetail !== false) {
     const outdata = jobDetail?.availableJobs;
     if (outdata) {
-      // console.log(outdata);
       for (let i = 0; i < outdata.length; i++) {
         const element = outdata[i].userAppliedForJob;
         for (let j = 0; j < element.length; j++) {
@@ -34,11 +33,11 @@ const DashUsers = () => {
           delete temp.user._id;
           temp = { ...temp, ...temp.user };
           data.push(temp);
-          console.log(temp);
         }
       }
     }
   }
+
   React.useEffect(() => {
     FetchData(admin);
   }, [admin]);
@@ -48,11 +47,7 @@ const DashUsers = () => {
       setJobDetail(success.success);
     }
   }, [success]);
-  // const acceptUserById = (id) => {
-  //   console.log(">>>>>>>");
-  //   console.log(id);
-  //   dispatch(updateJobStatusAction(id));
-  // };
+
   const acceptUserById = (rowData) => {
     console.log("Accepted User Data:", rowData._id);
     if (rowData) {
@@ -61,9 +56,12 @@ const DashUsers = () => {
         user: rowData._id,
         applicationStatus: "accepted",
       };
-      dispatch(updateJobStatusAction(updatedData));
+      dispatch(updateJobStatusAction(updatedData)).then(() => {
+        FetchData(admin);
+      });
     }
   };
+
   const rejectUserById = (rowData) => {
     if (rowData) {
       const updatedData = {
@@ -71,7 +69,9 @@ const DashUsers = () => {
         user: rowData._id,
         applicationStatus: "rejected",
       };
-      dispatch(updateJobStatusAction(updatedData));
+      dispatch(updateJobStatusAction(updatedData)).then(() => {
+        FetchData(admin);
+      });
     }
   };
 
@@ -82,7 +82,6 @@ const DashUsers = () => {
       width: 150,
       editable: true,
     },
-
     {
       field: "title",
       headerName: "title",
@@ -124,7 +123,6 @@ const DashUsers = () => {
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
-
     {
       field: "Actions",
       width: 200,
@@ -139,7 +137,7 @@ const DashUsers = () => {
           <Button
             onClick={() => acceptUserById(values.row)}
             variant="contained"
-            color="error"
+            color="success"
           >
             Accept
           </Button>
@@ -154,18 +152,14 @@ const DashUsers = () => {
       ),
     },
   ];
+
   return (
     <>
       <Box>
         <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
           All users
         </Typography>
-        <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-          <Button variant="contained" color="success" startIcon={<AddIcon />}>
-            {" "}
-            Create user
-          </Button>
-        </Box>
+        <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}></Box>
         <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
           <Box sx={{ height: 400, width: "100%" }}>
             <DataGrid
@@ -177,7 +171,7 @@ const DashUsers = () => {
                 color: "black",
                 [`& .${gridClasses.row}`]: {},
                 button: {
-                  color: "#ffffff",
+                  color: "black",
                 },
               }}
               rows={data}
@@ -200,163 +194,5 @@ const DashUsers = () => {
     </>
   );
 };
+
 export default DashUsers;
-
-//=========================================
-// import React, { useEffect, useState } from "react";
-// import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
-// import {
-//   DataGrid,
-//   gridClasses,
-//   GridToolbar,
-//   GridPagination,
-// } from "@mui/x-data-grid";
-// import { Link } from "react-router-dom";
-// import AddIcon from "@mui/icons-material/Add";
-// import { useDispatch, useSelector } from "react-redux";
-// import moment from "moment";
-// import { allUserAction } from "../../redux/actions/userAction";
-
-// const DashUsers = () => {
-//   const [page, setPage] = useState(1);
-//   const [pageSize, setPageSize] = useState(3);
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     dispatch(allUserAction(page, pageSize));
-//   }, []);
-
-//   const { users, loading } = useSelector((state) => state.allUsers);
-//   let data = [];
-//   data = users !== undefined && users.length > 0 ? users : [];
-
-//   // const fetchData = async (page, pageSize) => {
-//   //   // Make an API request to your server-side endpoint
-
-//   //   // Update the state with the fetched data and total rows
-//   //   setData(response.data.rows);
-//   //   setTotalRows(response.data.totalRows);
-//   // };
-
-//   const deleteUserById = (e, id) => {
-//     console.log(id);
-//   };
-
-//   const columns = [
-//     {
-//       field: "_id",
-//       headerName: "User ID",
-//       width: 150,
-//       editable: true,
-//     },
-
-//     {
-//       field: "email",
-//       headerName: "E_mail",
-//       width: 150,
-//     },
-
-//     {
-//       field: "role",
-//       headerName: "User status",
-//       width: 150,
-//       renderCell: (params) =>
-//         params.row.role === 1 ? "Admin" : "Regular user",
-//     },
-
-//     {
-//       field: "createdAt",
-//       headerName: "Creation date",
-//       width: 150,
-//       renderCell: (params) =>
-//         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
-//     },
-
-//     {
-//       field: "Actions",
-//       width: 200,
-//       renderCell: (values) => (
-//         <Box
-//           sx={{
-//             display: "flex",
-//             justifyContent: "space-between",
-//             width: "170px",
-//           }}
-//         >
-//           <Button variant="contained">
-//             <Link
-//               style={{ color: "white", textDecoration: "none" }}
-//               to={`/admin/edit/user/${values.row._id}`}
-//             >
-//               Edit
-//             </Link>
-//           </Button>
-//           <Button
-//             onClick={(e) => deleteUserById(e, values.row._id)}
-//             variant="contained"
-//             color="error"
-//           >
-//             Delete
-//           </Button>
-//         </Box>
-//       ),
-//     },
-//   ];
-
-//   // useEffect(() => {
-//   //   fetchData(1, 10);
-//   // }, []);
-
-//   return (
-//     <>
-//       <Box>
-// <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
-//   All users
-// </Typography>
-// <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-//   <Button variant="contained" color="success" startIcon={<AddIcon />}>
-//     {" "}
-//     Create user
-//   </Button>
-// </Box>
-// <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-//   <Box sx={{ height: 400, width: "100%" }}>
-//             <DataGrid
-//               sx={{
-//                 "& .MuiTablePagination-displayedRows": {
-//                   color: "white",
-//                 },
-//                 color: "white",
-//                 [`& .${gridClasses.row}`]: {
-//                   bgcolor: (theme) =>
-//                     // theme.palette.mode === 'light' ? grey[200] : grey[900],
-//                     theme.palette.secondary.main,
-//                 },
-//                 button: {
-//                   color: "#ffffff",
-//                 },
-//               }}
-//               getRowId={(row) => row._id}
-//               rows={data}
-//               columns={columns}
-//               pageSize={10}
-//               components={{
-//                 Toolbar: GridToolbar,
-//                 Pagination: GridPagination,
-//               }}
-//               onPageChange={(params) => {
-//                 const { page, pageSize } = params;
-//                 console.log(page, pageSize);
-//                 setPage(page);
-//                 setPageSize(pageSize);
-//               }}
-//               pageSizeOptions={[3, 5]}
-//             />
-//       </Box>
-//     </Paper>
-//   </Box>
-// </>
-//   );
-// };
-
-// export default DashUsers;

@@ -2,7 +2,7 @@ import { Card, CardContent, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../component/Footer";
 import LoadingBox from "../component/LoadingBox";
 import Navbar from "../component/Navbar";
@@ -12,15 +12,21 @@ import { userApplyJobAction } from "../redux/actions/userAction";
 
 const SingleJob = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { singleJob, loading } = useSelector((state) => state.singleJob);
+  const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
+
   const { id } = useParams();
-  // console.log(singleJob);
+  console.log(singleJob);
 
   useEffect(() => {
     dispatch(jobLoadSingleAction(id));
   }, [id]);
 
   const applyForAJob = () => {
+    if (!userInfo) {
+      navigate("/login");
+    }
     dispatch(
       userApplyJobAction({
         title: singleJob && singleJob.title,
@@ -59,15 +65,7 @@ const SingleJob = () => {
                         </Box>
                         : ${singleJob && singleJob.salary}
                       </Typography>
-                      <Typography variant="body2">
-                        <Box component="span" sx={{ fontWeight: 700 }}>
-                          Category
-                        </Box>
-                        :{" "}
-                        {singleJob && singleJob.jobType
-                          ? singleJob.jobType.jobTypeName
-                          : "No category"}
-                      </Typography>
+
                       <Typography variant="body2">
                         <Box component="span" sx={{ fontWeight: 700 }}>
                           Location

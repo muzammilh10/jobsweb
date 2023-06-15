@@ -45,6 +45,7 @@ const UpdateJob = ({ jobData }) => {
     dispatch(editJobAction(formdata.id, formdata, data.userInfo.role._id));
     dispatch(loadJobAction());
     setOpen(!open);
+    window.location.reload();
   };
 
   return (

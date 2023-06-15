@@ -43,13 +43,11 @@ const EditUser = (props) => {
   useEffect(() => {
     let fn = user && user.firstName;
     let ln = user && user.lastName;
-    let em = user && user.email;
     let re = user && user.resume;
 
     setFormdata({
       firstName: fn,
       lastName: ln,
-      email: em,
       resume: re,
     });
   }, [user]);
@@ -66,7 +64,7 @@ const EditUser = (props) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(editUserAction(user && user._id, formdata));
-    window.location.reload(true);
+    window.location.reload();
     setOpen(!open);
   };
 
@@ -142,17 +140,6 @@ const EditUser = (props) => {
                   />
                   <br />
                   <br />
-                  <TextField
-                    sx={{ mb: 3 }}
-                    fullWidth
-                    id="email"
-                    label="email"
-                    type="text"
-                    name="email"
-                    value={formdata.email}
-                    onChange={chageHandler}
-                    required
-                  ></TextField>
                   <TextField
                     sx={{
                       mb: 3,

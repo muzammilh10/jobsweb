@@ -130,22 +130,19 @@ const SidebarAdm = () => {
                     component={<Link to="/user/dashboard" />}
                     icon={<DashboardIcon />}
                   >
-                    {" "}
-                    Dashboard{" "}
+                    <div style={{ color: "black" }}> Dashboard </div>
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/user/jobs" />}
                     icon={<WorkHistoryIcon />}
                   >
-                    {" "}
-                    Applied Jobs{" "}
+                    <div style={{ color: "black" }}> Applied Jobs </div>
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/user/info" />}
                     icon={<Person3Icon />}
                   >
-                    {" "}
-                    Personal Info{" "}
+                    <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
                 </>
               )}

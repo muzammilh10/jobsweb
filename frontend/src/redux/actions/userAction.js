@@ -139,9 +139,9 @@ export const userApplyJobAction = (Job) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_APPLY_JOB_FAIL,
-      payload: error.response.data.error,
+      payload: error.response.data.message,
     });
-    toast.error(error.response.data.error);
+    toast.error(error.response.data.message);
   }
 };
 

@@ -28,8 +28,8 @@ import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPassword1 from "./pages/ResetPassword1";
-import SendMail from "./pages/SendMail";
 import YoutubeVideo from "./component/youtube/YoutubeViedo";
+import { CometChat } from "@cometchat-pro/chat";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -41,6 +41,23 @@ const DashJobsHOC = Layout(DashJobs);
 const DashCategoryHOC = Layout(DashCategory);
 const DashCreateJobHOC = Layout(DashCreateJob);
 const DashCreateCategoryHOC = Layout(DashCreateCategory);
+
+const appID = "2409544426dbdcb4";
+const region = "us";
+const appSetting = new CometChat.AppSettingsBuilder()
+  .subscribePresenceForAllUsers()
+  .setRegion(region)
+  .build();
+CometChat.init(appID, appSetting).then(
+  () => {
+    console.log("Initialization completed successfully");
+    // You can now call login function.
+  },
+  (error) => {
+    console.log("Initialization failed with error:", error);
+    // Check the reason for error and take appropriate action.
+  }
+);
 
 const App = () => {
   const { mode } = useSelector((state) => state.mode);
@@ -57,6 +74,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/search/location/:location" element={<Home />} />
               <Route path="/search/:keyword" element={<Home />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/login" element={<LogIn />} />
               <Route path="/search" element={<YoutubeVideo />} />
               <Route path="/job/:id" element={<SingleJob />} />

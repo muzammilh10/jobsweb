@@ -1,4 +1,3 @@
-const expressAsyncHandler = require("express-async-handler");
 const Job = require("../models/jobModel");
 const JobType = require("../models/jobTypeModel");
 const ErrorResponse = require("../utils/errorResponse");
@@ -123,56 +122,7 @@ exports.showJobs = async (req, res, next) => {
 
 //show job by id.
 exports.showJobsyByUser = async (req, res, next) => {
-  //search enable
-
-  // const keyword = req.query.keyword
-  //   ? {
-  //       title: {
-  //         $regex: req.query.keyword,
-  //         $options: "i",
-  //       },
-  //     }
-  //   : {};
-
-  // //filter by category ids
-  // let ids = [];
-  // const jobTypeCategory = await JobType.find({}, { _id: 1 });
-  // jobTypeCategory.forEach((cat) => {
-  //   ids.push(cat._id);
-  // });
-  // let cat = req.query.cat;
-  // let categ = cat !== "" ? cat : ids;
-
-  // //jobs by location
-  // let locations = [];
-  // const jobByLocation = await Job.find({}, { location: 1 });
-  // jobByLocation.forEach((val) => {
-  //   locations.push(val.location);
-  // });
-  // let setUniqueLocation = [...new Set(locations)];
-  // let location = req.query.location;
-  // let locationFilter = location !== "" ? location : setUniqueLocation;
-
-  // //pagination
-  // const pageSize = 5;
-  // const page = Number(req.query.pageNumber) || 1;
-  // const count = await Job.find({
-  //   ...keyword,
-  //   jobType: categ,
-  //   location: locationFilter,
-  // }).countDocuments();
   try {
-    //   const jobs = await Job.find({
-    //     ...keyword,
-    //     jobType: categ,
-    //     location: locationFilter,
-    //   })
-    //     .sort({ createdAt: -1 })
-    //     .populate("jobType", "jobTypeName")
-    //     .populate("user", "firstName")
-    //     .skip(pageSize * (page - 1))
-    //     .limit(pageSize);
-
     const id = req.params.id;
 
     const jobs = await Job.find({
@@ -221,22 +171,25 @@ exports.showAdminUserApplyJob = async (req, res, next) => {
 
 exports.adminShowUserApplyJob = async (req, res) => {
   // const id = req.params.id;
+  try {
+    const availableJobs = await Job.find()
+      .populate({
+        path: "userAppliedForJob",
+        select:
+          "_id  title description salary location interviewDate applicationStatus ",
+        populate: {
+          path: "user",
+          select: "firstName lastName email resume",
+        },
+      })
+      .lean();
 
-  const availableJobs = await Job.find()
-    .populate({
-      path: "userAppliedForJob",
-      select:
-        "_id  title description salary location interviewDate applicationStatus ",
-      populate: {
-        path: "user",
-        select: "firstName lastName email resume",
-      },
-    })
-    .lean();
-
-  return res.status(200).json({
-    availableJobs,
-  });
+    return res.status(200).json({
+      availableJobs,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.updateStatus = async (req, res) => {

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   adminJobTypeLoadAction,
   deleteJobTypeAction,
-  jobTypeLoadAction,
 } from "../../redux/actions/jobTypeAction";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
@@ -43,6 +42,7 @@ const DashCategory = () => {
   //delete job by Id
   const deleteJobCategoryById = (e, id) => {
     dispatch(deleteJobTypeAction(id));
+    window.location.reload();
   };
 
   const columns = [

@@ -13,7 +13,7 @@ const StatComponent = ({ value, icon, description, money }) => {
           </IconButton>
           <Typography
             variant="h4"
-            sx={{ color: "#fafafa", mb: "1px", fontWeight: 700 }}
+            sx={{ color: "black", mb: "1px", fontWeight: 100 }}
           >
             {money !== "" ? money + value : value}
           </Typography>

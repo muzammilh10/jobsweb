@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   adminLoadAction,
   deleteAjobAction,
-  jobLoadAction,
 } from "../../redux/actions/jobAction";
 import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateJob from "./data/UpdateAdminData";
@@ -37,15 +36,16 @@ const DashJobs = () => {
   const deleteJobById = (e, id) => {
     console.log();
     dispatch(deleteAjobAction(id));
+    window.location.reload();
   };
 
   const columns = [
-    {
-      field: "_id",
-      headerName: "Job ID",
-      width: 150,
-      editable: true,
-    },
+    // {
+    //   field: "_id",
+    //   headerName: "Job ID",
+    //   width: 150,
+    //   editable: true,
+    // },
     {
       field: "title",
       headerName: "Job name",
@@ -129,7 +129,7 @@ const DashJobs = () => {
               color: "black",
               [`& .${gridClasses.row}`]: {},
               button: {
-                color: "#ffffff",
+                color: "black",
               },
             }}
             rows={data}

@@ -42,6 +42,7 @@ const UpdateJobType = ({ jobData }) => {
     e.preventDefault();
     dispatch(editJobTypeAction(formdata.id, formdata, data.userInfo.role._id));
     setOpen(!open);
+    window.location.reload();
   };
 
   return (

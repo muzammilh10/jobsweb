@@ -16,9 +16,6 @@ import WorkIcon from "@mui/icons-material/Work";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogoutAction } from "../redux/actions/userAction";
-import { DarkMode, LightMode } from "@mui/icons-material";
-import { toggleActionTheme } from "../redux/actions/themeAction";
 
 const pages = ["Home", "Log In"];
 
@@ -55,7 +52,7 @@ const Navbar = () => {
   const logOutUser = () => {
     // dispatch(userLogoutAction());
     window.localStorage.removeItem("userInfo");
-    // document.cookie = `token='' expires=${new Date().getTime() - 1000}`;
+    document.cookie = `token=${""}; expires=${new Date().getTime() - 1000};`;
     // cookie.remove("token");
     window.location.reload(true);
     setTimeout(() => {
@@ -143,8 +140,6 @@ const Navbar = () => {
             JOB PORTAL
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/* menu desktop */}
-
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
@@ -166,13 +161,16 @@ const Navbar = () => {
                 </Link>
               </Button>
             )}
+            <Button onClick={handleSearch}>
+              <Link
+                to="/search"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Preparation
+              </Link>
+            </Button>
           </Box>
-          <ManageSearchIcon onClick={handleSearch}>
-            <Link
-              to="/search"
-              style={{ color: "white", textDecoration: "none" }}
-            ></Link>
-          </ManageSearchIcon>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

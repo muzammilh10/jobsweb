@@ -1,9 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-
-import CardElement from "../../component/CardElement";
-import CardElementFor from "../../component/CardElement1";
 import CardElement1 from "../../component/CardElement1";
 
 const UserJobsHistory = () => {

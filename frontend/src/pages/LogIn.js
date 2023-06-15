@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSignInAction } from "../redux/actions/userAction";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import ResetPassword from "./ResetPassword";
+import { CometChat } from "@cometchat-pro/chat";
 
 const validationSchema = yup.object({
   email: yup
@@ -26,6 +27,19 @@ const LogIn = () => {
   const navigate = useNavigate();
   //   const [resetPassword, setResetPassword] = useState(false);
   const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
+
+  // console.log(userInfo);
+
+  //////////////////// ---- function to extract username from email ---- ////////////////////
+
+  const extractUsername = (email) => {
+    const atIndex = email.indexOf("@");
+    if (atIndex !== -1) {
+      const username = email.substring(0, atIndex);
+      return username;
+    }
+    return null; // Return null if the email format is invalid
+  };
 
   useEffect(() => {
     if (isAuthenticated) {

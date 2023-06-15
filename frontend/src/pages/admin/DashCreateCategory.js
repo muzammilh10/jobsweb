@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createJobTypeAction } from "../../redux/actions/jobTypeAction";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   jobTypeName: yup.string("Enter a Category").required("Category is required"),
@@ -13,6 +14,7 @@ const validationSchema = yup.object({
 const DashCreateCategory = () => {
   const { user } = useSelector((state) => state.userprofile);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -22,8 +24,8 @@ const DashCreateCategory = () => {
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       dispatch(createJobTypeAction(values));
-      //alert(JSON.stringify(values, null, 2));
-      actions.resetForm();
+      navigate("/admin/category");
+      window.location.reload();
     },
   });
 
