@@ -11,19 +11,8 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateJob from "./data/UpdateAdminData";
 import moment from "moment";
-import { CometChat } from "@cometchat-pro/chat";
-
-import { CometChatUI } from "../../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/CometChatUI";
 
 const DashJobs = () => {
-  const extractUsername = (email) => {
-    const atIndex = email.indexOf("@");
-    if (atIndex !== -1) {
-      const username = email.substring(0, atIndex);
-      return username;
-    }
-    return null;
-  };
   const dispatch = useDispatch();
   const [render, setRender] = React.useState(false);
 
@@ -33,39 +22,6 @@ const DashJobs = () => {
 
   const { jobs } = useSelector((state) => state.adminCreateJob);
   const { loadJobs } = useSelector((state) => state.general);
-  const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
-  useEffect(() => {
-    if (userInfo) {
-      let authKey = "e63ce563417fcafa1de6187962db3eb3f80c240b";
-      var uid = extractUsername(userInfo.role.email);
-      var name = userInfo.role.firstName;
-
-      console.log(uid);
-      console.log(name);
-
-      var user = new CometChat.User(uid);
-      console.log(uid);
-      user.setName(name);
-      CometChat.createUser(user, authKey).then(
-        (user) => {
-          console.log("user created", user);
-        },
-        (error) => {
-          console.log("error", error);
-        }
-      );
-
-      CometChat.login(uid, authKey).then(
-        (user) => {
-          console.log("Login Successful:", { user });
-        },
-        (error) => {
-          console.log("Login failed with exception:", { error });
-        }
-      );
-    }
-  }, [userInfo]);
-
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
     const user = JSON.parse(userInfo);
@@ -197,9 +153,6 @@ const DashJobs = () => {
           </Paper>
         </Box>
       </Box>
-      <div style={{ width: "84vw", height: "800px", marginTop: "25px" }}>
-        <CometChatUI />
-      </div>
     </>
   );
 };

@@ -30,6 +30,8 @@ import ResetPassword from "./pages/ResetPassword";
 import ResetPassword1 from "./pages/ResetPassword1";
 import YoutubeVideo from "./component/youtube/YoutubeViedo";
 import { CometChat } from "@cometchat-pro/chat";
+import AdminChat from "./pages/admin/AdminChat";
+import UserChat from "./pages/user/UserChat";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -41,6 +43,8 @@ const DashJobsHOC = Layout(DashJobs);
 const DashCategoryHOC = Layout(DashCategory);
 const DashCreateJobHOC = Layout(DashCreateJob);
 const DashCreateCategoryHOC = Layout(DashCreateCategory);
+const DashAdminChatHOC = Layout(AdminChat);
+const DashUSerChatHOC = Layout(UserChat);
 
 const appID = "2409544426dbdcb4";
 const region = "us";
@@ -127,6 +131,14 @@ const App = () => {
                 }
               />
               <Route
+                path="/admin/chat"
+                element={
+                  <AdminRoute>
+                    <DashAdminChatHOC />
+                  </AdminRoute>
+                }
+              />
+              <Route
                 path="/user/dashboard"
                 element={
                   <UserRoute>
@@ -147,6 +159,14 @@ const App = () => {
                 element={
                   <UserRoute>
                     <UserInfoDashboardHOC />
+                  </UserRoute>
+                }
+              />
+              <Route
+                path="/user/chat"
+                element={
+                  <UserRoute>
+                    <DashUSerChatHOC />
                   </UserRoute>
                 }
               />

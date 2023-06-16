@@ -30,10 +30,8 @@ const SidebarAdm = () => {
   useEffect(() => {
     dispatch(userProfileAction());
   }, []);
-  //log out
+
   const logOut = () => {
-    // dispatch(userLogoutAction());
-    // window.location.reload(true);
     navigate("/");
   };
 
@@ -87,7 +85,6 @@ const SidebarAdm = () => {
 
                 icon: {
                   [`&.${menuClasses.icon}`]: {
-                    // color: "blue",
                     color: palette.primary.main,
                   },
                 },
@@ -120,6 +117,12 @@ const SidebarAdm = () => {
                   >
                     <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
+                  <MenuItem
+                    component={<Link to="/admin/chat" />}
+                    icon={<Person3Icon />}
+                  >
+                    <div style={{ color: "black" }}>Chat </div>
+                  </MenuItem>
                 </>
               ) : (
                 <>
@@ -140,6 +143,12 @@ const SidebarAdm = () => {
                     icon={<Person3Icon />}
                   >
                     <div style={{ color: "black" }}> Personal Info </div>
+                  </MenuItem>
+                  <MenuItem
+                    component={<Link to="/user/chat" />}
+                    icon={<Person3Icon />}
+                  >
+                    <div style={{ color: "black" }}> Chat </div>
                   </MenuItem>
                 </>
               )}
