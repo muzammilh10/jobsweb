@@ -3,6 +3,7 @@ const JobType = require("../models/jobTypeModel");
 const ErrorResponse = require("../utils/errorResponse");
 const User = require("../models/userModel");
 const UserHistory = require("../models/jobHistory");
+const sendEmail = require("../utils/email");
 
 //create jobtype
 exports.createJob = async (req, res, next) => {
@@ -11,6 +12,7 @@ exports.createJob = async (req, res, next) => {
       title: req.body.title,
       description: req.body.description,
       salary: req.body.salary,
+      companyName: req.body.companyName,
       location: req.body.location,
       jobType: req.body.jobType,
       user: req.user.id,
@@ -127,6 +129,7 @@ exports.showJobsyByUser = async (req, res, next) => {
 
     const jobs = await Job.find({
       user: id,
+      isDeleted: false,
     });
 
     res.status(200).json({
@@ -141,7 +144,9 @@ exports.showJobsyByUser = async (req, res, next) => {
 //delete job
 exports.deleteJobs = async (req, res, next) => {
   try {
-    const jobT = await Job.findByIdAndDelete(req.params.id);
+    const jobT = await Job.findByIdAndUpdate(req.params.id, {
+      isDeleted: true,
+    });
     res.status(200).json({
       success: true,
       message: "Job deleted",
@@ -170,13 +175,12 @@ exports.showAdminUserApplyJob = async (req, res, next) => {
 };
 
 exports.adminShowUserApplyJob = async (req, res) => {
-  // const id = req.params.id;
   try {
     const availableJobs = await Job.find()
       .populate({
         path: "userAppliedForJob",
         select:
-          "_id  title description salary location interviewDate applicationStatus ",
+          "_id  title description salary location interviewDate applicationStatus companyName",
         populate: {
           path: "user",
           select: "firstName lastName email resume",
@@ -195,30 +199,28 @@ exports.adminShowUserApplyJob = async (req, res) => {
 exports.updateStatus = async (req, res) => {
   try {
     const { applicationStatus } = req.body;
-    console.log(">>>>>", applicationStatus);
-
+    console.log(applicationStatus);
     const currentApplication = await UserHistory.findOne({
       _id: req.body.user,
     });
-    console.log(currentApplication, "brufebre");
-    // currentApplication.applicationStatus = applicationStatus;
-    // await currentApplication.save();
-
-    // return res.status(200).json({
-    //   message: `Request: ${req.params.id} ${currentApplication.applicationStatus}.`,
-    // });
+    console.log(currentApplication);
     if (applicationStatus === "accepted") {
       currentApplication.applicationStatus = "accepted";
       await currentApplication.save();
 
+      const user = await User.findById(currentApplication.user);
+      console.log(user.email);
+      await sendEmail({
+        email: user.email,
+        subject: `Your application with <b>JobApplied ID: </b>${currentApplication._id} ${currentApplication.title} is Accepted.`,
+      });
+
       return res.status(200).json("sucess");
-      // .json({ message: `Request: ${req.params.id} accepted.` });
     } else if (applicationStatus === "rejected") {
       currentApplication.applicationStatus = "rejected";
       await currentApplication.save();
 
       return res.status(200).json("reject");
-      // .json({ message: `Request: ${req.params.id} rejected.` });
     }
   } catch (error) {
     return res.status(400).json({ error: error.message });

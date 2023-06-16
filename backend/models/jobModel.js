@@ -18,6 +18,10 @@ const jobSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Salary is require"],
     },
+    companyName: {
+      type: String,
+      required: [true, "Companyname is require"],
+    },
     location: {
       type: String,
     },
@@ -34,6 +38,10 @@ const jobSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "User",
       required: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   {

@@ -127,6 +127,7 @@ const Home = () => {
                     key={i}
                     id={job._id}
                     jobTitle={job.title}
+                    companyName={job.companyName}
                     description={job.description}
                     category={
                       job.jobType ? job.jobType.jobTypeName : "No category"

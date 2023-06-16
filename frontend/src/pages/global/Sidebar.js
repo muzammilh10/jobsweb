@@ -8,7 +8,7 @@ import {
 } from "react-pro-sidebar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import { Box, Button, IconButton, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import CategoryIcon from "@mui/icons-material/Category";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
@@ -17,10 +17,7 @@ import Avatar from "@mui/material/Avatar";
 import logoDashboard from "../../images/hr-project.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  userLogoutAction,
-  userProfileAction,
-} from "../../redux/actions/userAction";
+import { userProfileAction } from "../../redux/actions/userAction";
 import { useNavigate } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 
@@ -99,12 +96,6 @@ const SidebarAdm = () => {
               {userInfo && userInfo.role.role === 1 ? (
                 <>
                   <MenuItem
-                    component={<Link to="/admin/dashboard" />}
-                    icon={<DashboardIcon />}
-                  >
-                    <div style={{ color: "black" }}> Dashboard </div>{" "}
-                  </MenuItem>
-                  <MenuItem
                     component={<Link to="/admin/users" />}
                     icon={<GroupAddIcon />}
                   >
@@ -122,6 +113,12 @@ const SidebarAdm = () => {
                     icon={<CategoryIcon />}
                   >
                     <div style={{ color: "black" }}> Category </div>{" "}
+                  </MenuItem>{" "}
+                  <MenuItem
+                    component={<Link to="/admin/info" />}
+                    icon={<Person3Icon />}
+                  >
+                    <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
                 </>
               ) : (

@@ -79,7 +79,7 @@ const App = () => {
               <Route path="/search" element={<YoutubeVideo />} />
               <Route path="/job/:id" element={<SingleJob />} />
               <Route
-                path="/admin/dashboard"
+                path="/admin/info"
                 element={
                   <AdminRoute>
                     <AdminDashboardHOC />

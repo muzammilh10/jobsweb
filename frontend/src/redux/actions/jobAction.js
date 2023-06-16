@@ -110,7 +110,6 @@ export const deleteAjobAction = (id) => async (dispatch) => {
   }
 };
 
-//admin create job
 export const adminLoadAction = (id) => async (dispatch) => {
   dispatch({ type: ADMIN_JOB_LOAD_REQUEST });
   try {

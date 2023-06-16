@@ -21,7 +21,6 @@ const pages = ["Home", "Log In"];
 
 const Navbar = () => {
   const { userInfo } = useSelector((state) => state.signIn);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { palette } = useTheme();
@@ -212,12 +211,13 @@ const Navbar = () => {
                       textDecoration: "none",
                       color: palette.secondary.main,
                     }}
-                    to="/admin/dashboard"
+                    to="/admin/users"
                   >
                     Admin Dashboard
                   </Link>
                 </Typography>
               </MenuItem>
+
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">
                   <Link

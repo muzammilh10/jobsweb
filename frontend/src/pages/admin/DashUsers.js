@@ -2,10 +2,7 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { GridToolbar, gridClasses } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import moment from "moment";
 import {
   updateJobStatusAction,
   useApplyLoadJobAction,
@@ -116,13 +113,7 @@ const DashUsers = () => {
         </a>
       ),
     },
-    {
-      field: "createdAt",
-      headerName: "Creation date",
-      width: 150,
-      renderCell: (params) =>
-        moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
-    },
+
     {
       field: "Actions",
       width: 200,
@@ -132,6 +123,7 @@ const DashUsers = () => {
             display: "flex",
             justifyContent: "space-between",
             width: "170px",
+            gap: 2,
           }}
         >
           <Button
@@ -154,9 +146,9 @@ const DashUsers = () => {
   ];
 
   return (
-    <>
-      <Box>
-        <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
+    <Box display="flex" justifyContent="center" mt={3}>
+      <Box width="75%">
+        <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
           All users
         </Typography>
         <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}></Box>
@@ -191,7 +183,7 @@ const DashUsers = () => {
           </Box>
         </Paper>
       </Box>
-    </>
+    </Box>
   );
 };
 

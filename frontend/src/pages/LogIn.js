@@ -44,7 +44,7 @@ const LogIn = () => {
   useEffect(() => {
     if (isAuthenticated) {
       if (userInfo.role.role === 1) {
-        navigate("/admin/dashboard");
+        navigate("/admin/users");
       } else {
         navigate("/user/dashboard");
       }

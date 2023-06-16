@@ -126,6 +126,7 @@ const Register = () => {
                 value="0"
                 checked={role === "0"}
                 onChange={handleRoleChange}
+                required
               />
               User
               <input
@@ -134,6 +135,7 @@ const Register = () => {
                 value="1"
                 checked={role === "1"}
                 onChange={handleRoleChange}
+                required
               />
               Admin
             </div>

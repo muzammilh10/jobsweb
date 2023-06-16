@@ -77,7 +77,7 @@ const UserDashboard = () => {
           />
         </Stack>
       </Box>
-      <div style={{ width: "800px", height: "800px" }}>
+      <div style={{ width: "84vw", height: "800px", marginTop: "25px" }}>
         <CometChatUI />
       </div>
     </>

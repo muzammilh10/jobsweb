@@ -90,48 +90,50 @@ const DashCategory = () => {
   ];
 
   return (
-    <Box>
-      <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
-        Jobs category
-      </Typography>
-      <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-        <Button variant="contained" color="success" startIcon={<AddIcon />}>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            to="/admin/category/create"
-          >
-            Create category
-          </Link>
-        </Button>
-      </Box>
-      <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-        <Box sx={{ height: 400, width: "100%" }}>
-          <DataGrid
-            getRowId={(row) => row._id}
-            sx={{
-              "& .MuiTablePagination-displayedRows": {
-                color: "black",
-              },
-              color: "black",
-              [`& .${gridClasses.row}`]: {},
-              button: {
-                color: "#ffffff",
-              },
-            }}
-            rows={data}
-            columns={columns}
-            pageSize={3}
-            rowsPerPageOptions={[3]}
-            slots={{ toolbar: GridToolbar }}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 3 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-          />
+    <Box display="flex" justifyContent="center" mt={3}>
+      <Box width="65%">
+        <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
+          Jobs category
+        </Typography>
+        <Box sx={{ pb: 1, display: "flex", justifyContent: "right" }}>
+          <Button variant="contained" color="success" startIcon={<AddIcon />}>
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/admin/category/create"
+            >
+              Create category
+            </Link>
+          </Button>
         </Box>
-      </Paper>
+        <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
+          <Box sx={{ height: 400, width: "100%" }}>
+            <DataGrid
+              getRowId={(row) => row._id}
+              sx={{
+                "& .MuiTablePagination-displayedRows": {
+                  color: "black",
+                },
+                color: "black",
+                [`& .${gridClasses.row}`]: {},
+                button: {
+                  color: "black",
+                },
+              }}
+              rows={data}
+              columns={columns}
+              pageSize={3}
+              rowsPerPageOptions={[3]}
+              slots={{ toolbar: GridToolbar }}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 3 },
+                },
+              }}
+              pageSizeOptions={[5, 10]}
+            />
+          </Box>
+        </Paper>
+      </Box>
     </Box>
   );
 };

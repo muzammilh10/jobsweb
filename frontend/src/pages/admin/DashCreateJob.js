@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   title: yup.string("Enter a job title").required("title is required"),
+  companyName: yup
+    .string("Enter a companyName")
+    .required("companyName is required"),
   description: yup
     .string("Enter a description")
     .min(6, "Description should be of minimum 6 characters length")
@@ -35,6 +38,7 @@ const DashCreateJob = () => {
     initialValues: {
       title: "",
       description: "",
+      companyName: "",
       salary: "",
       location: "",
       jobType: "",
@@ -109,6 +113,27 @@ const DashCreateJob = () => {
               }
               helperText={
                 formik.touched.description && formik.errors.description
+              }
+            />
+            <TextField
+              sx={{ mb: 3 }}
+              fullWidth
+              id="companyName"
+              name="companyName"
+              label="companyName"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="Description"
+              value={formik.values.companyName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.companyName && Boolean(formik.errors.companyName)
+              }
+              helperText={
+                formik.touched.companyName && formik.errors.companyName
               }
             />
             <TextField
