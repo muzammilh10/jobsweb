@@ -38,6 +38,14 @@ const jobsHistorySchema = new mongoose.Schema(
       type: ObjectId,
       ref: "User",
     },
+    coverLetter: {
+      type: String,
+      trim: true,
+    },
+    assessment: {
+      type: String,
+      trim: true,
+    },
   },
   {
     toJSON: { virtuals: true },

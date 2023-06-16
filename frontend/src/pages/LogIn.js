@@ -21,16 +21,13 @@ const validationSchema = yup.object({
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
 });
+// cookie set kaya karave 6
+//backend mathi
 
 const LogIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   const [resetPassword, setResetPassword] = useState(false);
   const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
-
-  // console.log(userInfo);
-
-  //////////////////// ---- function to extract username from email ---- ////////////////////
 
   const extractUsername = (email) => {
     const atIndex = email.indexOf("@");
@@ -38,7 +35,7 @@ const LogIn = () => {
       const username = email.substring(0, atIndex);
       return username;
     }
-    return null; // Return null if the email format is invalid
+    return null;
   };
 
   useEffect(() => {
@@ -46,7 +43,7 @@ const LogIn = () => {
       if (userInfo.role.role === 1) {
         navigate("/admin/users");
       } else {
-        navigate("/user/dashboard");
+        navigate("/");
       }
     }
   }, [isAuthenticated]);
@@ -58,7 +55,6 @@ const LogIn = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
-      //  alert(JSON.stringify(values, null, 2));
       dispatch(userSignInAction(values));
 
       actions.resetForm();

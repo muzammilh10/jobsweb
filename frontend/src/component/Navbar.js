@@ -49,10 +49,8 @@ const Navbar = () => {
 
   // log out user
   const logOutUser = () => {
-    // dispatch(userLogoutAction());
     window.localStorage.removeItem("userInfo");
     document.cookie = `token=${""}; expires=${new Date().getTime() - 1000};`;
-    // cookie.remove("token");
     window.location.reload(true);
     setTimeout(() => {
       navigate("/");

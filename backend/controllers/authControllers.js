@@ -70,6 +70,7 @@ const sendTokenResponse = async (user, codeStatus, res) => {
     .cookie("token", token, { maxAge: 60 * 60 * 100000 })
     .json({ success: true, role: user, token });
 };
+
 // log out
 exports.logout = (req, res, next) => {
   res.clearCookie("token");

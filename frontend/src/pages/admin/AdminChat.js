@@ -12,7 +12,7 @@ const AdminChat = () => {
     }
     return null;
   };
-  const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
+  const { userInfo } = useSelector((state) => state.signIn);
   useEffect(() => {
     if (userInfo) {
       let authKey = "e63ce563417fcafa1de6187962db3eb3f80c240b";
