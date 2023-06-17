@@ -4,81 +4,55 @@ import { DataGrid, gridClasses, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  adminLoadAction,
-  deleteAjobAction,
-} from "../../redux/actions/jobAction";
-import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateJob from "./data/UpdateAdminData";
 import moment from "moment";
+import { allUserAction } from "../../redux/actions/userAction";
 
-const DashJobs = () => {
+const DashAllUsers = () => {
   const dispatch = useDispatch();
-  const [render, setRender] = React.useState(false);
 
-  const renderHandler = () => {
-    setRender(!render);
-  };
-
-  const { jobs } = useSelector((state) => state.adminCreateJob);
-  const { loadJobs } = useSelector((state) => state.general);
   useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    const user = JSON.parse(userInfo);
-    const id = user.role._id;
-    dispatch(adminLoadAction(id));
-  }, [loadJobs]);
+    dispatch(allUserAction());
+  }, []);
 
+  const { users, loading } = useSelector((state) => state.allUsers);
+  console.log(users);
   let data = [];
-  data = jobs !== undefined && jobs.length > 0 ? jobs : [];
+  data = users !== undefined && users.length > 0 ? users : [];
 
-  //delete job by Id
-  const deleteJobById = (e, id) => {
-    console.log();
-    dispatch(deleteAjobAction(id));
-    window.location.reload();
+  const deleteUserById = (e, id) => {
+    console.log(id);
   };
 
   const columns = [
-    // {
-    //   field: "_id",
-    //   headerName: "Job ID",
-    //   width: 150,
-    //   editable: true,
-    // },
     {
-      field: "title",
-      headerName: "Job name",
+      field: "_id",
+      headerName: "User ID",
       width: 150,
-    },
-    // {
-    //   field: "jobType",
-    //   headerName: "Category",
-    //   width: 150,
-    //   valueGetter: (data) => data.row.jobType.jobTypeName,
-    // },
-
-    {
-      field: "available",
-      headerName: "available",
-      width: 150,
-      renderCell: (values) => (values.row.available ? "Yes" : "No"),
+      editable: true,
     },
 
     {
-      field: "salary",
-      headerName: "Salary",
-      type: Number,
+      field: "email",
+      headerName: "E_mail",
       width: 150,
-      renderCell: (values) => "$" + values.row.salary,
     },
+
+    {
+      field: "role",
+      headerName: "User status",
+      width: 150,
+      renderCell: (params) =>
+        params.row.role === 1 ? "Admin" : "Regular user",
+    },
+
     {
       field: "createdAt",
-      headerName: "Create At",
+      headerName: "Creation date",
       width: 150,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
+
     {
       field: "Actions",
       width: 200,
@@ -87,18 +61,24 @@ const DashJobs = () => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            width: "100px",
-            gap: 0.5,
+            width: "170px",
           }}
         >
-          <UpdateJob jobData={values.row} renderHandler={renderHandler} />
-          <DeleteIcon
-            onClick={(e) => deleteJobById(e, values.row._id)}
+          <Button variant="contained">
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to={`/admin/edit/user/${values.row._id}`}
+            >
+              Edit
+            </Link>
+          </Button>
+          <Button
+            onClick={(e) => deleteUserById(e, values.row._id)}
             variant="contained"
             color="error"
           >
             Delete
-          </DeleteIcon>
+          </Button>
         </Box>
       ),
     },
@@ -109,7 +89,7 @@ const DashJobs = () => {
       <Box display="flex" justifyContent="center" mt={3}>
         <Box width="65%">
           <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
-            Jobs list
+            All User
           </Typography>
           <Box sx={{ pb: 1, display: "flex", justifyContent: "right" }}></Box>
           <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
@@ -147,4 +127,4 @@ const DashJobs = () => {
   );
 };
 
-export default DashJobs;
+export default DashAllUsers;

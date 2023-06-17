@@ -40,10 +40,12 @@ const jobsHistorySchema = new mongoose.Schema(
     },
     coverLetter: {
       type: String,
+      required: [true, "coverLetter is require"],
       trim: true,
     },
     assessment: {
       type: String,
+      required: [true, "assessment is require"],
       trim: true,
     },
   },

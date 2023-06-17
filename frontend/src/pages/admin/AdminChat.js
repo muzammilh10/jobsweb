@@ -46,7 +46,14 @@ const AdminChat = () => {
   }, [userInfo]);
   return (
     <>
-      <div style={{ width: "84vw", height: "800px", marginTop: "25px" }}>
+      <div
+        style={{
+          width: "84vw",
+          height: "700px",
+          marginTop: "25px",
+          backgroundColor: "#F2F2F2",
+        }}
+      >
         <CometChatUI />
       </div>
     </>

@@ -232,7 +232,21 @@ const Navbar = () => {
                   </Typography>
                 </MenuItem>
               )}
-
+              {userInfo && userInfo?.role?.role === 2 && (
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: palette.secondary.main,
+                      }}
+                      to="/mainadmin"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  </Typography>
+                </MenuItem>
+              )}
               {!userInfo ? (
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">

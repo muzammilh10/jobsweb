@@ -10,9 +10,8 @@ import {
 } from "../../redux/actions/jobTypeAction";
 import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
-import UpdateJobType from "./data/AdminEditCategory";
 
-const DashCategory = () => {
+const DashAllCategory = () => {
   const dispatch = useDispatch();
   const [render, setRender] = React.useState(false);
   const renderHandler = () => {
@@ -76,7 +75,6 @@ const DashCategory = () => {
             width: "100px",
           }}
         >
-          <UpdateJobType jobData={values.row} renderHandler={renderHandler} />
           <DeleteIcon
             onClick={(e) => deleteJobCategoryById(e, values.row._id)}
             variant="contained"
@@ -121,12 +119,12 @@ const DashCategory = () => {
               }}
               rows={data}
               columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
+              pageSize={3}
+              rowsPerPageOptions={[3]}
               slots={{ toolbar: GridToolbar }}
               initialState={{
                 pagination: {
-                  paginationModel: { page: 0, pageSize: 5 },
+                  paginationModel: { page: 0, pageSize: 3 },
                 },
               }}
               pageSizeOptions={[5, 10]}
@@ -137,4 +135,4 @@ const DashCategory = () => {
     </Box>
   );
 };
-export default DashCategory;
+export default DashAllCategory;

@@ -100,18 +100,31 @@ const DashUsers = () => {
     //   headerName: "coverLetter",
     //   width: 150,
     // },
+    // {
+    //   field: "assessment",
+    //   headerName: "assessment",
+    //   width: 150,
+    //   renderCell: (params) => (
+    //     <a
+    //       href={params.row.assessment}
+    //       target="_blank"
+    //       rel="noopener noreferrer"
+    //     >
+    //       View Link
+    //     </a>
+    //   ),
+    // },
     {
       field: "assessment",
       headerName: "assessment",
       width: 150,
       renderCell: (params) => (
-        <a
-          href={params.row.assessment}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={() => window.open(params.row.assessment, "_blank")}
+          style={{ cursor: "pointer" }}
         >
-          View Link
-        </a>
+          View assessment
+        </button>
       ),
     },
     {
@@ -122,14 +135,16 @@ const DashUsers = () => {
     {
       field: "resume",
       headerName: "Resume",
-      width: 100,
+      width: 150,
       renderCell: (params) => (
-        <a href={params.row.resume} target="_blank" rel="noopener noreferrer">
+        <button
+          onClick={() => window.open(params.row.resume, "_blank")}
+          style={{ cursor: "pointer" }}
+        >
           View Resume
-        </a>
+        </button>
       ),
     },
-
     {
       field: "Actions",
       width: 200,
@@ -163,7 +178,7 @@ const DashUsers = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="75%">
+      <Box width="77%">
         <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
           All users
         </Typography>

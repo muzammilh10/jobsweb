@@ -31,6 +31,11 @@ import YoutubeVideo from "./component/youtube/YoutubeViedo";
 import { CometChat } from "@cometchat-pro/chat";
 import AdminChat from "./pages/admin/AdminChat";
 import UserChat from "./pages/user/UserChat";
+import MainAdminRoute from "./component/MainAdmin";
+import DashAllUsers from "./component/mainadmin/DashUser";
+import DashAdminInfo from "./component/mainadmin/DashAdminInfo";
+import DashAllJobs from "./component/mainadmin/DashAllJobs";
+import DashAllCategory from "./component/mainadmin/DashAllCategory";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -44,6 +49,10 @@ const DashCreateJobHOC = Layout(DashCreateJob);
 const DashCreateCategoryHOC = Layout(DashCreateCategory);
 const DashAdminChatHOC = Layout(AdminChat);
 const DashUSerChatHOC = Layout(UserChat);
+const DashAllUsersHOC = Layout(DashAllUsers);
+const DashAdminInfoHOC = Layout(DashAdminInfo);
+const DashAllJobsHOC = Layout(DashAllJobs);
+const DashAllCategoryHOC = Layout(DashAllCategory);
 
 const appID = "2409544426dbdcb4";
 const region = "us";
@@ -133,6 +142,38 @@ const App = () => {
                   <AdminRoute>
                     <DashAdminChatHOC />
                   </AdminRoute>
+                }
+              />
+              <Route
+                path="/mainadmin"
+                element={
+                  <MainAdminRoute>
+                    <DashAllUsersHOC />
+                  </MainAdminRoute>
+                }
+              />
+              <Route
+                path="/mainadmin/info"
+                element={
+                  <MainAdminRoute>
+                    <DashAdminInfoHOC />
+                  </MainAdminRoute>
+                }
+              />
+              <Route
+                path="/mainadmin/alljobs"
+                element={
+                  <MainAdminRoute>
+                    <DashAllJobsHOC />
+                  </MainAdminRoute>
+                }
+              />
+              <Route
+                path="/mainadmin/allcategory"
+                element={
+                  <MainAdminRoute>
+                    <DashAllCategoryHOC />
+                  </MainAdminRoute>
                 }
               />
               <Route

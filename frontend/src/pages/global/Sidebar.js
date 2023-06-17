@@ -90,7 +90,7 @@ const SidebarAdm = () => {
                 },
               }}
             >
-              {userInfo && userInfo.role.role === 1 ? (
+              {userInfo && userInfo.role.role === 1 && (
                 <>
                   <MenuItem
                     component={<Link to="/admin/users" />}
@@ -124,7 +124,8 @@ const SidebarAdm = () => {
                     <div style={{ color: "black" }}>Chat </div>
                   </MenuItem>
                 </>
-              ) : (
+              )}
+              {userInfo && userInfo.role.role === 0 && (
                 <>
                   <MenuItem
                     component={<Link to="/user/dashboard" />}
@@ -149,6 +150,29 @@ const SidebarAdm = () => {
                     icon={<Person3Icon />}
                   >
                     <div style={{ color: "black" }}> Chat </div>
+                  </MenuItem>
+                </>
+              )}
+              {userInfo && userInfo.role.role === 2 && (
+                <>
+                  <MenuItem
+                    component={<Link to="/mainadmin" />}
+                    icon={<Person3Icon />}
+                  >
+                    <div style={{ color: "black" }}> All User </div>
+                  </MenuItem>
+
+                  <MenuItem
+                    component={<Link to="/mainadmin/alljobs" />}
+                    icon={<WorkHistoryIcon />}
+                  >
+                    <div style={{ color: "black" }}> All Jobs </div>
+                  </MenuItem>
+                  <MenuItem
+                    component={<Link to="/mainadmin/info" />}
+                    icon={<Person3Icon />}
+                  >
+                    <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
                 </>
               )}

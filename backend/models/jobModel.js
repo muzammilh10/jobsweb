@@ -27,7 +27,7 @@ const jobSchema = new mongoose.Schema(
     },
     AdditionalInformation: {
       type: String,
-      default: true,
+      required: [true, "AdditionalInformation is require"],
     },
     available: {
       type: Boolean,
