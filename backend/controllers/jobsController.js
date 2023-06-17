@@ -180,7 +180,7 @@ exports.adminShowUserApplyJob = async (req, res) => {
       .populate({
         path: "userAppliedForJob",
         select:
-          "_id  title description salary location interviewDate applicationStatus companyName",
+          "_id  title description salary location interviewDate applicationStatus companyName coverLetter assessment",
         populate: {
           path: "user",
           select: "firstName lastName email resume",

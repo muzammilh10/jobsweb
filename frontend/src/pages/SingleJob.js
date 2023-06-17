@@ -1,106 +1,3 @@
-// import { Card, CardContent, Stack, Typography } from "@mui/material";
-// import { Box, Container } from "@mui/system";
-// import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate, useParams } from "react-router-dom";
-// import Footer from "../component/Footer";
-// import LoadingBox from "../component/LoadingBox";
-// import Navbar from "../component/Navbar";
-// import { jobLoadSingleAction } from "../redux/actions/jobAction";
-// import Button from "@mui/material/Button";
-// import { userApplyJobAction } from "../redux/actions/userAction";
-
-// const SingleJob = () => {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const { singleJob, loading } = useSelector((state) => state.singleJob);
-//   const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
-
-//   const { id } = useParams();
-//   console.log(singleJob);
-
-//   useEffect(() => {
-//     dispatch(jobLoadSingleAction(id));
-//   }, [id]);
-
-//   const applyForAJob = () => {
-//     if (!userInfo) {
-//       navigate("/login");
-//     }
-//     dispatch(
-//       userApplyJobAction({
-//         title: singleJob && singleJob.title,
-//         description: singleJob && singleJob.description,
-//         salary: singleJob && singleJob.salary,
-//         location: singleJob && singleJob.location,
-//         role: singleJob && singleJob.role,
-//         id: singleJob && singleJob._id,
-//         singleJob,
-//       })
-//     );
-//   };
-
-//   return (
-//     <>
-//       <Box sx={{ bgcolor: "#fafafa" }}>
-//         <Navbar />
-//         <Box sx={{ height: "85vh" }}>
-//           <Container sx={{ pt: "30px" }}>
-//             <Stack
-//               direction={{ xs: "column", sm: "row" }}
-//               spacing={{ xs: 1, sm: 2, md: 4 }}
-//             >
-//               <Box sx={{ flex: 4, p: 2 }}>
-//                 {loading ? (
-//                   <LoadingBox />
-//                 ) : (
-//                   <Card>
-//                     <CardContent>
-//                       <Typography variant="h5" component="h3">
-//                         {singleJob && singleJob.title}
-//                       </Typography>
-//                       <Typography variant="body2">
-//                         <Box component="span" sx={{ fontWeight: 700 }}>
-//                           Salary
-//                         </Box>
-//                         : ${singleJob && singleJob.salary}
-//                       </Typography>
-
-//                       <Typography variant="body2">
-//                         <Box component="span" sx={{ fontWeight: 700 }}>
-//                           Location
-//                         </Box>
-//                         : {singleJob && singleJob.location}
-//                       </Typography>
-//                       <Typography variant="body2" sx={{ pt: 2 }}>
-//                         {/* <h3>Job description:</h3> */}
-//                         {singleJob && singleJob.description}
-//                       </Typography>
-//                     </CardContent>
-//                   </Card>
-//                 )}
-//               </Box>
-//               <Box sx={{ flex: 1, p: 2 }}>
-//                 <Card sx={{ p: 2 }}>
-//                   <Button
-//                     onClick={applyForAJob}
-//                     sx={{ fontSize: "13px" }}
-//                     variant="contained"
-//                   >
-//                     Applied for this Job
-//                   </Button>
-//                 </Card>
-//               </Box>
-//             </Stack>
-//           </Container>
-//         </Box>
-//         <Footer />
-//       </Box>
-//     </>
-//   );
-// };
-
-// export default SingleJob;
 import {
   Card,
   CardContent,
@@ -122,6 +19,7 @@ import Navbar from "../component/Navbar";
 import { jobLoadSingleAction } from "../redux/actions/jobAction";
 import Button from "@mui/material/Button";
 import { userApplyJobAction } from "../redux/actions/userAction";
+
 const SingleJob = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -129,18 +27,20 @@ const SingleJob = () => {
   const { userInfo } = useSelector((state) => state.signIn);
   const [formdata, setFormdata] = useState({
     coverLetter: "",
+    assessment: "",
   });
   const [open, setOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
+
   const { id } = useParams();
-  console.log(singleJob);
+
   const handleClose = () => {
     setOpen(false);
   };
 
   useEffect(() => {
     dispatch(jobLoadSingleAction(id));
-  }, [id]);
+  }, [dispatch, id]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -155,7 +55,6 @@ const SingleJob = () => {
       id: singleJob && singleJob._id,
       singleJob,
     };
-
     dispatch(userApplyJobAction(formData));
   };
 
@@ -191,60 +90,111 @@ const SingleJob = () => {
                 ) : (
                   <Card>
                     <CardContent>
-                      <Typography variant="h5" component="h3">
+                      <Typography
+                        variant="h5"
+                        component="h3"
+                        sx={{ fontWeight: "bold" }}
+                      >
                         {singleJob && singleJob.title}
                       </Typography>
-                      <Typography variant="body2">
-                        <Box component="span" sx={{ fontWeight: 700 }}>
+
+                      <br />
+                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: 700, fontSize: "16px" }}
+                        >
+                          Companyname
+                        </Box>
+                        : {singleJob && singleJob.companyName}
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: 700, fontSize: "16px" }}
+                        >
                           Salary
                         </Box>
                         : ${singleJob && singleJob.salary}
                       </Typography>
-                      <Typography variant="body2">
-                        <Box component="span" sx={{ fontWeight: 700 }}>
+                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: 700, fontSize: "16px" }}
+                        >
                           Location
                         </Box>
                         : {singleJob && singleJob.location}
                       </Typography>
-                      <Typography variant="body2" sx={{ pt: 2 }}>
-                        {singleJob && singleJob.description}
+                      <Typography
+                        variant="body2"
+                        sx={{ pt: 2, fontWeight: "bold" }}
+                      >
+                        <Box component="span" sx={{ fontWeight: 700 }}>
+                          Description
+                        </Box>
+                        :{singleJob && singleJob.description}
                       </Typography>
                     </CardContent>
                   </Card>
                 )}
                 {showForm && (
                   <>
-                    <DialogTitle>Apply for Job</DialogTitle>
+                    <DialogTitle>
+                      <Typography
+                        variant="h9"
+                        component="span"
+                        sx={{ fontWeight: "900" }}
+                      >
+                        Apply for Job
+                      </Typography>
+                    </DialogTitle>
                     <DialogContent>
                       <form onSubmit={onSubmitHandler}>
                         <DialogContentText id="alert-dialog-slide-description">
+                          <div style={{ fontWeight: "700" }}>Cover letter</div>
+
                           <br />
+                          <div style={{ fontWeight: "700" }}>
+                            Why should you be hired for this role?
+                          </div>
                           <TextField
                             sx={{ mb: 3 }}
                             fullWidth
                             id="coverLetter"
-                            label="coverLetter"
                             name="coverLetter"
-                            placeholder="Enter coverLetter"
+                            multiline
+                            rows={4}
+                            placeholder="Mention in details what relevant skill or past experience you have for this internship."
                             value={formdata.coverLetter}
                             onChange={changeHandler}
                             required
                           />
+
+                          <div style={{ fontWeight: "700" }}>
+                            If you want to share any documents or files, please
+                            upload it on Google Drive or Dropbox and paste the
+                            public link in the answer.
+                          </div>
                           <TextField
                             sx={{ mb: 3 }}
                             fullWidth
                             id="assessment"
-                            label="assessment"
                             name="assessment"
-                            placeholder="Enter assessment"
+                            multiline
+                            rows={2}
+                            placeholder="Enter your assessment"
                             value={formdata.assessment}
                             onChange={changeHandler}
                             required
                           />
-                          <br />
                         </DialogContentText>
                         <DialogActions>
-                          <Button type="submit" onClick={applyForAJob}>
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            onClick={applyForAJob}
+                          >
                             Submit
                           </Button>
                         </DialogActions>
@@ -256,9 +206,7 @@ const SingleJob = () => {
               <Box sx={{ flex: 1, p: 2 }}>
                 <Card sx={{ p: 2 }}>
                   <Button
-                    onClick={() => {
-                      setShowForm(true);
-                    }}
+                    onClick={applyForAJob}
                     sx={{ fontSize: "13px" }}
                     variant="contained"
                   >

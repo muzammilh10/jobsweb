@@ -30,6 +30,7 @@ const DashUsers = () => {
           delete temp.user._id;
           temp = { ...temp, ...temp.user };
           data.push(temp);
+          console.log(temp);
         }
       }
     }
@@ -77,13 +78,11 @@ const DashUsers = () => {
       field: "firstName",
       headerName: "name",
       width: 150,
-      editable: true,
     },
     {
       field: "title",
       headerName: "title",
       width: 150,
-      editable: true,
     },
     {
       field: "salary",
@@ -95,13 +94,30 @@ const DashUsers = () => {
       field: "email",
       headerName: "E_mail",
       width: 150,
-      editable: true,
+    },
+    {
+      field: "coverLetter",
+      headerName: "coverLetter",
+      width: 150,
+    },
+    {
+      field: "assessment",
+      headerName: "assessment",
+      width: 150,
+      renderCell: (params) => (
+        <a
+          href={params.row.assessment}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Link
+        </a>
+      ),
     },
     {
       field: "applicationStatus",
       headerName: "status",
       width: 150,
-      editable: true,
     },
     {
       field: "resume",
@@ -147,7 +163,7 @@ const DashUsers = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="75%">
+      <Box width="90%">
         <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
           All users
         </Typography>
