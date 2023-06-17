@@ -55,6 +55,7 @@ exports.signin = async (req, res, next) => {
 
     //check password
     const isMatched = await user.comparePassword(password);
+    user.password = undefined;
     if (!isMatched) {
       return next(new ErrorResponse("invalid credentials", 400));
     }

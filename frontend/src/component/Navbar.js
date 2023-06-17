@@ -202,33 +202,36 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                      color: palette.secondary.main,
-                    }}
-                    to="/admin/users"
-                  >
-                    Admin Dashboard
-                  </Link>
-                </Typography>
-              </MenuItem>
-
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">
-                  <Link
-                    style={{
-                      textDecoration: "none",
-                      color: palette.secondary.main,
-                    }}
-                    to="/user/dashboard"
-                  >
-                    User Dashboard
-                  </Link>
-                </Typography>
-              </MenuItem>
+              {userInfo && userInfo?.role?.role === 1 && (
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: palette.secondary.main,
+                      }}
+                      to="/admin/users"
+                    >
+                      Recruiter Dashboard
+                    </Link>
+                  </Typography>
+                </MenuItem>
+              )}
+              {userInfo && userInfo?.role?.role === 0 && (
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: palette.secondary.main,
+                      }}
+                      to="/user/dashboard"
+                    >
+                      User Dashboard
+                    </Link>
+                  </Typography>
+                </MenuItem>
+              )}
 
               {!userInfo ? (
                 <MenuItem onClick={handleCloseUserMenu}>

@@ -17,7 +17,7 @@ const AdminDashboard = () => {
   // console.log(user);
   return (
     <>
-      <Box sx={{ maxWidth: "50%", margin: "auto", pt: 10 }}>
+      <Box sx={{ maxWidth: "40%", margin: "auto", pt: 10 }}>
         <Card sx={{ minWidth: 275, bgcolor: palette.secondary.midNightBlue }}>
           <CardContent>
             <Typography sx={{ fontSize: 16 }} color="black" gutterBottom>

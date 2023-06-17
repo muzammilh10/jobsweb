@@ -42,6 +42,7 @@ const DashCreateJob = () => {
       salary: "",
       location: "",
       jobType: "",
+      AdditionalInformation: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
@@ -113,6 +114,29 @@ const DashCreateJob = () => {
               }
               helperText={
                 formik.touched.description && formik.errors.description
+              }
+            />
+            <TextField
+              sx={{ mb: 3 }}
+              fullWidth
+              id="AdditionalInformation"
+              name="AdditionalInformation"
+              label="AdditionalInformation"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="AdditionalInformation"
+              value={formik.values.AdditionalInformation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.AdditionalInformation &&
+                Boolean(formik.errors.AdditionalInformation)
+              }
+              helperText={
+                formik.touched.AdditionalInformation &&
+                formik.errors.AdditionalInformation
               }
             />
             <TextField

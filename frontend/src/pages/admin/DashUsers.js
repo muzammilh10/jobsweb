@@ -77,17 +77,17 @@ const DashUsers = () => {
     {
       field: "firstName",
       headerName: "name",
-      width: 150,
+      width: 100,
     },
     {
       field: "title",
       headerName: "title",
-      width: 150,
+      width: 100,
     },
     {
       field: "salary",
       headerName: "salary",
-      width: 150,
+      width: 100,
       editable: true,
     },
     {
@@ -95,11 +95,11 @@ const DashUsers = () => {
       headerName: "E_mail",
       width: 150,
     },
-    {
-      field: "coverLetter",
-      headerName: "coverLetter",
-      width: 150,
-    },
+    // {
+    //   field: "coverLetter",
+    //   headerName: "coverLetter",
+    //   width: 150,
+    // },
     {
       field: "assessment",
       headerName: "assessment",
@@ -117,12 +117,12 @@ const DashUsers = () => {
     {
       field: "applicationStatus",
       headerName: "status",
-      width: 150,
+      width: 100,
     },
     {
       field: "resume",
       headerName: "Resume",
-      width: 150,
+      width: 100,
       renderCell: (params) => (
         <a href={params.row.resume} target="_blank" rel="noopener noreferrer">
           View Resume
@@ -163,7 +163,7 @@ const DashUsers = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="90%">
+      <Box width="75%">
         <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
           All users
         </Typography>

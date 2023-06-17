@@ -56,6 +56,7 @@ const SingleJob = () => {
       singleJob,
     };
     dispatch(userApplyJobAction(formData));
+    setFormdata({ coverLetter: "", assessment: "" });
   };
 
   const changeHandler = (e) => {
@@ -76,9 +77,9 @@ const SingleJob = () => {
 
   return (
     <>
-      <Box sx={{ bgcolor: "#fafafa" }}>
+      <Box sx={{ bgcolor: "#fafafa", minHeight: "100vh" }}>
         <Navbar />
-        <Box sx={{ height: "85vh" }}>
+        <Box sx={{ minHeight: "85vh" }}>
           <Container sx={{ pt: "30px" }}>
             <Stack
               direction={{ xs: "column", sm: "row" }}
@@ -91,49 +92,79 @@ const SingleJob = () => {
                   <Card>
                     <CardContent>
                       <Typography
-                        variant="h5"
+                        variant="h4"
                         component="h3"
-                        sx={{ fontWeight: "bold" }}
+                        sx={{ fontWeight: 800 }}
                       >
                         {singleJob && singleJob.title}
                       </Typography>
 
-                      <br />
-                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                        <Box
-                          component="span"
-                          sx={{ fontWeight: 700, fontSize: "16px" }}
-                        >
-                          Companyname
-                        </Box>
-                        : {singleJob && singleJob.companyName}
+                      <Typography
+                        variant="body3"
+                        component="h3"
+                        sx={{ fontWeight: 600, fontSize: "19px" }}
+                      >
+                        {singleJob && singleJob.companyName}
                       </Typography>
-                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+
+                      <Typography
+                        variant="body1"
+                        sx={{ pt: 3, fontWeight: 650 }}
+                      >
                         <Box
                           component="span"
-                          sx={{ fontWeight: 700, fontSize: "16px" }}
+                          sx={{ fontWeight: 700, fontSize: "17px" }}
                         >
                           Salary
                         </Box>
-                        : ${singleJob && singleJob.salary}
+                        <Box component="span" sx={{ fontWeight: 500 }}>
+                          :- ${singleJob && singleJob.salary}
+                        </Box>
                       </Typography>
-                      <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ pt: 0, fontWeight: 650 }}
+                      >
                         <Box
                           component="span"
-                          sx={{ fontWeight: 700, fontSize: "16px" }}
+                          sx={{ fontWeight: 700, fontSize: "17px" }}
                         >
                           Location
                         </Box>
-                        : {singleJob && singleJob.location}
+                        :-{" "}
+                        <Box component="span" sx={{ fontWeight: 500 }}>
+                          {singleJob && singleJob.location}
+                        </Box>
+                      </Typography>
+
+                      <Typography
+                        variant="body2"
+                        sx={{ pt: 0, fontWeight: 650 }}
+                      >
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: 700, fontSize: "17px" }}
+                        >
+                          Description
+                        </Box>
+
+                        <Box component="span" sx={{ fontWeight: 500 }}>
+                          :- {singleJob && singleJob.description}
+                        </Box>
                       </Typography>
                       <Typography
                         variant="body2"
-                        sx={{ pt: 2, fontWeight: "bold" }}
+                        sx={{ pt: 0, fontWeight: 650 }}
                       >
-                        <Box component="span" sx={{ fontWeight: 700 }}>
-                          Description
+                        <Box
+                          component="span"
+                          sx={{ fontWeight: 700, fontSize: "17px" }}
+                        >
+                          Additional Information
                         </Box>
-                        :{singleJob && singleJob.description}
+                        <Box component="span" sx={{ fontWeight: 500 }}>
+                          :- {singleJob && singleJob.AdditionalInformation}
+                        </Box>
                       </Typography>
                     </CardContent>
                   </Card>

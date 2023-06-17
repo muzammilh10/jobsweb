@@ -25,6 +25,10 @@ const jobSchema = new mongoose.Schema(
     location: {
       type: String,
     },
+    AdditionalInformation: {
+      type: String,
+      default: true,
+    },
     available: {
       type: Boolean,
       default: true,

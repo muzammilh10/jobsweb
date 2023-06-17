@@ -137,7 +137,7 @@ const Register = () => {
                 onChange={handleRoleChange}
                 required
               />
-              Admin
+              Recruiter
             </div>
             <TextField
               sx={{

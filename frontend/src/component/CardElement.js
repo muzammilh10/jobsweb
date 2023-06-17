@@ -17,6 +17,7 @@ const CardElement = ({
   category,
   location,
   id,
+  AdditionalInformation,
   companyName,
 }) => {
   const { palette } = useTheme();
