@@ -78,7 +78,7 @@ const SidebarAdm = () => {
                     color: "green",
                   },
                   "&:hover": {
-                    backgroundColor: "rgba(23,105,170, 1)",
+                    backgroundColor: "",
                     color: "#fafafa",
                   },
                 },

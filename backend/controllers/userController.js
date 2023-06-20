@@ -6,13 +6,12 @@ const UserHistory = require("./../models/jobHistory");
 
 exports.allUser = async (req, res, next) => {
   //pagination
-  // const pageSize = 5;
   const page = Number(req.query.pageNumber) || 1;
   const pageSize = Number(req.query.pageSize) || 3;
   const count = await User.find({}).estimatedDocumentCount();
 
   try {
-    const users = await User.find()
+    const users = await User.find({ isDeleted: false })
       .sort({ createdAt: -1 })
       .select("-password")
       .skip(pageSize * (page - 1))
@@ -63,7 +62,9 @@ exports.editUser = async (req, res, next) => {
 //delete user
 exports.deleteUser = async (req, res, next) => {
   try {
-    const user = await User.findByIdAndRemove(req.params.id);
+    const user = await User.findByIdAndUpdate(req.params.id, {
+      isDeleted: true,
+    });
     res.status(200).json({
       success: true,
       message: "user deleted",

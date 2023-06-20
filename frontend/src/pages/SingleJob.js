@@ -89,148 +89,152 @@ const SingleJob = () => {
                 {loading ? (
                   <LoadingBox />
                 ) : (
-                  <Card>
+                  <Card
+                    sx={{
+                      width: "100%",
+                      borderRadius: "12px",
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                    }}
+                  >
                     <CardContent>
                       <Typography
-                        variant="h4"
-                        component="h3"
-                        sx={{ fontWeight: 800 }}
+                        variant="h5"
+                        component="h2"
+                        sx={{ fontWeight: 700 }}
                       >
                         {singleJob && singleJob.title}
                       </Typography>
 
                       <Typography
-                        variant="body3"
-                        component="h3"
-                        sx={{ fontWeight: 600, fontSize: "19px" }}
+                        variant="subtitle1"
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: "18px",
+                          color: "#555",
+                        }}
                       >
                         {singleJob && singleJob.companyName}
                       </Typography>
 
                       <Typography
                         variant="body1"
-                        sx={{ pt: 3, fontWeight: 650 }}
+                        sx={{ fontWeight: 600, fontSize: "16px", mt: 2 }}
                       >
-                        <Box
-                          component="span"
-                          sx={{ fontWeight: 700, fontSize: "17px" }}
-                        >
-                          Salary
-                        </Box>
-                        <Box component="span" sx={{ fontWeight: 500 }}>
-                          :- ${singleJob && singleJob.salary}
-                        </Box>
+                        Salary: ${singleJob && singleJob.salary}
                       </Typography>
+
                       <Typography
                         variant="body1"
-                        sx={{ pt: 0, fontWeight: 650 }}
+                        sx={{ fontWeight: 600, fontSize: "16px", mt: 1 }}
                       >
+                        Location: {singleJob && singleJob.location}
+                      </Typography>
+
+                      <Typography variant="body2" sx={{ mt: 2 }}>
                         <Box
                           component="span"
-                          sx={{ fontWeight: 700, fontSize: "17px" }}
+                          sx={{
+                            fontWeight: 700,
+                            fontSize: "16px",
+                            display: "inline-block",
+                            marginRight: "8px",
+                          }}
                         >
-                          Location
+                          Description:
                         </Box>
-                        :-{" "}
-                        <Box component="span" sx={{ fontWeight: 500 }}>
-                          {singleJob && singleJob.location}
+                        <Box component="span">
+                          {singleJob && singleJob.description}
                         </Box>
                       </Typography>
 
-                      <Typography
-                        variant="body2"
-                        sx={{ pt: 0, fontWeight: 650 }}
-                      >
+                      <Typography variant="body2" sx={{ mt: 2 }}>
                         <Box
                           component="span"
-                          sx={{ fontWeight: 700, fontSize: "17px" }}
+                          sx={{
+                            fontWeight: 700,
+                            fontSize: "16px",
+                            display: "inline-block",
+                          }}
                         >
-                          Description
+                          Additional Information:
                         </Box>
-
-                        <Box component="span" sx={{ fontWeight: 500 }}>
-                          :- {singleJob && singleJob.description}
-                        </Box>
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ pt: 0, fontWeight: 650 }}
-                      >
                         <Box
                           component="span"
-                          sx={{ fontWeight: 700, fontSize: "17px" }}
+                          sx={{ display: "inline-block", ml: 1 }}
                         >
-                          Additional Information
-                        </Box>
-                        <Box component="span" sx={{ fontWeight: 500 }}>
-                          :- {singleJob && singleJob.AdditionalInformation}
+                          {singleJob && singleJob.AdditionalInformation}
                         </Box>
                       </Typography>
                     </CardContent>
                   </Card>
                 )}
+                <br />
                 {showForm && (
                   <>
-                    <DialogTitle>
-                      <Typography
-                        variant="h9"
-                        component="span"
-                        sx={{ fontWeight: "900" }}
-                      >
-                        Apply for Job
-                      </Typography>
-                    </DialogTitle>
-                    <DialogContent>
-                      <form onSubmit={onSubmitHandler}>
-                        <DialogContentText id="alert-dialog-slide-description">
-                          <div style={{ fontWeight: "700" }}>Cover letter</div>
+                    <Card>
+                      <DialogTitle>
+                        <Typography
+                          variant="h9"
+                          component="span"
+                          sx={{ fontWeight: "900" }}
+                        >
+                          Apply for Job
+                        </Typography>
+                      </DialogTitle>
+                      <DialogContent>
+                        <form onSubmit={onSubmitHandler}>
+                          <DialogContentText id="alert-dialog-slide-description">
+                            <div style={{ fontWeight: "700" }}>
+                              Cover letter
+                            </div>
 
-                          <br />
-                          <div style={{ fontWeight: "700" }}>
-                            Why should you be hired for this role?
-                          </div>
-                          <TextField
-                            sx={{ mb: 3 }}
-                            fullWidth
-                            id="coverLetter"
-                            name="coverLetter"
-                            multiline
-                            rows={4}
-                            placeholder="Mention in details what relevant skill or past experience you have for this internship."
-                            value={formdata.coverLetter}
-                            onChange={changeHandler}
-                            required
-                          />
+                            <br />
+                            <div style={{ fontWeight: "700" }}>
+                              Why should you be hired for this role?
+                            </div>
+                            <TextField
+                              sx={{ mb: 3 }}
+                              fullWidth
+                              id="coverLetter"
+                              name="coverLetter"
+                              multiline
+                              rows={4}
+                              placeholder="Mention in details what relevant skill or past experience you have for this internship."
+                              value={formdata.coverLetter}
+                              onChange={changeHandler}
+                              required
+                            />
 
-                          <div style={{ fontWeight: "700" }}>
-                            If you want to share any documents or files, please
-                            upload it on Google Drive or Dropbox and paste the
-                            public link in the answer.
-                          </div>
-                          <TextField
-                            sx={{ mb: 3 }}
-                            fullWidth
-                            id="assessment"
-                            name="assessment"
-                            multiline
-                            rows={2}
-                            placeholder="Enter your assessment"
-                            value={formdata.assessment}
-                            onChange={changeHandler}
-                            required
-                          />
-                        </DialogContentText>
-                        <DialogActions>
-                          <Button
-                            type="submit"
-                            variant="contained"
-                            onClick={applyForAJob}
-                          >
-                            Submit
-                          </Button>
-                        </DialogActions>
-                      </form>
-                    </DialogContent>
+                            <div style={{ fontWeight: "700" }}>
+                              If you want to share any documents or files,
+                              please upload it on Google Drive or Dropbox and
+                              paste the public link in the answer.
+                            </div>
+                            <TextField
+                              sx={{ mb: 3 }}
+                              fullWidth
+                              id="assessment"
+                              name="assessment"
+                              multiline
+                              rows={2}
+                              placeholder="Enter your assessment"
+                              value={formdata.assessment}
+                              onChange={changeHandler}
+                              required
+                            />
+                          </DialogContentText>
+                          <DialogActions>
+                            <Button
+                              type="submit"
+                              variant="contained"
+                              onClick={applyForAJob}
+                            >
+                              Submit
+                            </Button>
+                          </DialogActions>
+                        </form>
+                      </DialogContent>
+                    </Card>
                   </>
                 )}
               </Box>

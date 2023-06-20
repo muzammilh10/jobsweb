@@ -160,16 +160,26 @@ const DashUsers = () => {
           <Button
             onClick={() => acceptUserById(values.row)}
             variant="contained"
-            color="success"
+            sx={{
+              bgcolor: "#cadacb",
+              "&:hover": {
+                bgcolor: "#92ba91",
+              },
+            }}
           >
-            Accept
+            <div style={{ color: "green" }}>Accept</div>
           </Button>
           <Button
             onClick={() => rejectUserById(values.row)}
             variant="contained"
-            color="error"
+            sx={{
+              bgcolor: "#e7c5c5",
+              "&:hover": {
+                bgcolor: "#dd8181",
+              },
+            }}
           >
-            Reject
+            <div style={{ color: "red" }}>Reject</div>
           </Button>
         </Box>
       ),
@@ -178,13 +188,21 @@ const DashUsers = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="77%">
-        <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
+      <Box width="78%">
+        <Typography
+          variant="h4"
+          sx={{
+            color: "black",
+            pb: 3,
+            display: "flex",
+            justifyContent: "left",
+          }}
+        >
           All users
         </Typography>
-        <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}></Box>
+        <Box sx={{ pb: 0, display: "flex", justifyContent: "center" }}></Box>
         <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-          <Box sx={{ height: 400, width: "100%" }}>
+          <Box sx={{ height: 500, width: "100%" }}>
             <DataGrid
               getRowId={(row) => row._id}
               sx={{
@@ -210,6 +228,7 @@ const DashUsers = () => {
                 },
               }}
               pageSizeOptions={[5, 10]}
+              density="comfortable"
             />
           </Box>
         </Paper>

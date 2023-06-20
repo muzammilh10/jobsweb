@@ -9,13 +9,13 @@ const Footer = () => {
       <Box
         sx={{
           height: "70px",
-          bgcolor: palette.secondary.midNightBlue,
+          bgcolor: "#2196f3",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Box component="span" sx={{ color: palette.primary.main }}>
+        <Box component="span" sx={{ color: "white" }}>
           All rights reserved! 2023.
         </Box>
       </Box>

@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { DataGrid, gridClasses, GridToolbar } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { allUserAction } from "../../redux/actions/userAction";
+import {
+  allUserAction,
+  userDeleteAction,
+} from "../../redux/actions/userAction";
 
 const DashAllUsers = () => {
   const dispatch = useDispatch();
@@ -14,27 +15,28 @@ const DashAllUsers = () => {
     dispatch(allUserAction());
   }, []);
 
-  const { users, loading } = useSelector((state) => state.allUsers);
+  const { users } = useSelector((state) => state.allUsers);
   console.log(users);
   let data = [];
   data = users !== undefined && users.length > 0 ? users : [];
 
   const deleteUserById = (e, id) => {
-    console.log(id);
+    dispatch(userDeleteAction(id));
+    window.location.reload();
   };
 
   const columns = [
     {
       field: "_id",
       headerName: "User ID",
-      width: 150,
+      width: 250,
       editable: true,
     },
 
     {
       field: "email",
       headerName: "E_mail",
-      width: 150,
+      width: 200,
     },
 
     {
@@ -48,7 +50,7 @@ const DashAllUsers = () => {
     {
       field: "createdAt",
       headerName: "Creation date",
-      width: 150,
+      width: 220,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
@@ -64,20 +66,18 @@ const DashAllUsers = () => {
             width: "170px",
           }}
         >
-          <Button variant="contained">
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/user/${values.row._id}`}
-            >
-              Edit
-            </Link>
-          </Button>
           <Button
             onClick={(e) => deleteUserById(e, values.row._id)}
             variant="contained"
             color="error"
+            sx={{
+              bgcolor: "#e7c5c5",
+              "&:hover": {
+                bgcolor: "#dd8181",
+              },
+            }}
           >
-            Delete
+            <div style={{ color: "red" }}>Delete</div>
           </Button>
         </Box>
       ),
@@ -87,13 +87,13 @@ const DashAllUsers = () => {
   return (
     <>
       <Box display="flex" justifyContent="center" mt={3}>
-        <Box width="65%">
+        <Box width="70%">
           <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
             All User
           </Typography>
           <Box sx={{ pb: 1, display: "flex", justifyContent: "right" }}></Box>
           <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-            <Box sx={{ height: 400, width: "100%" }}>
+            <Box sx={{ height: 500, width: "100%" }}>
               <DataGrid
                 getRowId={(row) => row._id}
                 sx={{
@@ -118,6 +118,7 @@ const DashAllUsers = () => {
                   },
                 }}
                 pageSizeOptions={[5, 10]}
+                density="comfortable"
               />
             </Box>
           </Paper>

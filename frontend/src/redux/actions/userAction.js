@@ -10,6 +10,9 @@ import {
   USER_APPLY_JOB_FAIL,
   USER_APPLY_JOB_REQUEST,
   USER_APPLY_JOB_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
   USER_FORGET_PASSWORD_FAIL,
   USER_FORGET_PASSWORD_REQUEST,
   USER_FORGET_PASSWORD_SUCCESS,
@@ -144,26 +147,46 @@ export const userApplyJobAction = (Job) => async (dispatch) => {
     toast.error(error.response.data.message);
   }
 };
+//user Delete action
+export const userDeleteAction = (id) => async (dispatch) => {
+  dispatch({ type: USER_DELETE_REQUEST });
 
-//Resetpassword
-export const resetPasswordAction = (email) => async (dispatch) => {
-  dispatch({ type: USER_FORGET_PASSWORD_REQUEST });
   try {
-    const { data } = await axios.post("/api/forgetpassword", email);
-    console.log(data);
+    const { data } = await axios.delete(`/api/admin/user/delete/${id}`);
+
     dispatch({
-      type: USER_FORGET_PASSWORD_SUCCESS,
+      type: USER_DELETE_SUCCESS,
       payload: data,
     });
-    toast.success("Register Successfully!");
+    toast.success("User Deleted Successfully!");
   } catch (error) {
     dispatch({
-      type: USER_FORGET_PASSWORD_FAIL,
-      payload: error.response.data.error,
+      type: USER_DELETE_FAIL,
+      payload: error.response.data.message,
     });
-    toast.error(error.response.data.error);
+    toast.error(error.response.data.message);
   }
 };
+
+//Resetpassword
+// export const resetPasswordAction = (email) => async (dispatch) => {
+//   dispatch({ type: USER_FORGET_PASSWORD_REQUEST });
+//   try {
+//     const { data } = await axios.post("/api/forgetpassword", email);
+//     console.log(data);
+//     dispatch({
+//       type: USER_FORGET_PASSWORD_SUCCESS,
+//       payload: data,
+//     });
+//     toast.success("Register Successfully!");
+//   } catch (error) {
+//     dispatch({
+//       type: USER_FORGET_PASSWORD_FAIL,
+//       payload: error.response.data.error,
+//     });
+//     toast.error(error.response.data.error);
+//   }
+// };
 
 //edit user
 export function editUserAction(id, formdata) {

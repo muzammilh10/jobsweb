@@ -47,7 +47,19 @@ const UpdateJobType = ({ jobData }) => {
 
   return (
     <div>
-      <EditIcon onClick={handleClickOpen} />
+      <Button
+        onClick={handleClickOpen}
+        variant="contained"
+        color="error"
+        sx={{
+          bgcolor: "#70b5dc",
+          "&:hover": {
+            bgcolor: "#4b8cb5",
+          },
+        }}
+      >
+        <div style={{ color: "blue" }}>Edit</div>
+      </Button>
 
       <Dialog
         open={open}

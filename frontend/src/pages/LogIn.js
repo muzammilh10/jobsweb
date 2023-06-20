@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Footer from "../component/Footer";
 import LockClockOutlined from "@mui/icons-material/LockClockOutlined";
 import Navbar from "../component/Navbar";
@@ -7,9 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignInAction } from "../redux/actions/userAction";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import ResetPassword from "./ResetPassword";
-import { CometChat } from "@cometchat-pro/chat";
+import { Link, useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
@@ -21,8 +19,6 @@ const validationSchema = yup.object({
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
 });
-// cookie set kaya karave 6
-//backend mathi
 
 const LogIn = () => {
   const dispatch = useDispatch();
@@ -37,12 +33,15 @@ const LogIn = () => {
     }
     return null;
   };
-
   useEffect(() => {
     if (isAuthenticated) {
+      if (userInfo.role.role === 2) {
+        navigate("/mainadmin");
+      }
       if (userInfo.role.role === 1) {
         navigate("/admin/users");
-      } else {
+      }
+      if (userInfo.role.role === 0) {
         navigate("/");
       }
     }
@@ -56,17 +55,22 @@ const LogIn = () => {
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       dispatch(userSignInAction(values));
-
       actions.resetForm();
     },
   });
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
       <Navbar />
       <Box
         sx={{
-          height: "81vh",
+          flex: 1,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -83,6 +87,8 @@ const LogIn = () => {
               flexDirection: "column",
               alignItems: "center",
               width: "100%",
+              mb: -3,
+              mt: -2,
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 3 }}>
@@ -121,16 +127,42 @@ const LogIn = () => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               helperText={formik.touched.password && formik.errors.password}
             />
-            <Link to={"/user/ResetPassword"}>Reset Password</Link>
-
+            <div
+              style={{
+                marginTop: -10,
+                marginBottom: 12,
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Link
+                to={"/user/ResetPassword"}
+                style={{ color: "#2196f3", textDecoration: "none" }}
+              >
+                Forgot Password?
+              </Link>
+            </div>
             <Button fullWidth variant="contained" type="submit">
               Log In
             </Button>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="container signin">
+                <p>
+                  Don't have an account?{" "}
+                  <Link
+                    to={"/register"}
+                    style={{ color: "#2196f3", textDecoration: "none" }}
+                  >
+                    Register
+                  </Link>
+                </p>
+              </div>
+            </div>
           </Box>
         </Box>
       </Box>
       <Footer />
-    </>
+    </Box>
   );
 };
 

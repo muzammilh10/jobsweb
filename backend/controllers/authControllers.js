@@ -52,7 +52,10 @@ exports.signin = async (req, res, next) => {
     if (!user) {
       return next(new ErrorResponse("invalid credentials", 400));
     }
-
+    // Check if user is deleted
+    if (user.isDeleted) {
+      return next(new ErrorResponse("User has been deleted", 400));
+    }
     //check password
     const isMatched = await user.comparePassword(password);
     user.password = undefined;
@@ -85,9 +88,9 @@ exports.logout = (req, res, next) => {
 exports.userProfile = async (req, res, next) => {
   const user = await User.findById(req.user.id).select("-password");
   const userHistory = await UserHistory.find({ user: req.user.id });
-  console.log(userHistory);
+  // console.log(userHistory);
   // Push all user history data into the user's jobsHistory field
-  await user.jobsHistory.push(...userHistory);
+  const gg = await user.jobsHistory.push(...userHistory);
   res.status(200).json({
     success: true,
     user,

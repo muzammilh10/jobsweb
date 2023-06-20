@@ -177,7 +177,7 @@ exports.showAdminUserApplyJob = async (req, res, next) => {
 
 exports.adminShowUserApplyJob = async (req, res) => {
   try {
-    const availableJobs = await Job.find()
+    const availableJobs = await Job.find({ isDeleted: false })
       .populate({
         path: "userAppliedForJob",
         select:

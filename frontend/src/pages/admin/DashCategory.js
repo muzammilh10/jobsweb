@@ -49,41 +49,47 @@ const DashCategory = () => {
     {
       field: "_id",
       headerName: "Category ID",
-      width: 150,
-      editable: true,
+      width: 300,
     },
     {
       field: "jobTypeName",
       headerName: "Category",
-      width: 150,
+      width: 200,
     },
     {
       field: "createdAt",
       headerName: "Create At",
-      width: 150,
+      width: 200,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
 
     {
       field: "Actions",
-      width: 200,
+      width: 250,
       renderCell: (values) => (
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             width: "100px",
+            gap: 2,
           }}
         >
           <UpdateJobType jobData={values.row} renderHandler={renderHandler} />
-          <DeleteIcon
+          <Button
             onClick={(e) => deleteJobCategoryById(e, values.row._id)}
             variant="contained"
             color="error"
+            sx={{
+              bgcolor: "#e7c5c5",
+              "&:hover": {
+                bgcolor: "#dd8181",
+              },
+            }}
           >
-            Delete
-          </DeleteIcon>
+            <div style={{ color: "red" }}>Delete</div>
+          </Button>
         </Box>
       ),
     },
@@ -91,11 +97,19 @@ const DashCategory = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="65%">
-        <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
-          Jobs category
+      <Box width="75%">
+        <Typography
+          variant="h4"
+          sx={{
+            color: "black",
+            pb: -3,
+            display: "flex",
+            justifyContent: "left",
+          }}
+        >
+          All category
         </Typography>
-        <Box sx={{ pb: 1, display: "flex", justifyContent: "right" }}>
+        <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
           <Button variant="contained" color="success" startIcon={<AddIcon />}>
             <Link
               style={{ color: "white", textDecoration: "none" }}
@@ -105,8 +119,9 @@ const DashCategory = () => {
             </Link>
           </Button>
         </Box>
+        <Box sx={{ pb: 0, display: "flex", justifyContent: "center" }}></Box>
         <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-          <Box sx={{ height: 400, width: "100%" }}>
+          <Box sx={{ height: 500, width: "100%" }}>
             <DataGrid
               getRowId={(row) => row._id}
               sx={{
@@ -123,6 +138,7 @@ const DashCategory = () => {
               columns={columns}
               pageSize={5}
               rowsPerPageOptions={[5]}
+              checkboxSelection
               slots={{ toolbar: GridToolbar }}
               initialState={{
                 pagination: {
@@ -130,6 +146,7 @@ const DashCategory = () => {
                 },
               }}
               pageSizeOptions={[5, 10]}
+              density="comfortable"
             />
           </Box>
         </Paper>

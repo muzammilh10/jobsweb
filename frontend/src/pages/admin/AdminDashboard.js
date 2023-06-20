@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const { user } = useSelector((state) => state.userprofile);
   const { palette } = useTheme();
   const [render, setRender] = React.useState(false);
-
+  console.log(user);
   const renderHandler = () => {
     setRender(!render);
   };

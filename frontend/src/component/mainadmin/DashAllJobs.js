@@ -26,7 +26,7 @@ const DashAllJobs = () => {
     {
       field: "_id",
       headerName: "Job ID",
-      width: 150,
+      width: 250,
       editable: true,
     },
     {
@@ -66,12 +66,19 @@ const DashAllJobs = () => {
     <>
       <Box display="flex" justifyContent="center" mt={3}>
         <Box width="70%">
-          <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              color: "black",
+              pb: 3,
+              display: "flex",
+            }}
+          >
             Jobs list
           </Typography>
           <Box sx={{ pb: 1, display: "flex", justifyContent: "right" }}></Box>
           <Paper sx={{ bgcolor: "secondary.midNightBlue" }}>
-            <Box sx={{ height: 400, width: "100%" }}>
+            <Box sx={{ height: 500, width: "100%" }}>
               <DataGrid
                 getRowId={(row) => row._id}
                 sx={{
@@ -96,6 +103,7 @@ const DashAllJobs = () => {
                   },
                 }}
                 pageSizeOptions={[5, 10]}
+                density="comfortable"
               />
             </Box>
           </Paper>

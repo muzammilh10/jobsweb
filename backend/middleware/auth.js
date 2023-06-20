@@ -25,3 +25,11 @@ exports.isAdmin = (req, res, next) => {
   }
   next();
 };
+
+//mainadmin middleware
+exports.isMainAdmin = (req, res, next) => {
+  if (req.user.role === 0 || req.user.role === 1) {
+    return next(new ErrorResponse("Access denied, you must an admin", 401));
+  }
+  next();
+};

@@ -6,13 +6,13 @@ const {
   deleteUser,
   createUserJobsHistory,
 } = require("../controllers/userController");
-const { isAuthenticated, isAdmin } = require("../middleware/auth");
+const { isAuthenticated, isAdmin, isMainAdmin } = require("../middleware/auth");
 const router = express.Router();
 
 //user router
 
 //  /api/allusers
-router.get("/allusers", isAuthenticated, isAdmin, allUser);
+router.get("/allusers", isAuthenticated, isMainAdmin, allUser);
 
 //  /api/user/id
 router.get("/user/:id", isAuthenticated, singleUser);
@@ -21,7 +21,12 @@ router.get("/user/:id", isAuthenticated, singleUser);
 router.patch("/user/edit/:id", isAuthenticated, editUser);
 
 //  /api/admin/user/delete/id
-router.delete("/admin/user/delete/:id", isAuthenticated, isAdmin, deleteUser);
+router.delete(
+  "/admin/user/delete/:id",
+  isAuthenticated,
+  isMainAdmin,
+  deleteUser
+);
 
 //  /api/user/jobhistory
 router.post("/user/jobhistory/", isAuthenticated, createUserJobsHistory);

@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const validationSchema = yup.object({
   email: yup
@@ -23,16 +24,23 @@ const ResetPassword = () => {
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       setEmail({ email: values.email });
+      actions.resetForm();
     },
   });
 
   useEffect(() => {
-    axios
-      .post("http://localhost:8000/api/forgetpassword", email)
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+    if (Object.keys(email).length !== 0) {
+      axios
+        .post("http://localhost:8000/api/forgetpassword", email)
+        .then((res) => {
+          console.log(res);
+          toast.success("Email sent successfully!");
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          toast.error(err.response.data.error);
+        });
+    }
   }, [email]);
 
   return (

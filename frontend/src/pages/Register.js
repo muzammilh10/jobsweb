@@ -15,7 +15,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -30,10 +30,6 @@ const validationSchema = yup.object({
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
 });
 
 const Register = () => {
@@ -100,6 +96,8 @@ const Register = () => {
           alignItems: "center",
           justifyContent: "center",
           bgcolor: "primary.white",
+          flexDirection: "column",
+          minHeight: "84vh",
         }}
       >
         <Box
@@ -113,31 +111,35 @@ const Register = () => {
               flexDirection: "column",
               alignItems: "center",
               width: "100%",
+              mt: -2,
+              mb: -3,
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 3 }}>
+            <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 1 }}>
               <LockOpenIcon />
             </Avatar>
-            Register as
-            <div>
-              <input
-                type="radio"
-                name="role"
-                value="0"
-                checked={role === "0"}
-                onChange={handleRoleChange}
-                required
-              />
-              User
-              <input
-                type="radio"
-                name="role"
-                value="1"
-                checked={role === "1"}
-                onChange={handleRoleChange}
-                required
-              />
-              Recruiter
+            <div style={{ marginBottom: 1 }}> Register as</div>
+            <div style={{ marginBottom: 10 }}>
+              <div>
+                <input
+                  type="radio"
+                  name="role"
+                  value="0"
+                  checked={role === "0"}
+                  onChange={handleRoleChange}
+                  required
+                />
+                User
+                <input
+                  type="radio"
+                  name="role"
+                  value="1"
+                  checked={role === "1"}
+                  onChange={handleRoleChange}
+                  required
+                />
+                Recruiter
+              </div>
             </div>
             <TextField
               sx={{
@@ -250,18 +252,18 @@ const Register = () => {
                   }}
                   placeholder="Resume"
                   onChange={photoupload}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.resume && Boolean(formik.errors.resume)}
+                  helperText={formik.touched.resume && formik.errors.resume}
                 />
                 {resumeLoading && <CircularProgress />}{" "}
-                {/* Show the loader if resume is being uploaded */}
               </>
             )}
             <Button
               type="submit"
               variant="contained"
               sx={{
-                mt: 3,
-                mb: 2,
-                color: "text.secondary",
+                color: "white",
                 bgcolor: "primary.main",
                 "&:hover": {
                   bgcolor: "primary.dark",
@@ -271,6 +273,17 @@ const Register = () => {
             >
               Register
             </Button>
+            <div class="container signin">
+              <p>
+                Already have an account?{" "}
+                <Link
+                  to="/login"
+                  style={{ color: "#2196f3", textDecoration: "none" }}
+                >
+                  Login
+                </Link>
+              </p>
+            </div>
           </Box>
         </Box>
       </Box>

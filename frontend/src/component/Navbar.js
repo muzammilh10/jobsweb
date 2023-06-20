@@ -60,7 +60,6 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
       <Container>
-        {/* principal Menu */}
         <Toolbar disableGutters>
           <WorkIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -136,7 +135,9 @@ const Navbar = () => {
           >
             JOB PORTAL
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
+          >
             <Button
               onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}

@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const validationSchema = yup.object({
   newPassword: yup
@@ -19,8 +20,8 @@ const validationSchema = yup.object({
 });
 
 const ResetPassword1 = () => {
-  const [newPassword, setNewPassword] = useState({});
-  const [confirmPassword, setConfirmPassword] = useState({});
+  const [newPassword, setNewPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
   const { token } = useParams();
   console.log(token);
   const formik = useFormik({
@@ -37,22 +38,28 @@ const ResetPassword1 = () => {
   });
 
   useEffect(() => {
-    console.log(newPassword?.newPassword);
-    console.log(confirmPassword?.confirmPassword);
-
-    axios
-      .patch(
-        `http://localhost:8000/api/resetPassword/${token}`,
-        {
-          password: newPassword,
-          passwordConfirm: confirmPassword,
-        },
-        { "Content-type": "application/json" }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+    if (newPassword && confirmPassword) {
+      axios
+        .patch(
+          `http://localhost:8000/api/resetPassword/${token}`,
+          {
+            password: newPassword,
+            passwordConfirm: confirmPassword,
+          },
+          { "Content-type": "application/json" }
+        )
+        .then((res) => {
+          console.log(res);
+          toast.success("Password reset successfully!");
+          formik.resetForm();
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          toast.error(err.response.data.error);
+        });
+    } else if (newPassword !== null && confirmPassword !== null) {
+      toast.error("Both fields are required.");
+    }
   }, [newPassword, confirmPassword]);
 
   return (

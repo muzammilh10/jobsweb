@@ -5,11 +5,10 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { IconButton, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-import { useSelector } from "react-redux";
 
 const CardElement = ({
   jobTitle,
@@ -21,11 +20,10 @@ const CardElement = ({
   companyName,
 }) => {
   const { palette } = useTheme();
-  const { userInfo } = useSelector((state) => state.signIn);
 
   return (
-    <Card sx={{ minWidth: 275, mb: 3, mt: 3 }}>
-      <CardContent>
+    <Card sx={{ minWidth: 275, mb: 2, mt: 2 }}>
+      <CardContent sx={{ mb: -1.5 }}>
         <Box sx={{ display: "flex", alignItems: "center", marginBottom: 1 }}>
           <LocationOnIcon
             sx={{
@@ -49,37 +47,39 @@ const CardElement = ({
           {jobTitle}
         </Typography>
         <Typography
-          component="div"
+          variant="subtitle1"
           sx={{
-            marginBottom: 1,
-            fontWeight: 500,
-            fontSize: 14,
+            fontWeight: 600,
+            fontSize: "16px",
+            color: "#555",
           }}
         >
           {companyName}
         </Typography>
 
         <Typography variant="body2" sx={{ marginTop: 1, textAlign: "justify" }}>
-          Description:{" "}
-          {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}
+          <span style={{ fontWeight: "bold" }}>Description: </span>
+          <span>
+            {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}
+          </span>
         </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          disableElevation
-          variant="contained"
-          size="small"
-          startIcon={<AddIcon />}
-          sx={{ marginTop: -1 }}
-        >
-          <Link
-            style={{ textDecoration: "none", color: "white", boxShadow: 0 }}
-            to={`/job/${id}`}
+        <CardActions>
+          <Button
+            disableElevation
+            variant="contained"
+            size="small"
+            startIcon={<AddIcon />}
+            sx={{ marginTop: 1, marginLeft: -0.9 }}
           >
-            More Details
-          </Link>
-        </Button>
-      </CardActions>
+            <Link
+              style={{ textDecoration: "none", color: "white", boxShadow: 0 }}
+              to={`/job/${id}`}
+            >
+              More Details
+            </Link>
+          </Button>
+        </CardActions>
+      </CardContent>
     </Card>
   );
 };
