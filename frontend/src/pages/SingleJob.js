@@ -47,6 +47,7 @@ const SingleJob = () => {
     const formData = {
       coverLetter: formdata.coverLetter,
       assessment: formdata.assessment,
+      companyName: singleJob && singleJob.companyName,
       title: singleJob && singleJob.title,
       description: singleJob && singleJob.description,
       salary: singleJob && singleJob.salary,
@@ -91,12 +92,13 @@ const SingleJob = () => {
                 ) : (
                   <Card
                     sx={{
-                      width: "100%",
+                      ml: 6,
+                      width: "90%",
                       borderRadius: "12px",
                       boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
                     }}
                   >
-                    <CardContent>
+                    <CardContent sx={{ ml: 1 }}>
                       <Typography
                         variant="h5"
                         component="h2"
@@ -165,13 +167,39 @@ const SingleJob = () => {
                           {singleJob && singleJob.AdditionalInformation}
                         </Box>
                       </Typography>
+                      <Box
+                        sx={{
+                          flex: 1,
+                          p: 2,
+                          mb: -2,
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "flex-end",
+                        }}
+                      >
+                        <Button
+                          onClick={applyForAJob}
+                          sx={{ fontSize: "13px", mb: 1 }}
+                          variant="contained"
+                        >
+                          Apply for this Job
+                        </Button>
+                      </Box>
                     </CardContent>
                   </Card>
                 )}
                 <br />
                 {showForm && (
                   <>
-                    <Card>
+                    <Card
+                      sx={{
+                        ml: 6,
+
+                        width: "90%",
+                        borderRadius: "12px",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                      }}
+                    >
                       <DialogTitle>
                         <Typography
                           variant="h9"
@@ -237,17 +265,6 @@ const SingleJob = () => {
                     </Card>
                   </>
                 )}
-              </Box>
-              <Box sx={{ flex: 1, p: 2 }}>
-                <Card sx={{ p: 2 }}>
-                  <Button
-                    onClick={applyForAJob}
-                    sx={{ fontSize: "13px" }}
-                    variant="contained"
-                  >
-                    Apply for this Job
-                  </Button>
-                </Card>
               </Box>
             </Stack>
           </Container>

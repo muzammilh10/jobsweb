@@ -48,10 +48,15 @@ const AdminChat = () => {
     <>
       <div
         style={{
-          width: "84vw",
-          height: "700px",
-          marginTop: "25px",
+          width: "85.5vw",
+          height: "93vh",
+          margin: "auto",
           backgroundColor: "#F2F2F2",
+          borderRadius: "10px",
+          marginTop: "-24px",
+          marginLeft: "-24px",
+          marginRight: "-24px",
+          marginBottom: "-24px",
         }}
       >
         <CometChatUI />

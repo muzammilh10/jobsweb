@@ -24,7 +24,14 @@ const CardElement = ({
   return (
     <Card sx={{ minWidth: 275, mb: 2, mt: 2 }}>
       <CardContent sx={{ mb: -1.5 }}>
-        <Box sx={{ display: "flex", alignItems: "center", marginBottom: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: 1,
+            marginLeft: -0.7,
+          }}
+        >
           <LocationOnIcon
             sx={{
               color: palette.secondary.main,

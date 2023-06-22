@@ -98,7 +98,7 @@ const DashAllUsers = () => {
                 getRowId={(row) => row._id}
                 sx={{
                   "& .MuiTablePagination-displayedRows": {
-                    color: "white",
+                    color: "black",
                   },
                   color: "black",
                   [`& .${gridClasses.row}`]: {},

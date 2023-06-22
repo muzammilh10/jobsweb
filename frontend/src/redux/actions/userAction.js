@@ -13,9 +13,6 @@ import {
   USER_DELETE_FAIL,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
-  USER_FORGET_PASSWORD_FAIL,
-  USER_FORGET_PASSWORD_REQUEST,
-  USER_FORGET_PASSWORD_SUCCESS,
   USER_LOAD_FAIL,
   USER_LOAD_REQUEST,
   USER_LOAD_SUCCESS,
@@ -167,26 +164,6 @@ export const userDeleteAction = (id) => async (dispatch) => {
     toast.error(error.response.data.message);
   }
 };
-
-//Resetpassword
-// export const resetPasswordAction = (email) => async (dispatch) => {
-//   dispatch({ type: USER_FORGET_PASSWORD_REQUEST });
-//   try {
-//     const { data } = await axios.post("/api/forgetpassword", email);
-//     console.log(data);
-//     dispatch({
-//       type: USER_FORGET_PASSWORD_SUCCESS,
-//       payload: data,
-//     });
-//     toast.success("Register Successfully!");
-//   } catch (error) {
-//     dispatch({
-//       type: USER_FORGET_PASSWORD_FAIL,
-//       payload: error.response.data.error,
-//     });
-//     toast.error(error.response.data.error);
-//   }
-// };
 
 //edit user
 export function editUserAction(id, formdata) {

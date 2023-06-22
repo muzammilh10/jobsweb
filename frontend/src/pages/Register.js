@@ -30,6 +30,10 @@ const validationSchema = yup.object({
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
+  phoneNumber: yup
+    .string("Enter your phonenumber")
+    .min(10, "Phone Number should be of minimum 10 characters length")
+    .required("Phone Number is required"),
 });
 
 const Register = () => {
@@ -38,6 +42,7 @@ const Register = () => {
   const [images, setImages] = useState();
   const [role, setRole] = useState("");
   const [resumeLoading, setResumeLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -45,11 +50,12 @@ const Register = () => {
       lastName: "",
       email: "",
       password: "",
+      phoneNumber: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
       values.role = role;
-      const finalValues = { ...values, resume: images };
+      const finalValues = { ...values, resume: images, profilePhoto: images };
 
       dispatch(userSignUpAction(finalValues));
       navigate("/login");
@@ -86,6 +92,31 @@ const Register = () => {
     );
   };
 
+  const profile = (event) => {
+    let file = event.target.files[0];
+
+    if (!file) {
+      alert("Please upload an image first!");
+    }
+
+    const storageRef = addRef(storage, `/files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    setProfileLoading(true);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (err) => console.log(err),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setImages(url);
+          setProfileLoading(false);
+        });
+      }
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -97,7 +128,7 @@ const Register = () => {
           justifyContent: "center",
           bgcolor: "primary.white",
           flexDirection: "column",
-          minHeight: "84vh",
+          minHeight: "110vh",
         }}
       >
         <Box
@@ -111,8 +142,6 @@ const Register = () => {
               flexDirection: "column",
               alignItems: "center",
               width: "100%",
-              mt: -2,
-              mb: -3,
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 1 }}>
@@ -141,6 +170,39 @@ const Register = () => {
                 Recruiter
               </div>
             </div>
+            <TextField
+              sx={{
+                mb: 3,
+                "& .MuiInputBase-root": {
+                  color: "text.secondary",
+                },
+                fieldset: { borderColor: "rgb(231, 235, 240)" },
+              }}
+              fullWidth
+              id="profilePhoto"
+              label="profilePhoto"
+              name="profilePhoto"
+              type="file"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="profile Photo"
+              value={formik.values.profilePhoto}
+              onChange={profile}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.profilePhoto &&
+                Boolean(formik.errors.profilePhoto)
+              }
+              helperText={
+                formik.touched.profilePhoto && formik.errors.profilePhoto
+              }
+            />
+            {profileLoading && (
+              <Box sx={{ display: "flex", mb: 3, justifyContent: "center" }}>
+                <CircularProgress />
+              </Box>
+            )}
             <TextField
               sx={{
                 mb: 3,
@@ -186,6 +248,33 @@ const Register = () => {
               onBlur={formik.handleBlur}
               error={formik.touched.lastName && Boolean(formik.errors.lastName)}
               helperText={formik.touched.lastName && formik.errors.lastName}
+            />
+            <TextField
+              sx={{
+                mb: 3,
+                "& .MuiInputBase-root": {
+                  color: "text.secondary",
+                },
+                fieldset: { borderColor: "rgb(231, 235, 240)" },
+              }}
+              fullWidth
+              id="phoneNumber"
+              name="phoneNumber"
+              label="phoneNumber"
+              type="phoneNumber"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="phoneNumber"
+              value={formik.values.phoneNumber}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
+              }
+              helperText={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+              }
             />
             <TextField
               sx={{
@@ -256,7 +345,14 @@ const Register = () => {
                   error={formik.touched.resume && Boolean(formik.errors.resume)}
                   helperText={formik.touched.resume && formik.errors.resume}
                 />
-                {resumeLoading && <CircularProgress />}{" "}
+
+                {resumeLoading && (
+                  <Box
+                    sx={{ display: "flex", mb: 3, justifyContent: "center" }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                )}
               </>
             )}
             <Button

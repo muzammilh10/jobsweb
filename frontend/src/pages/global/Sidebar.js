@@ -174,6 +174,12 @@ const SidebarAdm = () => {
                   >
                     <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
+                  <MenuItem
+                    component={<Link to="/mainadmin/chat" />}
+                    icon={<WorkHistoryIcon />}
+                  >
+                    <div style={{ color: "black" }}>Chat</div>
+                  </MenuItem>
                 </>
               )}
             </Menu>
@@ -187,14 +193,13 @@ const SidebarAdm = () => {
                   },
 
                   "&:hover": {
-                    backgroundColor: "rgba(23,105,170, 1)",
-                    color: "#fafafa",
+                    backgroundColor: "",
+                    color: "",
                   },
                 },
 
                 icon: {
                   [`&.${menuClasses.icon}`]: {
-                    // color: "blue",
                     color: palette.primary.main,
                   },
                 },

@@ -17,11 +17,6 @@ const DashAllJobs = () => {
   let data = [];
   data = jobs !== undefined && jobs.length > 0 ? jobs : [];
 
-  //delete job by Id
-  const deleteJobById = (e, id) => {
-    console.log(id);
-  };
-
   const columns = [
     {
       field: "_id",
@@ -83,7 +78,7 @@ const DashAllJobs = () => {
                 getRowId={(row) => row._id}
                 sx={{
                   "& .MuiTablePagination-displayedRows": {
-                    color: "white",
+                    color: "black",
                   },
                   color: "black",
                   [`& .${gridClasses.row}`]: {},

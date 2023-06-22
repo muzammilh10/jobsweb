@@ -34,12 +34,24 @@ const userSchema = new mongoose.Schema(
       required: [true, "password is required"],
       minlength: [6, "password must have at least (6) caracters"],
     },
-    resume: {
+    phoneNumber: {
       type: String,
-      // required: [true, "A user must have upload resume"],
+      trim: true,
+      unique: true,
+      required: [true, "phonenumber is required"],
+      minlength: [10, "password must have (10) caracters"],
+      maxlength: [10, "password must have (10) caracters"],
     },
 
+    resume: {
+      type: String,
+      required: [true, "A user must have upload resume"],
+    },
     jobsHistory: [{ type: ObjectId, ref: "UserHistory" }],
+    profilePhoto: {
+      type: String,
+      required: [true, "A user must have profile photo"],
+    },
     role: {
       type: Number,
       default: 0,

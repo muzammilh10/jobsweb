@@ -15,6 +15,11 @@ const jobsHistorySchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    companyName: {
+      type: String,
+      trim: true,
+    },
+
     location: {
       type: String,
     },

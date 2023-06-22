@@ -36,6 +36,7 @@ import DashAllUsers from "./component/mainadmin/DashUser";
 import DashAdminInfo from "./component/mainadmin/DashAdminInfo";
 import DashAllJobs from "./component/mainadmin/DashAllJobs";
 import DashAllCategory from "./component/mainadmin/DashAllCategory";
+import MainAdminChat from "./component/mainadmin/MainAdminChat";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -53,6 +54,7 @@ const DashAllUsersHOC = Layout(DashAllUsers);
 const DashAdminInfoHOC = Layout(DashAdminInfo);
 const DashAllJobsHOC = Layout(DashAllJobs);
 const DashAllCategoryHOC = Layout(DashAllCategory);
+const MainAdminChatHOC = Layout(MainAdminChat);
 
 const appID = "2409544426dbdcb4";
 const region = "us";
@@ -176,6 +178,15 @@ const App = () => {
                   </MainAdminRoute>
                 }
               />
+              <Route
+                path="/mainadmin/chat"
+                element={
+                  <MainAdminRoute>
+                    <MainAdminChatHOC />
+                  </MainAdminRoute>
+                }
+              />
+
               <Route
                 path="/user/dashboard"
                 element={

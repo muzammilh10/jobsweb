@@ -1,9 +1,9 @@
-import { CometChat } from "@cometchat-pro/chat";
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { CometChatUI } from "../../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/CometChatUI";
+import { CometChat } from "@cometchat-pro/chat";
+import { useSelector } from "react-redux";
 
-const UserChat = () => {
+const MainAdminChat = () => {
   const extractUsername = (email) => {
     const atIndex = email.indexOf("@");
     if (atIndex !== -1) {
@@ -13,12 +13,15 @@ const UserChat = () => {
     return null;
   };
   const { userInfo } = useSelector((state) => state.signIn);
-
   useEffect(() => {
     if (userInfo) {
       let authKey = "e63ce563417fcafa1de6187962db3eb3f80c240b";
       var uid = extractUsername(userInfo.role.email);
-      var name = userInfo.role.email;
+      var name = userInfo.role.firstName;
+
+      console.log(uid);
+      console.log(name);
+
       var user = new CometChat.User(uid);
       console.log(uid);
       user.setName(name);
@@ -62,4 +65,4 @@ const UserChat = () => {
   );
 };
 
-export default UserChat;
+export default MainAdminChat;

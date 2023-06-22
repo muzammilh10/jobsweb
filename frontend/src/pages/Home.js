@@ -95,7 +95,10 @@ const Home = () => {
                               }}
                             />
                           </ListItemIcon>
-                          <Link to={`/search/location/${location}`}>
+                          <Link
+                            to={`/search/location/${location}`}
+                            style={{ color: "#2196f3" }}
+                          >
                             {location}
                           </Link>
                         </MenuItem>

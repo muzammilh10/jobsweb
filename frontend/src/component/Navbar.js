@@ -21,6 +21,7 @@ const pages = ["Home", "Log In"];
 
 const Navbar = () => {
   const { userInfo } = useSelector((state) => state.signIn);
+  console.log(userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { palette } = useTheme();
@@ -169,13 +170,14 @@ const Navbar = () => {
             </Button>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, ml: 1 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {console.log(userInfo && userInfo.role.profilePhoto)}
                 <Avatar
+                  alt=""
+                  src={userInfo && userInfo.role.profilePhoto}
                   sx={{ color: palette.primary.white }}
-                  alt="Remy Sharp"
-                  src=""
                 />
               </IconButton>
             </Tooltip>

@@ -13,6 +13,7 @@ const CardElement1 = ({
   id,
   salary,
   applicationStatus,
+  companyName,
 }) => {
   const { palette } = useTheme();
 
@@ -29,52 +30,69 @@ const CardElement1 = ({
   const statusColor = getStatusColor();
 
   return (
-    <Card sx={{ mb: 3 }}>
+    <Card
+      sx={{
+        mb: 3,
+        mt: 2,
+        borderRadius: "20px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <CardContent>
         <Typography
           sx={{
+            ml: -1.3,
             fontSize: 14,
             color: palette.secondary.main,
             fontWeight: "bold",
-            fontFamily: "Arial, sans-serif",
+            display: "flex",
+            alignItems: "center",
           }}
           gutterBottom
         >
           <IconButton disableRipple>
             <LocationOnIcon
-              sx={{ color: palette.secondary.main, fontSize: 16 }}
+              sx={{
+                color: palette.secondary.main,
+                fontSize: 16,
+                marginRight: 0,
+              }}
             />
-          </IconButton>{" "}
+          </IconButton>
           {location}
         </Typography>
         <Typography
           variant="h5"
           component="div"
-          sx={{ mb: 1, fontFamily: "Georgia, serif" }}
+          sx={{
+            mb: 1,
+            fontWeight: "bold",
+          }}
         >
           {jobTitle}
         </Typography>
+
         <Typography
           variant="body2"
           color="text.secondary"
           sx={{
+            mt: -1,
             mb: 2,
-            fontFamily: "Roboto, sans-serif",
-            fontStyle: "italic",
           }}
         >
-          {category}
+          {companyName}
         </Typography>
         <Typography
           variant="body2"
           color={statusColor}
           sx={{
             mb: 2,
-            fontFamily: "Roboto, sans-serif",
-            fontStyle: "italic",
+            fontWeight: "bold",
           }}
         >
-          applicationStatus: {applicationStatus}
+          Application Status: {applicationStatus}
         </Typography>
         <Typography variant="body2" sx={{ mb: 2 }}>
           {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}
