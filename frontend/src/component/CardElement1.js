@@ -2,8 +2,9 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { IconButton, useTheme } from "@mui/material";
+import { Avatar, IconButton, Tooltip, useTheme } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useSelector } from "react-redux";
 
 const CardElement1 = ({
   jobTitle,
@@ -40,7 +41,7 @@ const CardElement1 = ({
         borderRadius: "20px",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         display: "flex",
-        minHeight: "260px",
+        minHeight: "280px",
         flexDirection: "column",
       }}
     >
@@ -67,6 +68,7 @@ const CardElement1 = ({
           </IconButton>
           {location}
         </Typography>
+
         <Typography
           variant="h5"
           component="div"
@@ -95,8 +97,7 @@ const CardElement1 = ({
           Duration: {Duration}
         </Typography>
         <Typography variant="body2" sx={{ mb: 2 }}>
-          {/*   {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}*/}
-          {description}
+          {description?.split(" ")?.slice(0, 25)?.join(" ") + "..."}
         </Typography>
         <Typography
           variant="body2"

@@ -236,7 +236,7 @@ const DashCreateJob = () => {
             >
               <MenuItem key={""} value={""}></MenuItem>
 
-              {jobType &&
+              {jobType?.jobs &&
                 jobType.jobs.map((cat) => (
                   <MenuItem key={cat._id} value={cat._id}>
                     {cat.jobTypeName}
