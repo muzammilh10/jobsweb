@@ -19,6 +19,10 @@ const jobsHistorySchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    Duration: {
+      type: String,
+      required: [true, "Duration is require"],
+    },
 
     location: {
       type: String,

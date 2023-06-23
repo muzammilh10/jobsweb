@@ -128,12 +128,6 @@ const SidebarAdm = () => {
               {userInfo && userInfo.role.role === 0 && (
                 <>
                   <MenuItem
-                    component={<Link to="/user/dashboard" />}
-                    icon={<DashboardIcon />}
-                  >
-                    <div style={{ color: "black" }}> Dashboard </div>
-                  </MenuItem>
-                  <MenuItem
                     component={<Link to="/user/jobs" />}
                     icon={<WorkHistoryIcon />}
                   >

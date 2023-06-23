@@ -16,6 +16,7 @@ const CardElement = ({
   category,
   location,
   id,
+  Duration,
   AdditionalInformation,
   companyName,
 }) => {
@@ -63,11 +64,21 @@ const CardElement = ({
         >
           {companyName}
         </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{
+            fontWeight: 600,
+            fontSize: "16px",
+            color: "#555",
+          }}
+        >
+          {Duration}
+        </Typography>
 
         <Typography variant="body2" sx={{ marginTop: 1, textAlign: "justify" }}>
           <span style={{ fontWeight: "bold" }}>Description: </span>
           <span>
-            {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}
+            {description?.split(" ")?.slice(0, 30)?.join(" ") + "..."}
           </span>
         </Typography>
         <CardActions>
@@ -76,7 +87,7 @@ const CardElement = ({
             variant="contained"
             size="small"
             startIcon={<AddIcon />}
-            sx={{ marginTop: 1, marginLeft: -0.9 }}
+            sx={{ marginTop: 1, marginLeft: "79.5%" }}
           >
             <Link
               style={{ textDecoration: "none", color: "white", boxShadow: 0 }}

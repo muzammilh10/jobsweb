@@ -42,6 +42,7 @@ const DashCreateJob = () => {
       salary: "",
       location: "",
       jobType: "",
+      Duration: "",
       AdditionalInformation: "",
     },
     validationSchema: validationSchema,
@@ -149,7 +150,7 @@ const DashCreateJob = () => {
               InputLabelProps={{
                 shrink: true,
               }}
-              placeholder="Description"
+              placeholder="companyName"
               value={formik.values.companyName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -159,6 +160,23 @@ const DashCreateJob = () => {
               helperText={
                 formik.touched.companyName && formik.errors.companyName
               }
+            />
+            <TextField
+              sx={{ mb: 3 }}
+              fullWidth
+              id="Duration"
+              name="Duration"
+              label="Duration"
+              type="text"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="Duration"
+              value={formik.values.Duration}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.Duration && Boolean(formik.errors.Duration)}
+              helperText={formik.touched.Duration && formik.errors.Duration}
             />
             <TextField
               sx={{ mb: 3 }}

@@ -86,6 +86,7 @@ exports.createUserJobsHistory = async (req, res, next) => {
     coverLetter,
     assessment,
     companyName,
+    Duration,
   } = req.body;
   try {
     const existingApplication = await UserHistory.findOne({
@@ -111,6 +112,7 @@ exports.createUserJobsHistory = async (req, res, next) => {
         companyName,
         coverLetter,
         assessment,
+        Duration,
       };
       console.log(addJobHostory);
       const currentUser = await UserHistory.create(addJobHostory);

@@ -11,6 +11,7 @@ const CardElement1 = ({
   category,
   location,
   id,
+  Duration,
   salary,
   applicationStatus,
   companyName,
@@ -20,6 +21,8 @@ const CardElement1 = ({
   const getStatusColor = () => {
     if (applicationStatus === "accepted") {
       return "green";
+    } else if (applicationStatus === "pending") {
+      return palette.secondary.main;
     } else if (applicationStatus === "rejected") {
       return "red";
     } else {
@@ -32,11 +35,12 @@ const CardElement1 = ({
   return (
     <Card
       sx={{
-        mb: 3,
+        mb: 2,
         mt: 2,
         borderRadius: "20px",
         boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         display: "flex",
+        minHeight: "260px",
         flexDirection: "column",
       }}
     >
@@ -84,21 +88,25 @@ const CardElement1 = ({
         >
           {companyName}
         </Typography>
+        <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+          Salary: {salary}₹
+        </Typography>
+        <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+          Duration: {Duration}
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 2 }}>
+          {/*   {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}*/}
+          {description}
+        </Typography>
         <Typography
           variant="body2"
           color={statusColor}
           sx={{
-            mb: 2,
+            mb: -6,
             fontWeight: "bold",
           }}
         >
           Application Status: {applicationStatus}
-        </Typography>
-        <Typography variant="body2" sx={{ mb: 2 }}>
-          {description?.split(" ")?.slice(0, 15)?.join(" ") + "..."}
-        </Typography>
-        <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-          Salary: ${salary}
         </Typography>
       </CardContent>
     </Card>

@@ -45,7 +45,7 @@ const UserJobsHistory = () => {
   const theme = useTheme();
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = React.useState(1);
-
+  console.log(user);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -69,6 +69,7 @@ const UserJobsHistory = () => {
                 jobTitle={history.title}
                 description={history.description}
                 companyName={history.companyName}
+                Duration={history.Duration}
                 applicationStatus={history.applicationStatus}
                 salary={history.salary}
                 location={history.location}

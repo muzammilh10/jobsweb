@@ -49,6 +49,7 @@ const SingleJob = () => {
       assessment: formdata.assessment,
       companyName: singleJob && singleJob.companyName,
       title: singleJob && singleJob.title,
+      Duration: singleJob && singleJob.Duration,
       description: singleJob && singleJob.description,
       salary: singleJob && singleJob.salary,
       location: singleJob && singleJob.location,
@@ -122,17 +123,35 @@ const SingleJob = () => {
                         variant="body1"
                         sx={{ fontWeight: 600, fontSize: "16px", mt: 2 }}
                       >
-                        Salary: ${singleJob && singleJob.salary}
+                        Salary:
+                        <span style={{ fontWeight: "lighter" }}>
+                          {" "}
+                          {singleJob && singleJob.salary}₹
+                        </span>
                       </Typography>
 
                       <Typography
                         variant="body1"
-                        sx={{ fontWeight: 600, fontSize: "16px", mt: 1 }}
+                        sx={{ fontWeight: 600, fontSize: "16px" }}
                       >
-                        Location: {singleJob && singleJob.location}
+                        Location:
+                        <span style={{ fontWeight: "lighter" }}>
+                          {" "}
+                          {singleJob && singleJob.location}
+                        </span>
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{ fontWeight: 600, fontSize: "16px" }}
+                      >
+                        Duration:
+                        <span style={{ fontWeight: "lighter" }}>
+                          {" "}
+                          {singleJob && singleJob.Duration}
+                        </span>
                       </Typography>
 
-                      <Typography variant="body2" sx={{ mt: 2 }}>
+                      <Typography variant="body2">
                         <Box
                           component="span"
                           sx={{
@@ -160,10 +179,7 @@ const SingleJob = () => {
                         >
                           Additional Information:
                         </Box>
-                        <Box
-                          component="span"
-                          sx={{ display: "inline-block", ml: 1 }}
-                        >
+                        <Box component="span" sx={{ display: "inline-block" }}>
                           {singleJob && singleJob.AdditionalInformation}
                         </Box>
                       </Typography>
@@ -212,11 +228,6 @@ const SingleJob = () => {
                       <DialogContent>
                         <form onSubmit={onSubmitHandler}>
                           <DialogContentText id="alert-dialog-slide-description">
-                            <div style={{ fontWeight: "700" }}>
-                              Cover letter
-                            </div>
-
-                            <br />
                             <div style={{ fontWeight: "700" }}>
                               Why should you be hired for this role?
                             </div>

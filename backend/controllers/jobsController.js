@@ -13,6 +13,7 @@ exports.createJob = async (req, res, next) => {
       description: req.body.description,
       salary: req.body.salary,
       companyName: req.body.companyName,
+      Duration: req.body.Duration,
       location: req.body.location,
       AdditionalInformation: req.body.AdditionalInformation,
       jobType: req.body.jobType,
@@ -181,7 +182,7 @@ exports.adminShowUserApplyJob = async (req, res) => {
       .populate({
         path: "userAppliedForJob",
         select:
-          "_id  title description salary location interviewDate applicationStatus companyName coverLetter assessment",
+          "_id  title description salary location interviewDate applicationStatus companyName coverLetter assessment Duration",
         populate: {
           path: "user",
           select: "firstName lastName email resume",

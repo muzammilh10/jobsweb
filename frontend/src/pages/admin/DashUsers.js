@@ -120,8 +120,10 @@ const DashUsers = () => {
       width: 150,
       renderCell: (params) => (
         <button
+          variant="contained"
+          size="medium"
           onClick={() => window.open(params.row.assessment, "_blank")}
-          style={{ cursor: "pointer" }}
+          style={{ height: "35px", borderRadius: "5px" }}
         >
           View assessment
         </button>
@@ -138,8 +140,9 @@ const DashUsers = () => {
       width: 150,
       renderCell: (params) => (
         <button
+          variant="contained"
           onClick={() => window.open(params.row.resume, "_blank")}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", height: "35px", borderRadius: "5px" }}
         >
           View Resume
         </button>
