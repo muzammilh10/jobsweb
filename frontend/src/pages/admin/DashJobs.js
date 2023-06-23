@@ -8,7 +8,6 @@ import {
   adminLoadAction,
   deleteAjobAction,
 } from "../../redux/actions/jobAction";
-import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateJob from "./data/UpdateAdminData";
 import moment from "moment";
 
@@ -70,7 +69,7 @@ const DashJobs = () => {
       headerName: "Salary",
       type: Number,
       width: 200,
-      renderCell: (values) => "$" + values.row.salary,
+      renderCell: (values) => "₹" + values.row.salary,
     },
     {
       field: "createdAt",

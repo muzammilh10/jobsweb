@@ -77,9 +77,7 @@ const CardElement = ({
 
         <Typography variant="body2" sx={{ marginTop: 1, textAlign: "justify" }}>
           <span style={{ fontWeight: "bold" }}>Description: </span>
-          <span>
-            {description?.split(" ")?.slice(0, 30)?.join(" ") + "..."}
-          </span>
+          <span>{description}</span>
         </Typography>
         <CardActions>
           <Button

@@ -5,7 +5,10 @@ import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { jobTypeLoadAction } from "../../redux/actions/jobTypeAction";
+import {
+  adminJobTypeLoadAction,
+  jobTypeLoadAction,
+} from "../../redux/actions/jobTypeAction";
 import { registerAjobAction } from "../../redux/actions/jobAction";
 import { useNavigate } from "react-router-dom";
 
@@ -16,9 +19,10 @@ const validationSchema = yup.object({
     .required("companyName is required"),
   description: yup
     .string("Enter a description")
-    .min(6, "Description should be of minimum 6 characters length")
+    .min(6, "Description should be of minimum 15 characters length")
     .required("Description is required"),
-  salary: yup.number("Enter a salary").required("Salary is required"),
+  salary: yup.string("Enter a salary").required("Salary is required"),
+  Duration: yup.string("Enter a Duration").required("Salary is Duration"),
   location: yup.string("Enter a location").required("Location is required"),
   jobType: yup.string("Enter a Category").required("Category is required"),
 });
@@ -29,11 +33,13 @@ const DashCreateJob = () => {
 
   //job type
   useEffect(() => {
-    dispatch(jobTypeLoadAction());
+    const userInfo = localStorage.getItem("userInfo");
+    const user = JSON.parse(userInfo);
+    const id = user.role._id;
+    dispatch(adminJobTypeLoadAction(id));
   }, []);
 
-  const { jobType } = useSelector((state) => state.jobTypeAll);
-
+  const { jobType } = useSelector((state) => state.jobType);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -231,7 +237,7 @@ const DashCreateJob = () => {
               <MenuItem key={""} value={""}></MenuItem>
 
               {jobType &&
-                jobType.map((cat) => (
+                jobType.jobs.map((cat) => (
                   <MenuItem key={cat._id} value={cat._id}>
                     {cat.jobTypeName}
                   </MenuItem>

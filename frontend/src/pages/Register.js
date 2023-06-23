@@ -128,7 +128,7 @@ const Register = () => {
           justifyContent: "center",
           bgcolor: "primary.white",
           flexDirection: "column",
-          minHeight: "110vh",
+          minHeight: "120vh",
         }}
       >
         <Box

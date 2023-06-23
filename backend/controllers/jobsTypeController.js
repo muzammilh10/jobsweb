@@ -21,10 +21,12 @@ exports.createJobType = async (req, res, next) => {
 exports.allJobsType = async (req, res, next) => {
   try {
     const jobT = await JobType.find().sort({ createdAt: -1 });
+
     res.status(200).json({
       success: true,
       jobT,
     });
+    console.log(jobT);
   } catch (error) {
     next(error);
   }

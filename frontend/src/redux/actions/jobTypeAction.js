@@ -38,6 +38,7 @@ export const adminJobTypeLoadAction = (type_id) => async (dispatch) => {
   dispatch({ type: ADMIN_JOB_TYPE_LOAD_REQUEST });
   try {
     const { data } = await axios.get(`/api/type/showcategory/${type_id}`);
+    console.log(data);
     dispatch({
       type: ADMIN_JOB_TYPE_LOAD_SUCCESS,
       payload: data,

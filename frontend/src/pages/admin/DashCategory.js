@@ -18,11 +18,6 @@ const DashCategory = () => {
   const renderHandler = () => {
     setRender(!render);
   };
-  // useEffect(() => {
-  //   dispatch(jobTypeLoadAction());
-  // }, []);
-
-  // const { jobType, loading } = useSelector((state) => state.jobTypeAll);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
