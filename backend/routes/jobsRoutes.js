@@ -31,7 +31,7 @@ router.get("/jobs/show/", showJobs);
 router.get("/jobs/showByUser/:id", showJobsyByUser);
 // /api/jobs/userapply/:id
 router.get("/jobs/userapply/:id", showAdminUserApplyJob);
-router.get("/admin/applied-jobs/:id?", adminShowUserApplyJob);
+router.get("/admin/applied-jobs/:id", adminShowUserApplyJob);
 
 // /api/jobs/delete
 router.delete("/jobs/delete/:id", isAuthenticated, isAdmin, deleteJobs);

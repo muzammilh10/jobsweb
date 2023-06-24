@@ -67,8 +67,8 @@ const UpdateJobType = ({ jobData }) => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>
-          {"Please Enter Your New Employee Data Here!!"}
+        <DialogTitle style={{ fontSize: "25px", textAlign: "center" }}>
+          {"Please Update Job Category!!"}
         </DialogTitle>
         <DialogContent>
           <form action="" onSubmit={onSubmitHandler}>
@@ -90,7 +90,9 @@ const UpdateJobType = ({ jobData }) => {
                 <br />
               </DialogContentText>
               <DialogActions>
-                <Button type="submit">Edit</Button>
+                <Button variant="outlined" type="submit">
+                  Edit
+                </Button>
                 <Button variant="outlined" onClick={handleClose}>
                   Cancel
                 </Button>

@@ -67,10 +67,17 @@ const UpdateJob = ({ jobData }) => {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
+        PaperProps={{
+          style: {
+            width: "400px",
+            maxWidth: "80%",
+          },
+        }}
       >
-        <DialogTitle>
-          {"Please Enter Your New Employee Data Here!!"}
+        <DialogTitle style={{ fontSize: "25px", textAlign: "center" }}>
+          {"Update Your Job!!"}
         </DialogTitle>
+
         <DialogContent>
           <form action="" onSubmit={onSubmitHandler}>
             <div>
@@ -102,7 +109,9 @@ const UpdateJob = ({ jobData }) => {
                 />
               </DialogContentText>
               <DialogActions>
-                <Button type="submit">Edit</Button>
+                <Button variant="outlined" type="submit">
+                  Edit
+                </Button>
                 <Button variant="outlined" onClick={handleClose}>
                   Cancel
                 </Button>

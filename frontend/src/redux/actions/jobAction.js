@@ -145,25 +145,23 @@ export const editJobAction = (job_id, formdata, id) => async (dispatch) => {
   }
 };
 
-export const useApplyLoadJobAction =
-  ({ id }) =>
-  async (dispatch) => {
-    dispatch({ type: USER_APPLY_JOB_REQUEST });
-    try {
-      const { data } = await axios.get(`/api/admin/applied-jobs/${id}?`);
-      // console.log(data);
-      dispatch({
-        type: USER_APPLY_JOB_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      console.log(error);
-      dispatch({
-        type: USER_APPLY_JOB_FAIL,
-        payload: error.response.data.error,
-      });
-    }
-  };
+export const useApplyLoadJobAction = (id) => async (dispatch) => {
+  dispatch({ type: USER_APPLY_JOB_REQUEST });
+  try {
+    const { data } = await axios.get(`/api/admin/applied-jobs/${id}`);
+    console.log(data);
+
+    dispatch({
+      type: USER_APPLY_JOB_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_APPLY_JOB_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
 
 export const updateJobStatusAction = (updatedData) => async (dispatch) => {
   dispatch({ type: UPDATE_JOB_REQUEST });

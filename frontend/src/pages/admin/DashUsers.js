@@ -19,7 +19,7 @@ const DashUsers = () => {
   const FetchData = (admin) => {
     dispatch(useApplyLoadJobAction(admin.userInfo.role._id));
   };
-
+  console.log(admin.userInfo.role._id);
   if (jobDetail !== false) {
     const outdata = jobDetail?.availableJobs;
     if (outdata) {
@@ -95,25 +95,6 @@ const DashUsers = () => {
       headerName: "E_mail",
       width: 150,
     },
-    // {
-    //   field: "coverLetter",
-    //   headerName: "coverLetter",
-    //   width: 150,
-    // },
-    // {
-    //   field: "assessment",
-    //   headerName: "assessment",
-    //   width: 150,
-    //   renderCell: (params) => (
-    //     <a
-    //       href={params.row.assessment}
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       View Link
-    //     </a>
-    //   ),
-    // },
     {
       field: "assessment",
       headerName: "assessment",
@@ -123,17 +104,17 @@ const DashUsers = () => {
           variant="contained"
           size="medium"
           onClick={() => window.open(params.row.assessment, "_blank")}
-          style={{ height: "35px", borderRadius: "5px" }}
+          style={{
+            height: "35px",
+            borderRadius: "5px",
+            border: "1px solid #2196f3",
+          }}
         >
-          View assessment
+          <div style={{ color: "#2196f3" }}>View assessment</div>
         </button>
       ),
     },
-    {
-      field: "applicationStatus",
-      headerName: "status",
-      width: 100,
-    },
+
     {
       field: "resume",
       headerName: "Resume",
@@ -142,11 +123,21 @@ const DashUsers = () => {
         <button
           variant="contained"
           onClick={() => window.open(params.row.resume, "_blank")}
-          style={{ cursor: "pointer", height: "35px", borderRadius: "5px" }}
+          style={{
+            cursor: "pointer",
+            height: "35px",
+            borderRadius: "5px",
+            border: "1px solid #2196f3",
+          }}
         >
-          View Resume
+          <div style={{ color: "#2196f3" }}> View Resume</div>
         </button>
       ),
+    },
+    {
+      field: "applicationStatus",
+      headerName: "status",
+      width: 100,
     },
     {
       field: "Actions",

@@ -97,7 +97,7 @@ const Home = () => {
                           </ListItemIcon>
                           <Link
                             to={`/search/location/${location}`}
-                            style={{ color: "#2196f3" }}
+                            style={{ color: "#2196f3", textDecoration: "none" }}
                           >
                             {location}
                           </Link>
