@@ -8,6 +8,7 @@ import {
 } from "react-pro-sidebar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import ChatIcon from "@mui/icons-material/Chat";
 import { Box, useTheme } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -119,7 +120,7 @@ const SidebarAdm = () => {
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/chat" />}
-                    icon={<Person3Icon />}
+                    icon={<ChatIcon />}
                   >
                     <div style={{ color: "black" }}>Chat </div>
                   </MenuItem>
@@ -141,7 +142,7 @@ const SidebarAdm = () => {
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/user/chat" />}
-                    icon={<Person3Icon />}
+                    icon={<ChatIcon />}
                   >
                     <div style={{ color: "black" }}> Chat </div>
                   </MenuItem>
@@ -170,7 +171,7 @@ const SidebarAdm = () => {
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/mainadmin/chat" />}
-                    icon={<WorkHistoryIcon />}
+                    icon={<ChatIcon />}
                   >
                     <div style={{ color: "black" }}>Chat</div>
                   </MenuItem>

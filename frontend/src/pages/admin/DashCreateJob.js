@@ -5,10 +5,7 @@ import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  adminJobTypeLoadAction,
-  jobTypeLoadAction,
-} from "../../redux/actions/jobTypeAction";
+import { adminJobTypeLoadAction } from "../../redux/actions/jobTypeAction";
 import { registerAjobAction } from "../../redux/actions/jobAction";
 import { useNavigate } from "react-router-dom";
 
