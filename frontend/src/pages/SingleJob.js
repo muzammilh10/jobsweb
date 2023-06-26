@@ -19,18 +19,22 @@ import Navbar from "../component/Navbar";
 import { jobLoadSingleAction } from "../redux/actions/jobAction";
 import Button from "@mui/material/Button";
 import { userApplyJobAction } from "../redux/actions/userAction";
+import { Avatar, IconButton, Tooltip, useTheme } from "@mui/material";
 
 const SingleJob = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { singleJob, loading } = useSelector((state) => state.singleJob);
   const { userInfo } = useSelector((state) => state.signIn);
+  // const { jobs } = useSelector((state) => state.loadJobs);
+  // console.log(jobs && jobs);
   const [formdata, setFormdata] = useState({
     coverLetter: "",
     assessment: "",
   });
   const [open, setOpen] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const { palette } = useTheme();
 
   const { id } = useParams();
 
@@ -103,7 +107,7 @@ const SingleJob = () => {
                       <Typography
                         variant="h5"
                         component="h2"
-                        sx={{ fontWeight: 700 }}
+                        sx={{ fontWeight: 700, mt: 1 }}
                       >
                         {singleJob && singleJob.title}
                       </Typography>
@@ -119,9 +123,27 @@ const SingleJob = () => {
                         {singleJob && singleJob.companyName}
                       </Typography>
 
+                      <Tooltip>
+                        <IconButton sx={{ ml: 110.5, mt: -10 }}>
+                          <Avatar
+                            alt=""
+                            src={
+                              singleJob &&
+                              singleJob.user &&
+                              singleJob.user.profilePhoto
+                            }
+                            sx={{
+                              color: palette.primary.white,
+                              width: 60,
+                              height: 60,
+                            }}
+                          />
+                        </IconButton>
+                      </Tooltip>
+
                       <Typography
                         variant="body1"
-                        sx={{ fontWeight: 600, fontSize: "16px", mt: 2 }}
+                        sx={{ fontWeight: 600, fontSize: "16px", mt: -2 }}
                       >
                         Salary:
                         <span style={{ fontWeight: "lighter" }}>

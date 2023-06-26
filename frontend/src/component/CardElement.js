@@ -9,8 +9,6 @@ import { Avatar, IconButton, Tooltip, useTheme } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
-import { useSelector } from "react-redux";
-
 const CardElement = ({
   jobTitle,
   description,
@@ -18,6 +16,7 @@ const CardElement = ({
   location,
   id,
   Duration,
+  profilePhoto,
   AdditionalInformation,
   companyName,
 }) => {
@@ -50,18 +49,23 @@ const CardElement = ({
           >
             {location}
           </Typography>
-          {/*  <Tooltip title="Open settings">
-            <IconButton sx={{ ml: 74 }}>
-              <Avatar
-                alt=""
-                src={userInfo && userInfo.role.profilePhoto}
-                sx={{ color: palette.primary.white }}
-              />
-            </IconButton>
-          </Tooltip>*/}
         </Box>
 
-        <Typography variant="h5" component="div" sx={{ fontWeight: 600 }}>
+        <Tooltip>
+          <IconButton sx={{ ml: 82.5, mt: -5 }}>
+            <Avatar
+              alt=""
+              src={profilePhoto}
+              sx={{ color: palette.primary.white }}
+            />
+          </IconButton>
+        </Tooltip>
+
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{ fontWeight: 600, mt: -2 }}
+        >
           {jobTitle}
         </Typography>
         <Typography

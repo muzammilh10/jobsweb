@@ -31,7 +31,10 @@ exports.createJob = async (req, res, next) => {
 //single job
 exports.singleJob = async (req, res, next) => {
   try {
-    const job = await Job.findById(req.params.id);
+    const job = await Job.findById(req.params.id).populate(
+      "user",
+      "profilePhoto"
+    );
     res.status(200).json({
       success: true,
       job,
@@ -93,8 +96,9 @@ exports.showJobs = async (req, res, next) => {
   let locationFilter = location !== "" ? location : setUniqueLocation;
 
   //pagination
+
   const pageSize = 5;
-  const page = Number(req.query.pageNumber) || 1;
+  const page = Number(req.query.pageNumber);
   const count = await Job.find({
     ...keyword,
     jobType: categ,
@@ -105,10 +109,11 @@ exports.showJobs = async (req, res, next) => {
       ...keyword,
       jobType: categ,
       location: locationFilter,
+      isDeleted: false,
     })
       .sort({ createdAt: -1 })
       .populate("jobType", "jobTypeName")
-      .populate("user", "firstName")
+      .populate("user", "firstName profilePhoto")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
     res.status(200).json({
@@ -118,6 +123,20 @@ exports.showJobs = async (req, res, next) => {
       pages: Math.ceil(count / pageSize),
       count,
       setUniqueLocation,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.showAllJobs = async (req, res, next) => {
+  try {
+    const jobs = await Job.find({})
+      .sort({ createdAt: -1 })
+      .populate("user", "firstName");
+    res.status(200).json({
+      success: true,
+      jobs,
     });
   } catch (error) {
     next(error);

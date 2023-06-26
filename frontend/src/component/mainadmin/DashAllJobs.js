@@ -4,13 +4,13 @@ import { DataGrid, GridToolbar, gridClasses } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { jobLoadAction } from "../../redux/actions/jobAction";
+import { allJobLoadAction, jobLoadAction } from "../../redux/actions/jobAction";
 
 const DashAllJobs = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(jobLoadAction());
+    dispatch(allJobLoadAction());
   }, []);
 
   const { jobs, loading } = useSelector((state) => state.loadJobs);
@@ -21,30 +21,23 @@ const DashAllJobs = () => {
     {
       field: "_id",
       headerName: "Job ID",
-      width: 250,
-      editable: true,
+      width: 300,
     },
     {
       field: "title",
       headerName: "Job name",
-      width: 150,
-    },
-    {
-      field: "jobType",
-      headerName: "Category",
-      width: 150,
-      valueGetter: (data) => data.row.jobType.jobTypeName,
+      width: 250,
     },
     {
       field: "user",
       headerName: "User",
-      width: 150,
+      width: 180,
       valueGetter: (data) => data.row.user.firstName,
     },
     {
       field: "available",
       headerName: "available",
-      width: 150,
+      width: 180,
       renderCell: (values) => (values.row.available ? "Yes" : "No"),
     },
 
@@ -52,7 +45,7 @@ const DashAllJobs = () => {
       field: "salary",
       headerName: "Salary",
       type: Number,
-      width: 150,
+      width: 180,
       renderCell: (values) => "$" + values.row.salary,
     },
   ];

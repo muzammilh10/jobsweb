@@ -1,6 +1,12 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Paper,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { GridToolbar, gridClasses } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,68 +16,81 @@ import {
 
 const DashUsers = () => {
   const dispatch = useDispatch();
-  const [jobDetail, setJobDetail] = React.useState([]);
+  const [jobDetail, setJobDetail] = useState([]);
   const success = useSelector((state) => state.applyByUser);
   const admin = useSelector((state) => state.signIn);
-  let data = [];
-  data = success !== undefined && success.length > 0 ? success : [];
+  const [data, setData] = useState([]);
+  const [processingAcceptRowId, setProcessingAcceptRowId] = useState(null);
+  const [processingRejectRowId, setProcessingRejectRowId] = useState(null);
 
   const FetchData = (admin) => {
     dispatch(useApplyLoadJobAction(admin.userInfo.role._id));
   };
-  console.log(admin.userInfo.role._id);
-  if (jobDetail !== false) {
-    const outdata = jobDetail?.availableJobs;
-    if (outdata) {
-      for (let i = 0; i < outdata.length; i++) {
-        const element = outdata[i].userAppliedForJob;
-        for (let j = 0; j < element.length; j++) {
-          let temp = element[j];
-          delete temp.user._id;
-          temp = { ...temp, ...temp.user };
-          data.push(temp);
-          console.log(temp);
-        }
-      }
-    }
-  }
 
-  React.useEffect(() => {
+  useEffect(() => {
     FetchData(admin);
   }, [admin]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (success.success?.availableJobs) {
       setJobDetail(success.success);
     }
   }, [success]);
 
   const acceptUserById = (rowData) => {
-    console.log("Accepted User Data:", rowData._id);
+    setProcessingAcceptRowId(rowData._id);
     if (rowData) {
       const updatedData = {
         ...rowData,
         user: rowData._id,
         applicationStatus: "accepted",
       };
-      dispatch(updateJobStatusAction(updatedData)).then(() => {
-        FetchData(admin);
-      });
+      dispatch(updateJobStatusAction(updatedData))
+        .then(() => {
+          FetchData(admin);
+        })
+        .finally(() => {
+          setProcessingAcceptRowId(null);
+        });
     }
   };
 
   const rejectUserById = (rowData) => {
+    setProcessingRejectRowId(rowData._id);
     if (rowData) {
       const updatedData = {
         ...rowData,
         user: rowData._id,
         applicationStatus: "rejected",
       };
-      dispatch(updateJobStatusAction(updatedData)).then(() => {
-        FetchData(admin);
-      });
+      dispatch(updateJobStatusAction(updatedData))
+        .then(() => {
+          FetchData(admin);
+        })
+        .finally(() => {
+          setProcessingRejectRowId(null);
+        });
     }
   };
+
+  useEffect(() => {
+    let tempData = [];
+    if (jobDetail !== false) {
+      const outdata = jobDetail?.availableJobs;
+      if (outdata) {
+        for (let i = 0; i < outdata.length; i++) {
+          const element = outdata[i].userAppliedForJob;
+          for (let j = 0; j < element.length; j++) {
+            let temp = element[j];
+            delete temp.user._id;
+            temp = { ...temp, ...temp.user };
+            tempData.push(temp);
+          }
+        }
+      }
+    }
+    setData(tempData);
+  }, [jobDetail]);
 
   const columns = [
     {
@@ -160,8 +179,13 @@ const DashUsers = () => {
                 bgcolor: "#92ba91",
               },
             }}
+            disabled={processingAcceptRowId === values.row._id}
           >
-            <div style={{ color: "green" }}>Accept</div>
+            {processingAcceptRowId === values.row._id ? (
+              <CircularProgress size={24} />
+            ) : (
+              <div style={{ color: "green" }}>Accept</div>
+            )}
           </Button>
           <Button
             onClick={() => rejectUserById(values.row)}
@@ -172,8 +196,13 @@ const DashUsers = () => {
                 bgcolor: "#dd8181",
               },
             }}
+            disabled={processingRejectRowId === values.row._id}
           >
-            <div style={{ color: "red" }}>Reject</div>
+            {processingRejectRowId === values.row._id ? (
+              <CircularProgress size={24} />
+            ) : (
+              <div style={{ color: "red" }}>Reject</div>
+            )}
           </Button>
         </Box>
       ),

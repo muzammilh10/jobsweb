@@ -4,6 +4,7 @@ import { DataGrid, gridClasses, GridToolbar } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
+  allShowUserAction,
   allUserAction,
   userDeleteAction,
 } from "../../redux/actions/userAction";
@@ -12,7 +13,7 @@ const DashAllUsers = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(allUserAction());
+    dispatch(allShowUserAction());
   }, []);
 
   const { users } = useSelector((state) => state.allUsers);
@@ -29,10 +30,14 @@ const DashAllUsers = () => {
     {
       field: "_id",
       headerName: "User ID",
-      width: 250,
+      width: 280,
       editable: true,
     },
-
+    {
+      field: "firstName",
+      headerName: "Name",
+      width: 200,
+    },
     {
       field: "email",
       headerName: "E_mail",
@@ -42,7 +47,7 @@ const DashAllUsers = () => {
     {
       field: "role",
       headerName: "User status",
-      width: 150,
+      width: 180,
       renderCell: (params) =>
         params.row.role === 1 ? "Admin" : "Regular user",
     },
@@ -50,7 +55,7 @@ const DashAllUsers = () => {
     {
       field: "createdAt",
       headerName: "Creation date",
-      width: 220,
+      width: 230,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },

@@ -85,6 +85,22 @@ export const registerAjobAction = (job) => async (dispatch) => {
   }
 };
 
+export const allJobLoadAction = () => async (dispatch) => {
+  dispatch({ type: JOB_LOAD_REQUEST });
+  try {
+    const { data } = await axios.get("/api/jobs/showalljobs");
+    dispatch({
+      type: JOB_LOAD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: JOB_LOAD_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
 // delete job action
 export const deleteAjobAction = (id) => async (dispatch) => {
   console.log(id);

@@ -136,6 +136,7 @@ const Home = () => {
                       job.jobType ? job.jobType.jobTypeName : "No category"
                     }
                     location={job.location}
+                    profilePhoto={job.user.profilePhoto}
                   />
                 ))
               )}

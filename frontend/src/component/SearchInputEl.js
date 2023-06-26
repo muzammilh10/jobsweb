@@ -7,21 +7,19 @@ import { useNavigate } from "react-router-dom";
 const validationSchema = yup.object({
   search: yup
     .string("Enter your search query")
-    .required("this field can not be empty"),
+    .required("This field cannot be empty"),
 });
 
 const SearchInputEl = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values, actions) => {
-    //alert(values.search);
     const { search } = values;
     if (search.trim()) {
       navigate(`/search/${search}`);
     } else {
       navigate("/");
     }
-    actions.resetForm();
   };
 
   const {
@@ -36,16 +34,12 @@ const SearchInputEl = () => {
     initialValues: {
       search: "",
     },
-
     validationSchema: validationSchema,
     onSubmit,
   });
-
   return (
     <form onSubmit={handleSubmit} style={{ width: "50%" }}>
       <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        {/* <Search> */}
-
         <InputBase
           sx={{ bgcolor: "white", padding: "10px" }}
           fullWidth={true}
@@ -54,9 +48,10 @@ const SearchInputEl = () => {
           label="search"
           placeholder="ex: developer, front end"
           value={values.search}
+          // value={"xcgxc"}
+          onBlur={handleBlur}
           onChange={handleChange}
           error={touched.search && Boolean(errors.search)}
-          // helperText={touched.search && errors.search}
         />
 
         <Button
