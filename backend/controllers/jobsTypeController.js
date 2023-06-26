@@ -63,7 +63,7 @@ exports.showAdminUserJobType = async (req, res, next) => {
     const id = req.params.id;
     const jobs = await JobType.find({
       user: id,
-    });
+    }).sort({ createdAt: -1 });
     console.log(jobs);
     res.status(200).json({
       success: true,

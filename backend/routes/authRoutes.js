@@ -17,8 +17,8 @@ router.post("/signup", signup);
 //  /api/signin
 router.post("/signin", signin);
 
-//  /api/logout
-router.get("/logout", userProfile);
+//  /api/me
+router.get("/me", isAuthenticated, userProfile);
 
 //  /api/me
 router.get("/me", isAuthenticated, userProfile);

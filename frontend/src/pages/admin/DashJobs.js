@@ -41,33 +41,33 @@ const DashJobs = () => {
   const columns = [
     {
       field: "title",
-      headerName: "Job name",
-      width: 200,
+      headerName: "JOB TITLE",
+      width: 300,
     },
 
-    {
-      field: "available",
-      headerName: "available",
-      width: 200,
-      renderCell: (values) => (values.row.available ? "Yes" : "No"),
-    },
+    // {
+    //   field: "available",
+    //   headerName: "AVAILABLE",
+    //   width: 200,
+    //   renderCell: (values) => (values.row.available ? "Yes" : "No"),
+    // },
 
     {
       field: "salary",
-      headerName: "Salary",
+      headerName: "SALARY",
       type: Number,
       width: 200,
       renderCell: (values) => "₹" + values.row.salary,
     },
     {
       field: "createdAt",
-      headerName: "Create At",
-      width: 200,
+      headerName: "CREATED AT",
+      width: 300,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
     {
-      field: "Actions",
+      field: "ACTIONS",
       width: 200,
       renderCell: (values) => (
         <Box

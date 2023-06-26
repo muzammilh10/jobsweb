@@ -29,24 +29,24 @@ const DashAllUsers = () => {
   const columns = [
     {
       field: "_id",
-      headerName: "User ID",
-      width: 280,
+      headerName: "USER ID",
+      width: 240,
       editable: true,
     },
     {
       field: "firstName",
-      headerName: "Name",
-      width: 200,
+      headerName: "NAME",
+      width: 130,
     },
     {
       field: "email",
-      headerName: "E_mail",
+      headerName: "E MAIL",
       width: 200,
     },
 
     {
       field: "role",
-      headerName: "User status",
+      headerName: "USER STATUS",
       width: 180,
       renderCell: (params) =>
         params.row.role === 1 ? "Admin" : "Regular user",
@@ -54,14 +54,14 @@ const DashAllUsers = () => {
 
     {
       field: "createdAt",
-      headerName: "Creation date",
-      width: 230,
+      headerName: "CREATED AT",
+      width: 200,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
 
     {
-      field: "Actions",
+      field: "ACTIONS",
       width: 200,
       renderCell: (values) => (
         <Box

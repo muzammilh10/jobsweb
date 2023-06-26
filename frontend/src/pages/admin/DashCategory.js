@@ -41,25 +41,27 @@ const DashCategory = () => {
 
   const columns = [
     {
-      field: "_id",
-      headerName: "Category ID",
-      width: 300,
-    },
-    {
       field: "jobTypeName",
-      headerName: "Category",
+      headerName: "CATEGORY",
       width: 200,
     },
     {
       field: "createdAt",
-      headerName: "Create At",
-      width: 200,
+      headerName: "CREATED AT",
+      width: 300,
+      renderCell: (params) =>
+        moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
+    },
+    {
+      field: "updatedAt",
+      headerName: "UPDATED AT",
+      width: 300,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
 
     {
-      field: "Actions",
+      field: "ACTIONS",
       width: 250,
       renderCell: (values) => (
         <Box
@@ -67,7 +69,7 @@ const DashCategory = () => {
             display: "flex",
             justifyContent: "space-between",
             width: "100px",
-            gap: 2,
+            gap: 4,
           }}
         >
           <UpdateJobType jobData={values.row} renderHandler={renderHandler} />

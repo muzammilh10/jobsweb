@@ -4,11 +4,6 @@ const ErrorResponse = require("../utils/errorResponse");
 const sendEmail = require("../utils/email");
 const jwt = require("jsonwebtoken");
 const UserHistory = require("../models/jobHistory");
-const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE_IN,
-  });
-};
 
 // generates a random token for forgot password functionality
 const generateToken = () => {
@@ -88,9 +83,8 @@ exports.logout = (req, res, next) => {
 exports.userProfile = async (req, res, next) => {
   const user = await User.findById(req.user.id).select("-password");
   const userHistory = await UserHistory.find({ user: req.user.id });
-  // console.log(userHistory);
-  // Push all user history data into the user's jobsHistory field
   const gg = await user.jobsHistory.push(...userHistory);
+  console.log(gg);
   res.status(200).json({
     success: true,
     user,

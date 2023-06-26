@@ -20,32 +20,26 @@ const DashAllJobs = () => {
   const columns = [
     {
       field: "_id",
-      headerName: "Job ID",
+      headerName: "JOB ID",
       width: 300,
     },
     {
       field: "title",
-      headerName: "Job name",
-      width: 250,
+      headerName: "JOB NAME",
+      width: 300,
     },
     {
       field: "user",
-      headerName: "User",
-      width: 180,
+      headerName: "USER",
+      width: 250,
       valueGetter: (data) => data.row.user.firstName,
-    },
-    {
-      field: "available",
-      headerName: "available",
-      width: 180,
-      renderCell: (values) => (values.row.available ? "Yes" : "No"),
     },
 
     {
       field: "salary",
-      headerName: "Salary",
+      headerName: "SALARY",
       type: Number,
-      width: 180,
+      width: 200,
       renderCell: (values) => "$" + values.row.salary,
     },
   ];

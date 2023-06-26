@@ -101,7 +101,6 @@ const YoutubeVideo = () => {
             <MenuItem value="angularjs">Angular</MenuItem>
             <MenuItem value="python">Python</MenuItem>
             <MenuItem value="react-native">React Native</MenuItem>
-            <MenuItem value="android">Android</MenuItem>
             <MenuItem value="ui-ux">UI/UX</MenuItem>
           </Select>
 

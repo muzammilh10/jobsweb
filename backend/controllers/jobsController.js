@@ -148,7 +148,7 @@ exports.showJobsyByUser = async (req, res, next) => {
     const jobs = await Job.find({
       user: id,
       isDeleted: false,
-    });
+    }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -196,6 +196,7 @@ exports.adminShowUserApplyJob = async (req, res, next) => {
   try {
     const id = req.params.id;
     const availableJobs = await Job.find({ user: id, isDeleted: false })
+      .sort({ createdAt: -1 })
       .populate({
         path: "userAppliedForJob",
         select:
