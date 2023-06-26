@@ -108,7 +108,7 @@ export const deleteAjobAction = (id) => async (dispatch) => {
 
   try {
     console.log(id);
-    const { data } = await axios.delete(`/api/jobs/delete/${id}`); ///jobs/delete/:id
+    const { data } = await axios.delete(`/api/jobs/delete/${id}`);
     console.log(data);
     console.log(data);
     dispatch({

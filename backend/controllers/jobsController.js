@@ -58,9 +58,7 @@ exports.updateJob = async (req, res, next) => {
       success: true,
       job,
     });
-    console.log(job);
   } catch (error) {
-    console.log(err);
     next(error);
   }
 };
@@ -84,7 +82,6 @@ exports.showJobs = async (req, res, next) => {
   });
   let cat = req.query.cat;
   let categ = cat !== "" ? cat : ids;
-
   //jobs by location
   let locations = [];
   const jobByLocation = await Job.find({}, { location: 1 });

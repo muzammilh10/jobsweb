@@ -27,7 +27,6 @@ const Home = () => {
   const { jobs, setUniqueLocation, pages, loading } = useSelector(
     (state) => state.loadJobs
   );
-
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const { keyword, location } = useParams();

@@ -45,6 +45,7 @@ export const loadJobReducer = (state = { jobs: [] }, action) => {
         pages: action.payload.pages,
         count: action.payload.count,
         setUniqueLocation: action.payload.setUniqueLocation,
+        setUniqueCategory: action.payload.setUniqueCategory,
         jobs: action.payload.jobs,
       };
     case JOB_LOAD_FAIL:

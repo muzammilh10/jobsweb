@@ -10,7 +10,6 @@ export const generalReducer = (state = initialState, action) => {
         ...state,
         loadJobs: action.payload,
       };
-
     default:
       return state;
   }

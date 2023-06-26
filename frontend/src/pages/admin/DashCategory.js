@@ -8,7 +8,6 @@ import {
   adminJobTypeLoadAction,
   deleteJobTypeAction,
 } from "../../redux/actions/jobTypeAction";
-import DeleteIcon from "@mui/icons-material/Delete";
 import moment from "moment";
 import UpdateJobType from "./data/AdminEditCategory";
 
@@ -26,7 +25,7 @@ const DashCategory = () => {
     dispatch(adminJobTypeLoadAction(id));
   }, []);
 
-  const { jobType, loading } = useSelector((state) => state.jobType);
+  const { jobType } = useSelector((state) => state.jobType);
   let data = [];
   let jobsT;
   if (jobType) {

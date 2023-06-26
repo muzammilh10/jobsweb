@@ -101,7 +101,7 @@ const DashUsers = () => {
     {
       field: "title",
       headerName: "title",
-      width: 100,
+      width: 200,
     },
     {
       field: "salary",

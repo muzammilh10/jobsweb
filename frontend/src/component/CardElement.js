@@ -50,14 +50,21 @@ const CardElement = ({
             {location}
           </Typography>
         </Box>
-
         <Tooltip>
           <IconButton sx={{ ml: 82.5, mt: -5 }}>
-            <Avatar
-              alt=""
-              src={profilePhoto}
-              sx={{ color: palette.primary.white }}
-            />
+            <Box
+              sx={{
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
+            >
+              <Avatar
+                alt=""
+                src={profilePhoto}
+                sx={{ color: palette.primary.white }}
+              />
+            </Box>
           </IconButton>
         </Tooltip>
 

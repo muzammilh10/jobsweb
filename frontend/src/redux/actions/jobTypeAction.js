@@ -43,7 +43,7 @@ export const adminJobTypeLoadAction = (type_id) => async (dispatch) => {
       type: ADMIN_JOB_TYPE_LOAD_SUCCESS,
       payload: data,
     });
-    console.log(data);
+    console.log("data", data);
   } catch (error) {
     dispatch({
       type: ADMIN_JOB_TYPE_LOAD_FAIL,

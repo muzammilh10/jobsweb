@@ -39,23 +39,11 @@ const DashJobs = () => {
   };
 
   const columns = [
-    // {
-    //   field: "_id",
-    //   headerName: "Job ID",
-    //   width: 200,
-    //   editable: true,
-    // },
     {
       field: "title",
       headerName: "Job name",
       width: 200,
     },
-    // {
-    //   field: "jobType",
-    //   headerName: "Category",
-    //   width: 150,
-    //   valueGetter: (data) => data.row.jobType.jobTypeName,
-    // },
 
     {
       field: "available",
