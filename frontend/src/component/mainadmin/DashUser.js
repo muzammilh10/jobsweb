@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import {
   allShowUserAction,
-  allUserAction,
   userDeleteAction,
 } from "../../redux/actions/userAction";
 
@@ -28,20 +27,14 @@ const DashAllUsers = () => {
 
   const columns = [
     {
-      field: "_id",
-      headerName: "USER ID",
-      width: 240,
-      editable: true,
-    },
-    {
       field: "firstName",
       headerName: "NAME",
-      width: 130,
+      width: 150,
     },
     {
       field: "email",
       headerName: "E MAIL",
-      width: 200,
+      width: 250,
     },
 
     {
@@ -55,7 +48,7 @@ const DashAllUsers = () => {
     {
       field: "createdAt",
       headerName: "CREATED AT",
-      width: 200,
+      width: 250,
       renderCell: (params) =>
         moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },

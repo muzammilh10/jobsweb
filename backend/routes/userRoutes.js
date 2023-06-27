@@ -33,6 +33,6 @@ router.delete(
 );
 
 //  /api/user/jobhistory
-router.post("/user/jobhistory/", isAuthenticated, createUserJobsHistory);
+router.post("/user/jobhistory", isAuthenticated, createUserJobsHistory);
 
 module.exports = router;

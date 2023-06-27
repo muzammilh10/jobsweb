@@ -19,19 +19,14 @@ const DashAllJobs = () => {
 
   const columns = [
     {
-      field: "_id",
-      headerName: "JOB ID",
-      width: 300,
-    },
-    {
       field: "title",
       headerName: "JOB NAME",
-      width: 300,
+      width: 340,
     },
     {
       field: "user",
       headerName: "USER",
-      width: 250,
+      width: 300,
       valueGetter: (data) => data.row.user.firstName,
     },
 
@@ -39,7 +34,7 @@ const DashAllJobs = () => {
       field: "salary",
       headerName: "SALARY",
       type: Number,
-      width: 200,
+      width: 300,
       renderCell: (values) => "$" + values.row.salary,
     },
   ];

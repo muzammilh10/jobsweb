@@ -32,7 +32,6 @@ import { deleteJobTypeReducer } from "./reducers/jobTypeReducer";
 import { generalReducer } from "./reducers/generalReducer";
 
 //combine reducers
-
 const reducer = combineReducers({
   loadJobs: loadJobReducer,
   jobTypeAll: loadJobTypeReducer,

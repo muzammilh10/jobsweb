@@ -84,7 +84,6 @@ exports.userProfile = async (req, res, next) => {
   const user = await User.findById(req.user.id).select("-password");
   const userHistory = await UserHistory.find({ user: req.user.id });
   const gg = await user.jobsHistory.push(...userHistory);
-  console.log(gg);
   res.status(200).json({
     success: true,
     user,

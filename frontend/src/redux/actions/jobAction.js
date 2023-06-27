@@ -161,12 +161,11 @@ export const editJobAction = (job_id, formdata, id) => async (dispatch) => {
   }
 };
 
-export const useApplyLoadJobAction = (id) => async (dispatch) => {
+export const userApplyLoadJobAction = (id) => async (dispatch) => {
   dispatch({ type: USER_APPLY_JOB_REQUEST });
   try {
     const { data } = await axios.get(`/api/admin/applied-jobs/${id}`);
     console.log(data);
-
     dispatch({
       type: USER_APPLY_JOB_SUCCESS,
       payload: data,
@@ -181,11 +180,8 @@ export const useApplyLoadJobAction = (id) => async (dispatch) => {
 
 export const updateJobStatusAction = (updatedData) => async (dispatch) => {
   dispatch({ type: UPDATE_JOB_REQUEST });
-  console.log("??????????");
-  console.log(updatedData);
   try {
     const { data } = await axios.patch(`/api/updatestatus`, updatedData);
-    console.log(data);
     dispatch({
       type: UPDATE_JOB_SUCCESS,
       payload: data,

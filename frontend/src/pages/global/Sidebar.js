@@ -6,6 +6,7 @@ import {
   menuClasses,
   useProSidebar,
 } from "react-pro-sidebar";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -94,6 +95,12 @@ const SidebarAdm = () => {
               {userInfo && userInfo.role.role === 1 && (
                 <>
                   <MenuItem
+                    component={<Link to="/admin/chart" />}
+                    icon={<SignalCellularAltIcon />}
+                  >
+                    <div style={{ color: "black" }}> Chart </div>
+                  </MenuItem>
+                  <MenuItem
                     component={<Link to="/admin/users" />}
                     icon={<GroupAddIcon />}
                   >
@@ -150,6 +157,12 @@ const SidebarAdm = () => {
               )}
               {userInfo && userInfo.role.role === 2 && (
                 <>
+                  <MenuItem
+                    component={<Link to="/mainadmin/chart" />}
+                    icon={<SignalCellularAltIcon />}
+                  >
+                    <div style={{ color: "black" }}>Chart</div>
+                  </MenuItem>
                   <MenuItem
                     component={<Link to="/mainadmin" />}
                     icon={<Person3Icon />}
