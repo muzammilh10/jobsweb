@@ -138,7 +138,19 @@ exports.showAllJobs = async (req, res, next) => {
     next(error);
   }
 };
-
+exports.showAllJobsCreatedByCompany = async (req, res, next) => {
+  try {
+    const jobs = await Job.find({ user: req.params.id, isDeleted: false })
+      .sort({ createdAt: -1 })
+      .populate("user", "_id profilePhoto");
+    res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 //show job by id.
 exports.showJobsyByUser = async (req, res, next) => {
   try {

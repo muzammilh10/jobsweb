@@ -19,6 +19,9 @@ import {
   REGISTER_JOB_FAIL,
   REGISTER_JOB_REQUEST,
   REGISTER_JOB_SUCCESS,
+  SHOW_COMPANY_JOB_FAIL,
+  SHOW_COMPANY_JOB_REQUEST,
+  SHOW_COMPANY_JOB_SUCCESS,
   UPDATE_JOB_FAIL,
   UPDATE_JOB_REQUEST,
   UPDATE_JOB_SUCCESS,
@@ -173,6 +176,25 @@ export const userApplyLoadJobAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_APPLY_JOB_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+export const showAllJobsCreatedByCompanyAction = (id) => async (dispatch) => {
+  console.log("???????????????", id);
+  dispatch({ type: SHOW_COMPANY_JOB_REQUEST });
+  console.log("???????????????", id);
+  try {
+    console.log("----------");
+    const { data } = await axios.get(`/api/jobs/companyjobshow/${id}`);
+    console.log(data);
+    dispatch({
+      type: SHOW_COMPANY_JOB_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SHOW_COMPANY_JOB_FAIL,
       payload: error.response.data.error,
     });
   }

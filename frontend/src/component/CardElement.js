@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,6 +10,8 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { formatDistanceToNow } from "date-fns";
+import { useDispatch } from "react-redux";
+import { showAllJobsCreatedByCompanyAction } from "../redux/actions/jobAction";
 
 const CardElement = ({
   jobTitle,
@@ -23,9 +25,15 @@ const CardElement = ({
   AdditionalInformation,
   companyName,
   createdAt,
+  jid,
 }) => {
   const { palette } = useTheme();
   const timeAgo = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
+  console.log(jid);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(showAllJobsCreatedByCompanyAction(jid));
+  }, [dispatch, jid]);
 
   return (
     <Card sx={{ minWidth: 275, mb: 2, mt: 2 }}>
@@ -89,7 +97,12 @@ const CardElement = ({
             color: "#555",
           }}
         >
-          {companyName}
+          <Link
+            style={{ textDecoration: "none", color: "#555" }}
+            to={`/company/${jid}`}
+          >
+            {companyName}
+          </Link>
         </Typography>
         <Typography
           variant="body2"

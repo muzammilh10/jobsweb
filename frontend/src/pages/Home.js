@@ -14,7 +14,10 @@ import {
   useTheme,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { jobLoadAction } from "../redux/actions/jobAction";
+import {
+  jobLoadAction,
+  showAllJobsCreatedByCompanyAction,
+} from "../redux/actions/jobAction";
 import { Link, useParams } from "react-router-dom";
 import CardElement from "../component/CardElement";
 import Footer from "../component/Footer";
@@ -27,14 +30,18 @@ const Home = () => {
   const { jobs, setUniqueLocation, pages, loading } = useSelector(
     (state) => state.loadJobs
   );
-  console.log(jobs);
+
+  const data = useSelector((state) => state.companyJobCreated);
+  console.log(data);
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const { keyword, location } = useParams();
 
   const [page, setPage] = useState(1);
   const [cat, setCat] = React.useState("");
-
+  useEffect(() => {
+    dispatch(showAllJobsCreatedByCompanyAction());
+  }, []);
   useEffect(() => {
     dispatch(jobLoadAction(page, keyword, cat, location));
   }, [page, keyword, cat, location]);
@@ -140,6 +147,7 @@ const Home = () => {
                     location={job.location}
                     Duration={job.Duration}
                     profilePhoto={job.user.profilePhoto}
+                    jid={job.user._id}
                   />
                 ))
               )}

@@ -8,6 +8,7 @@ import {
   loadJobReducer,
   loadJobSingleReducer,
   registerAjobReducer,
+  showAllJobsCreatedByCompanyReducer,
   updateJobStatusReducer,
   useApplyLoadJobReducer,
 } from "./reducers/jobReducer";
@@ -56,6 +57,7 @@ const reducer = combineReducers({
   editUser: editUserReducer,
   applyByUser: useApplyLoadJobReducer,
   updateStatus: updateJobStatusReducer,
+  companyJobCreated: showAllJobsCreatedByCompanyReducer,
 });
 
 //initial state

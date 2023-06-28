@@ -23,6 +23,10 @@ import {
   REGISTER_JOB_REQUEST,
   REGISTER_JOB_RESET,
   REGISTER_JOB_SUCCESS,
+  SHOW_COMPANY_JOB_FAIL,
+  SHOW_COMPANY_JOB_REQUEST,
+  SHOW_COMPANY_JOB_RESET,
+  SHOW_COMPANY_JOB_SUCCESS,
   UPDATE_JOB_FAIL,
   UPDATE_JOB_REQUEST,
   UPDATE_JOB_RESET,
@@ -177,6 +181,30 @@ export const useApplyLoadJobReducer = (state = { jobs: [] }, action) => {
         error: action.payload,
       };
     case USER_APPLY_JOB_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+export const showAllJobsCreatedByCompanyReducer = (
+  state = { jobs: [] },
+  action
+) => {
+  switch (action.type) {
+    case SHOW_COMPANY_JOB_REQUEST:
+      return { loading: true };
+    case SHOW_COMPANY_JOB_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload,
+        jobs: action.payload.jobs,
+      };
+    case SHOW_COMPANY_JOB_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case SHOW_COMPANY_JOB_RESET:
       return {};
     default:
       return state;

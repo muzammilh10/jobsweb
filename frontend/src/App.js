@@ -39,6 +39,8 @@ import DashAllCategory from "./component/mainadmin/DashAllCategory";
 import MainAdminChat from "./component/mainadmin/MainAdminChat";
 import DashChart from "./component/mainadmin/DashChart";
 import Chart from "./pages/admin/Chart";
+import CardAllElement from "./component/companyAllJobCard";
+import CardElement from "./component/companyAllJobCard";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -93,7 +95,10 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<LogIn />} />
               <Route path="/search" element={<YoutubeVideo />} />
+              <Route path="/job/:job._id" element={<SingleJob />} />
               <Route path="/job/:id" element={<SingleJob />} />
+              <Route path="/company/:id" element={<CardAllElement />} />
+
               <Route
                 path="/admin/info"
                 element={
