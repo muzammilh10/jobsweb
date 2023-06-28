@@ -47,7 +47,6 @@ exports.singleJob = async (req, res, next) => {
 //update job by id.
 exports.updateJob = async (req, res, next) => {
   try {
-    console.log("object");
     const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, {
       new: true,
     })

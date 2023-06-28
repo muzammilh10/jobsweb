@@ -19,6 +19,7 @@
     "@twemoji/api": "^14.1.0",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
+    "date-fns": "^2.30.0",
     "dateformat": "^4.0.0",
     "firebase": "^9.22.1",
     "formik": "^2.2.9",

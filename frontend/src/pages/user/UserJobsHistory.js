@@ -6,6 +6,7 @@ import { useTheme } from "@emotion/react";
 
 const UserJobsHistory = () => {
   const { user } = useSelector((state) => state.userprofile);
+  console.log(user);
   const theme = useTheme();
   const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = React.useState(1);

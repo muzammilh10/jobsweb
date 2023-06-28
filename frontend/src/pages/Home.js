@@ -27,6 +27,7 @@ const Home = () => {
   const { jobs, setUniqueLocation, pages, loading } = useSelector(
     (state) => state.loadJobs
   );
+  console.log(jobs);
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const { keyword, location } = useParams();
@@ -134,7 +135,10 @@ const Home = () => {
                     category={
                       job.jobType ? job.jobType.jobTypeName : "No category"
                     }
+                    createdAt={job.createdAt}
+                    salary={job.salary}
                     location={job.location}
+                    Duration={job.Duration}
                     profilePhoto={job.user.profilePhoto}
                   />
                 ))

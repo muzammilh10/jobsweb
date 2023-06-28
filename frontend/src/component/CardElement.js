@@ -9,6 +9,8 @@ import { Avatar, IconButton, Tooltip, useTheme } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
+import { formatDistanceToNow } from "date-fns";
+
 const CardElement = ({
   jobTitle,
   description,
@@ -17,10 +19,14 @@ const CardElement = ({
   id,
   Duration,
   profilePhoto,
+  salary,
   AdditionalInformation,
   companyName,
+  createdAt,
 }) => {
   const { palette } = useTheme();
+  const timeAgo = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
+
   return (
     <Card sx={{ minWidth: 275, mb: 2, mt: 2 }}>
       <CardContent sx={{ mb: -1.5 }}>
@@ -86,27 +92,38 @@ const CardElement = ({
           {companyName}
         </Typography>
         <Typography
-          variant="subtitle1"
-          sx={{
-            fontWeight: 600,
-            fontSize: "16px",
-            color: "#555",
-          }}
+          variant="body2"
+          sx={{ marginTop: 1, marginBottom: -0.8, textAlign: "justify" }}
         >
-          {Duration}
+          <span style={{ fontWeight: "bold" }}>Salary: </span>
+          {""} {salary}
         </Typography>
 
         <Typography variant="body2" sx={{ marginTop: 1, textAlign: "justify" }}>
           <span style={{ fontWeight: "bold" }}>Description: </span>
           <span>{description}</span>
         </Typography>
+
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{
+            fontWeight: 600,
+            fontSize: "16px",
+            color: "#555",
+            marginTop: 1,
+          }}
+        >
+          {timeAgo}
+        </Typography>
+
         <CardActions>
           <Button
             disableElevation
             variant="contained"
             size="small"
             startIcon={<AddIcon />}
-            sx={{ marginTop: 1, marginLeft: "79.5%" }}
+            sx={{ marginTop: -1, marginLeft: "79.5%" }}
           >
             <Link
               style={{ textDecoration: "none", color: "white", boxShadow: 0 }}
