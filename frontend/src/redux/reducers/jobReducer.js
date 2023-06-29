@@ -51,6 +51,8 @@ export const loadJobReducer = (state = { jobs: [] }, action) => {
         setUniqueLocation: action.payload.setUniqueLocation,
         setUniqueCategory: action.payload.setUniqueCategory,
         jobs: action.payload.jobs,
+        minSalary: action.payload.minSalary,
+        maxSalary: action.payload.maxSalary,
       };
     case JOB_LOAD_FAIL:
       return {
@@ -63,7 +65,6 @@ export const loadJobReducer = (state = { jobs: [] }, action) => {
       return state;
   }
 };
-
 // single job reducer
 export const loadJobSingleReducer = (state = { job: {} }, action) => {
   switch (action.type) {

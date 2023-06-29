@@ -31,12 +31,19 @@ import {
 } from "../constants/jobConstant";
 
 export const jobLoadAction =
-  (pageNumber, keyword = "", cat = "", location = "") =>
+  (
+    pageNumber,
+    keyword = "",
+    cat = "",
+    location = "",
+    minSalary = 0,
+    maxSalary = Number.MAX_SAFE_INTEGER
+  ) =>
   async (dispatch) => {
     dispatch({ type: JOB_LOAD_REQUEST });
     try {
       const { data } = await axios.get(
-        `/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}`
+        `/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}&minSalary=${minSalary}&maxSalary=${maxSalary}`
       );
       dispatch({
         type: JOB_LOAD_SUCCESS,
@@ -180,25 +187,25 @@ export const userApplyLoadJobAction = (id) => async (dispatch) => {
     });
   }
 };
-export const showAllJobsCreatedByCompanyAction = (id) => async (dispatch) => {
-  console.log("???????????????", id);
-  dispatch({ type: SHOW_COMPANY_JOB_REQUEST });
-  console.log("???????????????", id);
-  try {
-    console.log("----------");
-    const { data } = await axios.get(`/api/jobs/companyjobshow/${id}`);
-    console.log(data);
-    dispatch({
-      type: SHOW_COMPANY_JOB_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: SHOW_COMPANY_JOB_FAIL,
-      payload: error.response.data.error,
-    });
-  }
-};
+export const showAllJobsCreatedByCompanyAction =
+  (id, searchQuery) => async (dispatch) => {
+    dispatch({ type: SHOW_COMPANY_JOB_REQUEST });
+    try {
+      const { data } = await axios.get(
+        `/api/jobs/companyjobshow/${id}?search=${searchQuery}`
+      );
+      console.log(data);
+      dispatch({
+        type: SHOW_COMPANY_JOB_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: SHOW_COMPANY_JOB_FAIL,
+        payload: error.response.data.error,
+      });
+    }
+  };
 
 export const updateJobStatusAction = (updatedData) => async (dispatch) => {
   dispatch({ type: UPDATE_JOB_REQUEST });

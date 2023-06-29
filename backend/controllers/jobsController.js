@@ -61,8 +61,6 @@ exports.updateJob = async (req, res, next) => {
     next(error);
   }
 };
-
-//show job by id.
 exports.showJobs = async (req, res, next) => {
   const keyword = req.query.keyword
     ? {
@@ -73,7 +71,7 @@ exports.showJobs = async (req, res, next) => {
       }
     : {};
 
-  //filter by category ids
+  //filter by category
   let ids = [];
   const jobTypeCategory = await JobType.find({}, { _id: 1 });
   jobTypeCategory.forEach((cat) => {
@@ -92,26 +90,36 @@ exports.showJobs = async (req, res, next) => {
   let locationFilter = location !== "" ? location : setUniqueLocation;
 
   //pagination
-
   const pageSize = 5;
   const page = Number(req.query.pageNumber);
+
+  const minSalary = req.query.minSalary ? parseInt(req.query.minSalary) : 0;
+  const maxSalary = req.query.maxSalary
+    ? parseInt(req.query.maxSalary)
+    : Number.MAX_SAFE_INTEGER;
+
   const count = await Job.find({
     ...keyword,
     jobType: categ,
     location: locationFilter,
+    isDeleted: false,
+    salary: { $gte: minSalary, $lte: maxSalary },
   }).countDocuments();
+
   try {
     const jobs = await Job.find({
       ...keyword,
       jobType: categ,
       location: locationFilter,
       isDeleted: false,
+      salary: { $gte: minSalary, $lte: maxSalary },
     })
       .sort({ createdAt: -1 })
       .populate("jobType", "jobTypeName")
       .populate("user", "firstName profilePhoto")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
+
     res.status(200).json({
       success: true,
       jobs,
@@ -119,11 +127,76 @@ exports.showJobs = async (req, res, next) => {
       pages: Math.ceil(count / pageSize),
       count,
       setUniqueLocation,
+      minSalary,
+      maxSalary,
     });
   } catch (error) {
     next(error);
   }
 };
+
+// //show job by id.
+// exports.showJobs = async (req, res, next) => {
+//   const keyword = req.query.keyword
+//     ? {
+//         title: {
+//           $regex: req.query.keyword,
+//           $options: "i",
+//         },
+//       }
+//     : {};
+
+//   //filter by category
+//   let ids = [];
+//   const jobTypeCategory = await JobType.find({}, { _id: 1 });
+//   jobTypeCategory.forEach((cat) => {
+//     ids.push(cat._id);
+//   });
+//   let cat = req.query.cat;
+//   let categ = cat !== "" ? cat : ids;
+//   //jobs by location
+//   let locations = [];
+//   const jobByLocation = await Job.find({}, { location: 1 });
+//   jobByLocation.forEach((val) => {
+//     locations.push(val.location);
+//   });
+//   let setUniqueLocation = [...new Set(locations)];
+//   let location = req.query.location;
+//   let locationFilter = location !== "" ? location : setUniqueLocation;
+
+//   //pagination
+
+//   const pageSize = 5;
+//   const page = Number(req.query.pageNumber);
+//   const count = await Job.find({
+//     ...keyword,
+//     jobType: categ,
+//     location: locationFilter,
+//   }).countDocuments();
+//   try {
+//     const jobs = await Job.find({
+//       ...keyword,
+//       jobType: categ,
+//       location: locationFilter,
+//       isDeleted: false,
+//     })
+//       .sort({ createdAt: -1 })
+//       .populate("jobType", "jobTypeName")
+//       .populate("user", "firstName profilePhoto")
+//       .skip(pageSize * (page - 1))
+//       .limit(pageSize);
+//     res.status(200).json({
+//       success: true,
+//       jobs,
+//       page,
+//       pages: Math.ceil(count / pageSize),
+//       count,
+//       setUniqueLocation,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 exports.showAllJobs = async (req, res, next) => {
   try {
@@ -139,8 +212,20 @@ exports.showAllJobs = async (req, res, next) => {
   }
 };
 exports.showAllJobsCreatedByCompany = async (req, res, next) => {
+  const keyword = req.query.keyword
+    ? {
+        title: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
   try {
-    const jobs = await Job.find({ user: req.params.id, isDeleted: false })
+    const jobs = await Job.find({
+      ...keyword,
+      user: req.params.id,
+      isDeleted: false,
+    })
       .sort({ createdAt: -1 })
       .populate("user", "_id profilePhoto");
     res.status(200).json({
@@ -151,7 +236,7 @@ exports.showAllJobsCreatedByCompany = async (req, res, next) => {
     next(error);
   }
 };
-//show job by id.
+//show job by user.
 exports.showJobsyByUser = async (req, res, next) => {
   try {
     const id = req.params.id;

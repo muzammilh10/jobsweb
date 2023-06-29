@@ -27,7 +27,7 @@ router.get("/job/:id", singleJob);
 router.patch("/job/update/:job_id", isAuthenticated, isAdmin, updateJob);
 
 // /api/jobs/show
-router.get("/jobs/show/", showJobs);
+router.get("/jobs/show", showJobs);
 // /api/jobs/compantjobshow/:id
 router.get("/jobs/companyjobshow/:id", showAllJobsCreatedByCompany);
 
