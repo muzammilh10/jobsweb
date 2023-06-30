@@ -85,8 +85,8 @@ const DashAllUsers = () => {
   return (
     <>
       <Box display="flex" justifyContent="center" mt={3}>
-        <Box width="70%">
-          <Typography variant="h4" sx={{ color: "black", pb: 3 }}>
+        <Box width="73%">
+          <Typography variant="h4" sx={{ color: "black", pb: 3, mt: -3 }}>
             All User
           </Typography>
           <Box sx={{ pb: 1, display: "flex", justifyContent: "right" }}></Box>

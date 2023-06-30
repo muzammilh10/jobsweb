@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
   CircularProgress,
+  Chip,
 } from "@mui/material";
 import { GridToolbar, gridClasses } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,9 +37,9 @@ const DashUsers = () => {
       setJobDetail(success.success);
     }
   }, [success]);
-
   const acceptUserById = (rowData) => {
     setProcessingAcceptRowId(rowData._id);
+    console.log(rowData._id);
     if (rowData) {
       const updatedData = {
         ...rowData,
@@ -54,9 +55,9 @@ const DashUsers = () => {
         });
     }
   };
-
   const rejectUserById = (rowData) => {
     setProcessingRejectRowId(rowData._id);
+    console.log(rowData._id);
     if (rowData) {
       const updatedData = {
         ...rowData,
@@ -155,7 +156,27 @@ const DashUsers = () => {
     {
       field: "applicationStatus",
       headerName: "STATUS",
-      width: 100,
+      width: 150,
+      renderCell: (params) => {
+        const statusColor =
+          params.row.applicationStatus === "accepted"
+            ? "#4CAF50"
+            : params.row.applicationStatus === "rejected"
+            ? "#f44336"
+            : "#2196f3";
+
+        return (
+          <Chip
+            label={params.row.applicationStatus}
+            size="small"
+            style={{
+              backgroundColor: statusColor,
+              color: "#ffffff",
+              minWidth: "70px",
+            }}
+          />
+        );
+      },
     },
     {
       field: "ACTIONS",
@@ -223,7 +244,7 @@ const DashUsers = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="78%">
+      <Box width="90%">
         <Typography
           variant="h4"
           sx={{
@@ -231,6 +252,7 @@ const DashUsers = () => {
             pb: 3,
             display: "flex",
             justifyContent: "left",
+            mt: -2,
           }}
         >
           All users

@@ -101,6 +101,7 @@ const DashCategory = () => {
             pb: -3,
             display: "flex",
             justifyContent: "left",
+            mt: -3,
           }}
         >
           All category

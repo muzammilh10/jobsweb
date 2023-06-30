@@ -106,6 +106,7 @@ const DashJobs = () => {
             pb: -3,
             display: "flex",
             justifyContent: "left",
+            mt: -3,
           }}
         >
           Job list

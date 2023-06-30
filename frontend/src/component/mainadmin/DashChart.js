@@ -126,7 +126,7 @@ const DashChart = () => {
           style={{
             display: "flex",
             justifyContent: "left",
-            marginRight: 590,
+            marginRight: 482,
             alignItems: "left",
           }}
         >

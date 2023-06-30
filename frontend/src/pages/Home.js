@@ -1,6 +1,5 @@
 // import React, { useEffect, useState } from "react";
-// import Navbar from "../component/Navbar";
-// import Header from "../component/Header";
+// import { useDispatch, useSelector } from "react-redux";
 // import {
 //   Box,
 //   Card,
@@ -13,46 +12,67 @@
 //   Typography,
 //   useTheme,
 // } from "@mui/material";
-// import { useDispatch, useSelector } from "react-redux";
-// import {
-//   jobLoadAction,
-//   showAllJobsCreatedByCompanyAction,
-// } from "../redux/actions/jobAction";
 // import { Link, useParams } from "react-router-dom";
+// import LocationOnIcon from "@mui/icons-material/LocationOn";
+// import Navbar from "../component/Navbar";
+// import Header from "../component/Header";
 // import CardElement from "../component/CardElement";
 // import Footer from "../component/Footer";
 // import LoadingBox from "../component/LoadingBox";
 // import SelectComponent from "../component/selectComponent";
+// import {
+//   jobLoadAction,
+//   showAllJobsCreatedByCompanyAction,
+// } from "../redux/actions/jobAction";
 // import { jobTypeLoadAction } from "../redux/actions/jobTypeAction";
-// import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 // const Home = () => {
+//   const dispatch = useDispatch();
+//   const { keyword, location } = useParams();
 //   const { jobs, setUniqueLocation, pages, loading } = useSelector(
 //     (state) => state.loadJobs
 //   );
 
-//   const data = useSelector((state) => state.companyJobCreated);
-//   console.log(data);
 //   const { palette } = useTheme();
-//   const dispatch = useDispatch();
-//   const { keyword, location } = useParams();
 
 //   const [page, setPage] = useState(1);
-//   const [cat, setCat] = React.useState("");
-//   useEffect(() => {
-//     dispatch(showAllJobsCreatedByCompanyAction());
-//   }, []);
-//   useEffect(() => {
-//     dispatch(jobLoadAction(page, keyword, cat, location));
-//   }, [page, keyword, cat, location]);
+//   const [cat, setCat] = useState("");
+//   const [minSalary, setMinSalary] = useState("");
+//   const [maxSalary, setMaxSalary] = useState("");
 
 //   useEffect(() => {
+//     dispatch(showAllJobsCreatedByCompanyAction());
+//     // Comment out the API call here
+//     // dispatch(jobLoadAction(page, keyword, cat, location, minSalary, maxSalary));
 //     dispatch(jobTypeLoadAction());
-//   }, []);
+//   }, [dispatch]);
 
 //   const handleChangeCategory = (e) => {
 //     setCat(e.target.value);
 //   };
+
+//   const handleSearch = (e) => {
+//     e.preventDefault();
+//     setPage(1);
+//     dispatch(jobLoadAction(1, keyword, cat, location, minSalary, maxSalary));
+//   };
+
+//   const handleChangeMinSalary = (e) => {
+//     setMinSalary((prevMinSalary) =>
+//       e.target.value === "" ? "" : parseInt(e.target.value)
+//     );
+//   };
+
+//   const handleChangeMaxSalary = (e) => {
+//     setMaxSalary((prevMaxSalary) =>
+//       e.target.value === "" ? "" : parseInt(e.target.value)
+//     );
+//   };
+
+//   useEffect(() => {
+//     // Make the API call here after the state has been updated
+//     dispatch(jobLoadAction(page, keyword, cat, location, minSalary, maxSalary));
+//   }, [dispatch, page, keyword, cat, location, minSalary, maxSalary]);
 
 //   return (
 //     <>
@@ -69,7 +89,40 @@
 //                 <Box sx={{ pb: 2 }}>
 //                   <Typography
 //                     component="h4"
-//                     sx={{ color: palette.secondary.main, fontWeight: 600 }}
+//                     sx={{
+//                       color: palette.secondary.main,
+//                       fontWeight: 600,
+//                     }}
+//                   >
+//                     Filter job by salary
+//                   </Typography>
+//                   <form onSubmit={handleSearch}>
+//                     <Box sx={{ display: "flex", alignItems: "center" }}>
+//                       <input
+//                         type="number"
+//                         placeholder="Min Salary"
+//                         value={minSalary}
+//                         onChange={handleChangeMinSalary}
+//                       />
+//                       <input
+//                         type="number"
+//                         placeholder="Max Salary"
+//                         value={maxSalary}
+//                         onChange={handleChangeMaxSalary}
+//                       />
+//                       <button type="submit">Apply</button>
+//                     </Box>
+//                   </form>
+//                 </Box>
+//               </Card>
+//               <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
+//                 <Box sx={{ pb: 2 }}>
+//                   <Typography
+//                     component="h4"
+//                     sx={{
+//                       color: palette.secondary.main,
+//                       fontWeight: 600,
+//                     }}
 //                   >
 //                     Filter job by category
 //                   </Typography>
@@ -83,10 +136,12 @@
 //               {/* jobs by location */}
 //               <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
 //                 <Box sx={{ pb: 2 }}>
-//                   {/* <h4>Filter by category</h4> */}
 //                   <Typography
 //                     component="h4"
-//                     sx={{ color: palette.secondary.main, fontWeight: 600 }}
+//                     sx={{
+//                       color: palette.secondary.main,
+//                       fontWeight: 600,
+//                     }}
 //                   >
 //                     Filter job by location
 //                   </Typography>
@@ -104,7 +159,10 @@
 //                           </ListItemIcon>
 //                           <Link
 //                             to={`/search/location/${location}`}
-//                             style={{ color: "#2196f3", textDecoration: "none" }}
+//                             style={{
+//                               color: "#2196f3",
+//                               textDecoration: "none",
+//                             }}
 //                           >
 //                             {location}
 //                           </Link>
@@ -118,18 +176,16 @@
 //               {loading ? (
 //                 <LoadingBox />
 //               ) : jobs && jobs.length === 0 ? (
-//                 <>
-//                   <Box
-//                     sx={{
-//                       minHeight: "350px",
-//                       display: "flex",
-//                       justifyContent: "center",
-//                       alignItems: "center",
-//                     }}
-//                   >
-//                     <h2>No result found!</h2>
-//                   </Box>
-//                 </>
+//                 <Box
+//                   sx={{
+//                     minHeight: "350px",
+//                     display: "flex",
+//                     justifyContent: "center",
+//                     alignItems: "center",
+//                   }}
+//                 >
+//                   <h2>No result found!</h2>
+//                 </Box>
 //               ) : (
 //                 jobs &&
 //                 jobs.map((job, i) => (
@@ -169,8 +225,7 @@
 
 // export default Home;
 import React, { useEffect, useState } from "react";
-import Navbar from "../component/Navbar";
-import Header from "../component/Header";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Card,
@@ -182,54 +237,68 @@ import {
   Stack,
   Typography,
   useTheme,
-  TextField,
-  Button,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  jobLoadAction,
-  showAllJobsCreatedByCompanyAction,
-} from "../redux/actions/jobAction";
 import { Link, useParams } from "react-router-dom";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Navbar from "../component/Navbar";
+import Header from "../component/Header";
 import CardElement from "../component/CardElement";
 import Footer from "../component/Footer";
 import LoadingBox from "../component/LoadingBox";
 import SelectComponent from "../component/selectComponent";
+import {
+  jobLoadAction,
+  showAllJobsCreatedByCompanyAction,
+} from "../redux/actions/jobAction";
 import { jobTypeLoadAction } from "../redux/actions/jobTypeAction";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const Home = () => {
-  const { jobs, setUniqueLocation, pages, loading, minSalary, maxSalary } =
-    useSelector((state) => state.loadJobs);
-
-  const data = useSelector((state) => state.companyJobCreated);
-  console.log(data);
-  const { palette } = useTheme();
   const dispatch = useDispatch();
   const { keyword, location } = useParams();
+  const { jobs, setUniqueLocation, pages, loading } = useSelector(
+    (state) => state.loadJobs
+  );
+
+  const { palette } = useTheme();
 
   const [page, setPage] = useState(1);
   const [cat, setCat] = useState("");
+  const [minSalary, setMinSalary] = useState("");
+  const [maxSalary, setMaxSalary] = useState("");
 
   useEffect(() => {
     dispatch(showAllJobsCreatedByCompanyAction());
-  }, []);
-
-  useEffect(() => {
-    dispatch(jobLoadAction(page, keyword, cat, location, minSalary, maxSalary));
-  }, [page, keyword, cat, location, minSalary, maxSalary]);
-
-  useEffect(() => {
+    // Comment out the API call here
+    // dispatch(jobLoadAction(page, keyword, cat, location, minSalary, maxSalary));
     dispatch(jobTypeLoadAction());
-  }, []);
+  }, [dispatch]);
 
   const handleChangeCategory = (e) => {
     setCat(e.target.value);
   };
 
-  const handleSalaryFilter = () => {
-    dispatch(jobLoadAction(page, keyword, cat, location, minSalary, maxSalary));
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1);
+    dispatch(jobLoadAction(1, keyword, cat, location, minSalary, maxSalary));
   };
+
+  const handleChangeMinSalary = (e) => {
+    setMinSalary((prevMinSalary) =>
+      e.target.value === "" ? "" : parseInt(e.target.value)
+    );
+  };
+
+  const handleChangeMaxSalary = (e) => {
+    setMaxSalary((prevMaxSalary) =>
+      e.target.value === "" ? "" : parseInt(e.target.value)
+    );
+  };
+
+  useEffect(() => {
+    // Make the API call here after the state has been updated
+    dispatch(jobLoadAction(page, keyword, cat, location, minSalary, maxSalary));
+  }, [dispatch, page, keyword, cat, location, minSalary, maxSalary]);
 
   return (
     <>
@@ -243,10 +312,65 @@ const Home = () => {
           >
             <Box sx={{ flex: 2, p: 2 }}>
               <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
+                <Box sx={{ pb: 1 }}>
+                  <Typography
+                    component="h4"
+                    sx={{
+                      color: palette.secondary.main,
+                      fontWeight: 600,
+                    }}
+                  >
+                    Filter job by salary
+                  </Typography>
+                  <form onSubmit={handleSearch}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "10px",
+                        marginBottom: "-5px",
+                        marginTop: "15px",
+                      }}
+                    >
+                      <input
+                        type="number"
+                        placeholder="Min Salary"
+                        value={minSalary}
+                        onChange={handleChangeMinSalary}
+                        style={{ width: "120px", height: "30px" }}
+                      />
+                      <input
+                        type="number"
+                        placeholder="Max Salary"
+                        value={maxSalary}
+                        onChange={handleChangeMaxSalary}
+                        style={{ width: "120px", height: "30px" }}
+                      />
+                      <button
+                        type="submit"
+                        style={{
+                          color: "white",
+                          height: "30px",
+                          padding: "0 10px",
+                          borderRadius: "3px",
+                          backgroundColor: "#0277bd",
+                        }}
+                      >
+                        <span style={{ fontWeight: "bold" }}>Apply</span>
+                      </button>
+                    </Box>
+                  </form>
+                </Box>
+              </Card>
+              <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
                 <Box sx={{ pb: 2 }}>
                   <Typography
                     component="h4"
-                    sx={{ color: palette.secondary.main, fontWeight: 600 }}
+                    sx={{
+                      color: palette.secondary.main,
+                      fontWeight: 600,
+                    }}
                   >
                     Filter job by category
                   </Typography>
@@ -257,43 +381,15 @@ const Home = () => {
                 />
               </Card>
 
-              {/* Salary filter */}
+              {/* jobs by location */}
               <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
                 <Box sx={{ pb: 2 }}>
                   <Typography
                     component="h4"
-                    sx={{ color: palette.secondary.main, fontWeight: 600 }}
-                  >
-                    Filter job by salary
-                  </Typography>
-                  <TextField
-                    label="Minimum Salary"
-                    variant="outlined"
-                    value={minSalary}
-                    onChange={(e) => setMinSalary(e.target.value)}
-                  />
-                  <TextField
-                    label="Maximum Salary"
-                    variant="outlined"
-                    value={maxSalary}
-                    onChange={(e) => setMaxSalary(e.target.value)}
-                  />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSalaryFilter}
-                  >
-                    Apply
-                  </Button>
-                </Box>
-              </Card>
-
-              {/* Jobs by location */}
-              <Card sx={{ minWidth: 150, mb: 3, mt: 3, p: 2 }}>
-                <Box sx={{ pb: 2 }}>
-                  <Typography
-                    component="h4"
-                    sx={{ color: palette.secondary.main, fontWeight: 600 }}
+                    sx={{
+                      color: palette.secondary.main,
+                      fontWeight: 600,
+                    }}
                   >
                     Filter job by location
                   </Typography>
@@ -311,7 +407,10 @@ const Home = () => {
                           </ListItemIcon>
                           <Link
                             to={`/search/location/${location}`}
-                            style={{ color: "#2196f3", textDecoration: "none" }}
+                            style={{
+                              color: "#2196f3",
+                              textDecoration: "none",
+                            }}
                           >
                             {location}
                           </Link>
@@ -325,18 +424,16 @@ const Home = () => {
               {loading ? (
                 <LoadingBox />
               ) : jobs && jobs.length === 0 ? (
-                <>
-                  <Box
-                    sx={{
-                      minHeight: "350px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <h2>No result found!</h2>
-                  </Box>
-                </>
+                <Box
+                  sx={{
+                    minHeight: "350px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <h2>No result found!</h2>
+                </Box>
               ) : (
                 jobs &&
                 jobs.map((job, i) => (

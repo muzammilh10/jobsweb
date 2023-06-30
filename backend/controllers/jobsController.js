@@ -61,6 +61,7 @@ exports.updateJob = async (req, res, next) => {
     next(error);
   }
 };
+
 exports.showJobs = async (req, res, next) => {
   const keyword = req.query.keyword
     ? {
@@ -71,7 +72,7 @@ exports.showJobs = async (req, res, next) => {
       }
     : {};
 
-  //filter by category
+  // Filter by category
   let ids = [];
   const jobTypeCategory = await JobType.find({}, { _id: 1 });
   jobTypeCategory.forEach((cat) => {
@@ -79,7 +80,8 @@ exports.showJobs = async (req, res, next) => {
   });
   let cat = req.query.cat;
   let categ = cat !== "" ? cat : ids;
-  //jobs by location
+
+  // Jobs by location
   let locations = [];
   const jobByLocation = await Job.find({}, { location: 1 });
   jobByLocation.forEach((val) => {
@@ -89,37 +91,35 @@ exports.showJobs = async (req, res, next) => {
   let location = req.query.location;
   let locationFilter = location !== "" ? location : setUniqueLocation;
 
-  //pagination
+  // Salary filter
+  let minSalary = req.query.minSalary || 0;
+  let maxSalary = req.query.maxSalary || Number.MAX_SAFE_INTEGER;
+  let salaryFilter = {
+    salary: { $gte: minSalary, $lte: maxSalary },
+  };
+
+  // Pagination
   const pageSize = 5;
   const page = Number(req.query.pageNumber);
-
-  const minSalary = req.query.minSalary ? parseInt(req.query.minSalary) : 0;
-  const maxSalary = req.query.maxSalary
-    ? parseInt(req.query.maxSalary)
-    : Number.MAX_SAFE_INTEGER;
-
   const count = await Job.find({
     ...keyword,
     jobType: categ,
     location: locationFilter,
-    isDeleted: false,
-    salary: { $gte: minSalary, $lte: maxSalary },
+    ...salaryFilter,
   }).countDocuments();
-
   try {
     const jobs = await Job.find({
       ...keyword,
       jobType: categ,
       location: locationFilter,
+      ...salaryFilter,
       isDeleted: false,
-      salary: { $gte: minSalary, $lte: maxSalary },
     })
       .sort({ createdAt: -1 })
       .populate("jobType", "jobTypeName")
       .populate("user", "firstName profilePhoto")
       .skip(pageSize * (page - 1))
       .limit(pageSize);
-
     res.status(200).json({
       success: true,
       jobs,
@@ -127,15 +127,13 @@ exports.showJobs = async (req, res, next) => {
       pages: Math.ceil(count / pageSize),
       count,
       setUniqueLocation,
-      minSalary,
-      maxSalary,
     });
   } catch (error) {
     next(error);
   }
 };
 
-// //show job by id.
+// //show job
 // exports.showJobs = async (req, res, next) => {
 //   const keyword = req.query.keyword
 //     ? {

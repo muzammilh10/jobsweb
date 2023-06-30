@@ -30,7 +30,7 @@ const DashAdminInfo = () => {
           padding: "20px",
           backgroundColor: "whitesmoke",
           borderRadius: "20px",
-          marginTop: "90px",
+          marginTop: "25px",
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.3)",
         }}
       >

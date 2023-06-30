@@ -49,6 +49,7 @@ const DashAllJobs = () => {
               color: "black",
               pb: 3,
               display: "flex",
+              mt: -3,
             }}
           >
             Jobs list

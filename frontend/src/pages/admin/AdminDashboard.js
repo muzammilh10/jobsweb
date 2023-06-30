@@ -15,6 +15,7 @@ const AdminDashboard = () => {
         justifyContent: "flex-start",
         alignItems: "center",
         pt: 8,
+        mt: -4,
       }}
     >
       <Card

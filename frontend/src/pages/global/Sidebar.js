@@ -213,7 +213,26 @@ const SidebarAdm = () => {
                 },
               }}
             >
-              <MenuItem onClick={logOut} icon={<LoginIcon />}>
+              <MenuItem
+                onClick={logOut}
+                icon={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-2 h-2"
+                    style={{ maxHeight: 20, maxWidth: 20 }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"
+                    />
+                  </svg>
+                }
+              >
                 <div style={{ color: "black" }}> Back </div>{" "}
               </MenuItem>
             </Menu>

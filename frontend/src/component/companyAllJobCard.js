@@ -32,6 +32,7 @@ const CardAllElement = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.companyJobCreated);
+  console.log(data);
   const { palette } = useTheme();
   const location = useLocation();
   const searchQuery = new URLSearchParams(location.search).get("search");
@@ -178,13 +179,35 @@ const CardAllElement = () => {
           {touched.search && errors.search}
         </Box>
       </form>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        fontSize={30}
+        marginTop={3}
+        marginBottom={-5.5}
+      >
+        {Array.from(new Set(currentJobs.map((job) => job.companyName))).map(
+          (companyName) => (
+            <Typography
+              variant="h5"
+              fontWeight="590"
+              fontSize={25}
+              component="div"
+              key={companyName}
+            >
+              {companyName} Jobs
+            </Typography>
+          )
+        )}
+      </Box>
 
       <Box
         display="flex"
         flexDirection="column"
         alignItems="center"
         maxWidth={900}
-        height="200vh"
+        height="240vh"
         margin="0 auto"
         overflow="auto"
         padding={2}
@@ -339,7 +362,6 @@ const CardAllElement = () => {
             sx={{
               display: "flex",
               justifyContent: "center",
-              marginTop: 3,
             }}
           >
             <Pagination

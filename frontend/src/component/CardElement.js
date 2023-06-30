@@ -59,6 +59,7 @@ const CardElement = ({
               fontSize: 15,
               color: palette.secondary.main,
               fontWeight: 500,
+              marginTop: 0.5,
             }}
           >
             {location}
@@ -136,7 +137,7 @@ const CardElement = ({
             variant="contained"
             size="small"
             startIcon={<AddIcon />}
-            sx={{ marginTop: -1, marginLeft: "79.5%" }}
+            sx={{ marginTop: -1, marginLeft: "79%" }}
           >
             <Link
               style={{ textDecoration: "none", color: "white", boxShadow: 0 }}
