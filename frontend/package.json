@@ -30,6 +30,7 @@
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.0",
     "react-image-gallery": "^1.2.12",
+    "react-image-lightbox": "^5.1.4",
     "react-medium-image-zoom": "^5.1.6",
     "react-modal-video": "^2.0.0",
     "react-pdf": "^7.1.2",
