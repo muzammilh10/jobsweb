@@ -213,7 +213,7 @@ const Navbar = () => {
                         textDecoration: "none",
                         color: palette.secondary.main,
                       }}
-                      to="/admin/users"
+                      to="/admin/chart"
                     >
                       Recruiter Dashboard
                     </Link>

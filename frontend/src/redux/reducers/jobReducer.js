@@ -166,7 +166,11 @@ export const editJobReducer = (state = { jobs: [] }, action) => {
   }
 };
 
-export const useApplyLoadJobReducer = (state = { jobs: [] }, action) => {
+export const useApplyLoadJobReducer = (
+  state = { jobs: [], jobStatusArr: [] },
+  action
+) => {
+  // console.log(success)
   switch (action.type) {
     case USER_APPLY_JOB_REQUEST:
       return { loading: true };
@@ -174,6 +178,7 @@ export const useApplyLoadJobReducer = (state = { jobs: [] }, action) => {
       return {
         loading: false,
         success: action.payload,
+        jobStatusArr: action.payload,
         jobs: action.payload.jobs,
       };
     case USER_APPLY_JOB_FAIL:

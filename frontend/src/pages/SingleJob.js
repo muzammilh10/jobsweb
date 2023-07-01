@@ -205,29 +205,31 @@ const SingleJob = () => {
                           {singleJob && singleJob.AdditionalInformation}
                         </Box>
                       </Typography>
-                      <Box
-                        sx={{
-                          flex: 1,
-                          p: 2,
-                          mb: -2,
-                          display: "flex",
-                          justifyContent: "flex-end",
-                          alignItems: "flex-end",
-                        }}
-                      >
-                        <Button
-                          onClick={applyForAJob}
-                          sx={{ fontSize: "13px", mb: 1 }}
-                          variant="contained"
+                      {userInfo?.role.role === 0 && (
+                        <Box
+                          sx={{
+                            flex: 1,
+                            p: 2,
+                            mb: -2,
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            alignItems: "flex-end",
+                          }}
                         >
-                          Apply for this Job
-                        </Button>
-                      </Box>
+                          <Button
+                            onClick={applyForAJob}
+                            sx={{ fontSize: "13px", mb: 1 }}
+                            variant="contained"
+                          >
+                            Apply for this Job
+                          </Button>
+                        </Box>
+                      )}
                     </CardContent>
                   </Card>
                 )}
                 <br />
-                {showForm && (
+                {userInfo?.role.role === 0 && showForm && (
                   <>
                     <Card
                       sx={{
@@ -284,15 +286,17 @@ const SingleJob = () => {
                               required
                             />
                           </DialogContentText>
-                          <DialogActions>
-                            <Button
-                              type="submit"
-                              variant="contained"
-                              onClick={applyForAJob}
-                            >
-                              Submit
-                            </Button>
-                          </DialogActions>
+                          {userInfo.role.role === 0 && (
+                            <DialogActions>
+                              <Button
+                                type="submit"
+                                variant="contained"
+                                onClick={applyForAJob}
+                              >
+                                Submit
+                              </Button>
+                            </DialogActions>
+                          )}
                         </form>
                       </DialogContent>
                     </Card>
