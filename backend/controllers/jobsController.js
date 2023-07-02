@@ -84,6 +84,7 @@ exports.showJobs = async (req, res, next) => {
   // Jobs by location
   let locations = [];
   const jobByLocation = await Job.find({}, { location: 1 });
+
   jobByLocation.forEach((val) => {
     locations.push(val.location);
   });
@@ -132,69 +133,6 @@ exports.showJobs = async (req, res, next) => {
     next(error);
   }
 };
-
-// //show job
-// exports.showJobs = async (req, res, next) => {
-//   const keyword = req.query.keyword
-//     ? {
-//         title: {
-//           $regex: req.query.keyword,
-//           $options: "i",
-//         },
-//       }
-//     : {};
-
-//   //filter by category
-//   let ids = [];
-//   const jobTypeCategory = await JobType.find({}, { _id: 1 });
-//   jobTypeCategory.forEach((cat) => {
-//     ids.push(cat._id);
-//   });
-//   let cat = req.query.cat;
-//   let categ = cat !== "" ? cat : ids;
-//   //jobs by location
-//   let locations = [];
-//   const jobByLocation = await Job.find({}, { location: 1 });
-//   jobByLocation.forEach((val) => {
-//     locations.push(val.location);
-//   });
-//   let setUniqueLocation = [...new Set(locations)];
-//   let location = req.query.location;
-//   let locationFilter = location !== "" ? location : setUniqueLocation;
-
-//   //pagination
-
-//   const pageSize = 5;
-//   const page = Number(req.query.pageNumber);
-//   const count = await Job.find({
-//     ...keyword,
-//     jobType: categ,
-//     location: locationFilter,
-//   }).countDocuments();
-//   try {
-//     const jobs = await Job.find({
-//       ...keyword,
-//       jobType: categ,
-//       location: locationFilter,
-//       isDeleted: false,
-//     })
-//       .sort({ createdAt: -1 })
-//       .populate("jobType", "jobTypeName")
-//       .populate("user", "firstName profilePhoto")
-//       .skip(pageSize * (page - 1))
-//       .limit(pageSize);
-//     res.status(200).json({
-//       success: true,
-//       jobs,
-//       page,
-//       pages: Math.ceil(count / pageSize),
-//       count,
-//       setUniqueLocation,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 exports.showAllJobs = async (req, res, next) => {
   try {
