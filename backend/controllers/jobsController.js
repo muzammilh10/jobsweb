@@ -264,7 +264,7 @@ exports.updateStatus = async (req, res) => {
       console.log(user.email);
       await sendEmail({
         email: user.email,
-        subject: `Your application with <b>JobApplied ID: </b>${currentApplication._id} ${currentApplication.title} is Accepted.`,
+        subject: `Your application with ${currentApplication.title} is Accepted.`,
       });
 
       return res.status(200).json("sucess");

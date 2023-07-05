@@ -117,8 +117,8 @@ const DashChart = () => {
         >
           <Card variant="outlined">
             <CardContent>
-              <Typography variant="h6">All Users Count</Typography>
-              <Typography variant="h4">{users && users.length}</Typography>
+              <Typography variant="h6">All Jobs Count</Typography>
+              <Typography variant="h4">{jobs && jobs.length}</Typography>
             </CardContent>
           </Card>
         </div>
@@ -132,8 +132,8 @@ const DashChart = () => {
         >
           <Card variant="outlined">
             <CardContent>
-              <Typography variant="h6">All Jobs Count</Typography>
-              <Typography variant="h4">{jobs && jobs.length}</Typography>
+              <Typography variant="h6">All Users Count</Typography>
+              <Typography variant="h4">{users && users.length}</Typography>
             </CardContent>
           </Card>
         </div>
