@@ -175,7 +175,6 @@ export const userApplyLoadJobAction = (id) => async (dispatch) => {
   dispatch({ type: USER_APPLY_JOB_REQUEST });
   try {
     const { data } = await axios.get(`/api/admin/applied-jobs/${id}`);
-    console.log("------------------------>", data);
     dispatch({
       type: USER_APPLY_JOB_SUCCESS,
       payload: data,

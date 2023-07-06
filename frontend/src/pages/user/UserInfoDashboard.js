@@ -7,20 +7,26 @@ import {
   Avatar,
   IconButton,
   Button,
+  Modal,
+  Dialog,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import EditUser from "./EditUser";
-import React from "react";
+import React, { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import moment from "moment";
 
 const UserInfoDashboard = () => {
   const { user } = useSelector((state) => state.userprofile);
-  const { palette } = useTheme();
-  const [render, setRender] = React.useState(false);
+  console.log(user);
+  const [openResumeDialog, setOpenResumeDialog] = useState(false);
 
-  const renderHandler = () => {
-    setRender(!render);
+  const handleOpenResumeDialog = () => {
+    setOpenResumeDialog(true);
+  };
+
+  const handleCloseResumeDialog = () => {
+    setOpenResumeDialog(false);
   };
 
   return (
@@ -95,13 +101,6 @@ const UserInfoDashboard = () => {
           >
             E-mail: {user && user.email}
           </Typography>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ color: "black", textAlign: "left" }}
-          >
-            Phone number: {user && user.phoneNumber}
-          </Typography>
 
           <Typography
             variant="h6"
@@ -116,6 +115,14 @@ const UserInfoDashboard = () => {
             component="div"
             sx={{ color: "black", textAlign: "left" }}
           >
+            Phone number: {user && user.phoneNumber}
+          </Typography>
+
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ color: "black", textAlign: "left" }}
+          >
             Number of jobs submitted: {user && user.jobsHistory.length}
           </Typography>
           <Typography
@@ -125,14 +132,19 @@ const UserInfoDashboard = () => {
           >
             Resume:{" "}
             <a
-              href={user && user.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: palette.primary.main, textDecoration: "none" }}
+              onClick={handleOpenResumeDialog}
+              style={{ color: "#2196f3", textDecoration: "none" }}
             >
               Preview your resume
             </a>
           </Typography>
+          <Dialog open={openResumeDialog} onClose={handleCloseResumeDialog}>
+            <img
+              src={user && user.resume}
+              alt="Resume"
+              style={{ width: "100%" }}
+            />
+          </Dialog>
           <div style={{ marginLeft: 110 }}>
             <EditUser></EditUser>
           </div>

@@ -91,7 +91,6 @@ const DashAdminInfo = () => {
           >
             Phone number: {user && user.phoneNumber}
           </Typography>
-
           <div style={{ marginLeft: 110 }}>
             <EditAdminData></EditAdminData>
           </div>

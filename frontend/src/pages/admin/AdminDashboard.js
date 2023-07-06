@@ -6,7 +6,6 @@ import EditAdminData from "./data/EditAdminData";
 
 const AdminDashboard = () => {
   const { user } = useSelector((state) => state.userprofile);
-
   return (
     <Box
       sx={{
@@ -87,7 +86,6 @@ const AdminDashboard = () => {
           >
             Phone number: {user && user.phoneNumber}
           </Typography>
-
           <div style={{ marginLeft: 110 }}>
             <EditAdminData></EditAdminData>
           </div>

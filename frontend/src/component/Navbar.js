@@ -243,7 +243,7 @@ const Navbar = () => {
                         textDecoration: "none",
                         color: palette.secondary.main,
                       }}
-                      to="/mainadmin"
+                      to="/mainadmin/chart"
                     >
                       Admin Dashboard
                     </Link>

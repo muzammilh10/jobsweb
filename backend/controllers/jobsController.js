@@ -232,10 +232,10 @@ exports.adminShowUserApplyJob = async (req, res, next) => {
       .populate({
         path: "userAppliedForJob",
         select:
-          "_id  title description salary location interviewDate applicationStatus companyName coverLetter assessment Duration",
+          "_id  title description salary location interviewDate applicationStatus companyName coverLetter assessment Duration ",
         populate: {
           path: "user",
-          select: "firstName lastName email resume",
+          select: "firstName lastName email resume phoneNumber",
         },
       })
       .lean();

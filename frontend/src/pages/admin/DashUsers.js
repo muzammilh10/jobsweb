@@ -29,7 +29,6 @@ const DashUsers = () => {
   const FetchData = (admin) => {
     dispatch(userApplyLoadJobAction(admin.userInfo.role._id));
   };
-
   useEffect(() => {
     if (success.success?.availableJobs) {
       setJobDetail(success.success);
@@ -114,6 +113,11 @@ const DashUsers = () => {
     {
       field: "email",
       headerName: "EMAIL",
+      width: 150,
+    },
+    {
+      field: "phoneNumber",
+      headerName: "PHONE NUMBER",
       width: 150,
     },
     {
@@ -245,7 +249,7 @@ const DashUsers = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={3}>
-      <Box width="90%">
+      <Box width="100%">
         <Typography
           variant="h4"
           sx={{
