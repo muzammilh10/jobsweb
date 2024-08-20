@@ -37,6 +37,7 @@ const DashCreateJob = () => {
   }, []);
 
   const { jobType } = useSelector((state) => state.jobType);
+  console.log({jobType})
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -224,7 +225,7 @@ const DashCreateJob = () => {
               name="jobType"
               id="jobType"
               select
-              label="Category"
+              label="Catessdsgory"
               value={formik.values.jobType}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CometChatUI } from "../../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/CometChatUI";
+// import { CometChatUI } from "../../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/CometChatUI";
 import { CometChat } from "@cometchat-pro/chat";
 import { useSelector } from "react-redux";
 
@@ -59,7 +59,7 @@ const MainAdminChat = () => {
           marginBottom: "-24px",
         }}
       >
-        <CometChatUI />
+        {/* <CometChatUI /> */}
       </div>
     </>
   );

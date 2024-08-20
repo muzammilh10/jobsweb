@@ -1,7 +1,7 @@
 import { CometChat } from "@cometchat-pro/chat";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { CometChatUI } from "../../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/CometChatUI";
+// import { CometChatUI } from "../../cometchat-pro-react-ui-kit/CometChatWorkspace/src/components/CometChatUI";
 
 const UserChat = () => {
   const extractUsername = (email) => {
@@ -60,7 +60,7 @@ const UserChat = () => {
           marginBottom: "-24px",
         }}
       >
-        <CometChatUI />
+        {/* <CometChatUI /> */}
       </div>
     </>
   );
