@@ -59,7 +59,7 @@ app.use('/',(req,res) => {
 
 
 app.use('/',(req,res) => {
-  res.json('hellloooooooo')
+  res.json(`helllo ${process.env.DATABASE}`)
 })
 
 //error middlewar
