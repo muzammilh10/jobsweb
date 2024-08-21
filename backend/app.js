@@ -46,12 +46,6 @@ app.use('/',(req,res) => {
   res.json('hellloooooooo')
 })
 
-app.get('*',(req,res,next)=>{
-  res.status(200).json({
-    message:'bad request'
-  })
-})
-
 
 //error middlewar
 app.use(errorHandler);
