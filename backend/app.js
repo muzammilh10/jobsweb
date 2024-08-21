@@ -41,6 +41,10 @@ app.use("/api", userRoutes);
 app.use("/api", jobTypeRoute);
 app.use("/api", jobRoute);
 
+app.use('/',(req,res) => {
+  res.json('hellloooooooo')
+})
+
 //error middlewar
 app.use(errorHandler);
 //port
