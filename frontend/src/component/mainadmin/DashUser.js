@@ -19,6 +19,7 @@ const DashAllUsers = () => {
   console.log(users);
   let data = [];
   data = users !== undefined && users.length > 0 ? users : [];
+  console.log({data})
 
   const deleteUserById = (e, id) => {
     dispatch(userDeleteAction(id));

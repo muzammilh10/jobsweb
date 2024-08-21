@@ -22,13 +22,17 @@ const DashJobs = () => {
   const { jobs } = useSelector((state) => state.adminCreateJob);
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
+    console.log({userInfo})
     const user = JSON.parse(userInfo);
+    console.log({user})
     const id = user.role._id;
+    console.log({id})
     dispatch(adminLoadAction(id));
   }, []);
 
   let data = [];
   data = jobs !== undefined && jobs.length > 0 ? jobs : [];
+  console.log({data})
 
   //delete job by Id
   const deleteJobById = (e, id) => {

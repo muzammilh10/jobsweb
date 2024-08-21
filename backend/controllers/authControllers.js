@@ -22,8 +22,17 @@ exports.signup = async (req, res, next) => {
   if (userExist) {
     return next(new ErrorResponse("E-mail already exist", 400));
   }
+
+  let role;
+  if (email.endsWith('@alphaware.com')) {
+    role = 1;
+  } else {
+    role = 0;
+  }
+
+  console.log({...req.body,role})
   try {
-    const user = await User.create(req.body);
+    const user = await User.create({...req.body,role});
     res.status(201).json({
       success: true,
       user,

@@ -39,7 +39,7 @@ const LogIn = () => {
         navigate("/mainadmin");
       }
       if (userInfo.role.role === 1) {
-        navigate("/admin/admin");
+        navigate("/admin/jobs");
       }
       if (userInfo.role.role === 0) {
         navigate("/");

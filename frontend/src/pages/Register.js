@@ -54,7 +54,7 @@ const Register = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
-      values.role = role;
+      values.role = 0;
       const finalValues = { ...values, resume: images, profilePhoto: images };
 
       dispatch(userSignUpAction(finalValues));
@@ -62,10 +62,6 @@ const Register = () => {
       actions.resetForm();
     },
   });
-
-  const handleRoleChange = (event) => {
-    setRole(event.target.value);
-  };
 
   const photoupload = (event) => {
     let file = event.target.files[0];
@@ -147,29 +143,7 @@ const Register = () => {
             <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 1 }}>
               <LockOpenIcon />
             </Avatar>
-            <div style={{ marginBottom: 1 }}> Register as</div>
-            <div style={{ marginBottom: 10 }}>
-              <div>
-                <input
-                  type="radio"
-                  name="role"
-                  value="0"
-                  checked={role === "0"}
-                  onChange={handleRoleChange}
-                  required
-                />
-                User
-                <input
-                  type="radio"
-                  name="role"
-                  value="1"
-                  checked={role === "1"}
-                  onChange={handleRoleChange}
-                  required
-                />
-                Admin
-              </div>
-            </div>
+ 
             <TextField
               sx={{
                 mb: 3,
