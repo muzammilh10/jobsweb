@@ -37,10 +37,8 @@ app.use(cookieParser());
 
 app.use(cors({
   origin: [
-    "https://jobsweb-heph.vercel.app",
-    "https://jobsweb-jet.vercel.app",
-    "https://jobsweb-heph-git-main-muzammilh10s-projects.vercel.app",
-    "https://jobsweb-heph-jihoev46i-muzammilh10s-projects.vercel.app"
+    "jobsweb-heph-git-main-muzammilh10s-projects.vercel.app",
+    "jobsweb-heph-75n0hb0ut-muzammilh10s-projects.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"], // Allowing all methods
   credentials: true
