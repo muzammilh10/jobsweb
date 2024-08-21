@@ -31,7 +31,7 @@ const ResetPassword = () => {
   useEffect(() => {
     if (Object.keys(email).length !== 0) {
       axios
-        .post("http://localhost:8000/api/forgetpassword", email)
+        .post(`${process.env.BASE_URL}/api/forgetpassword`, email)
         .then((res) => {
           console.log(res);
           toast.success("Email sent successfully!");

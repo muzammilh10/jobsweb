@@ -30,7 +30,7 @@ import {
 export const userSignInAction = (user) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST });
   try {
-    const { data } = await axios.post("/api/signin", user);
+    const { data } = await axios.post(`${process.env.BASE_URL}/api/signin`, user);
     localStorage.setItem("userInfo", JSON.stringify(data));
     dispatch({
       type: USER_SIGNIN_SUCCESS,
@@ -50,7 +50,7 @@ export const userSignInAction = (user) => async (dispatch) => {
 export const userSignUpAction = (user) => async (dispatch) => {
   dispatch({ type: USER_SIGNUP_REQUEST });
   try {
-    const { data } = await axios.post("/api/signup", user);
+    const { data } = await axios.post(`${process.env.BASE_URL}/api/signup`, user);
     console.log(data);
     dispatch({
       type: USER_SIGNUP_SUCCESS,
@@ -73,7 +73,7 @@ export const userLogoutAction = () => async (dispatch) => {
   dispatch({ type: USER_LOGOUT_REQUEST });
   try {
     localStorage.removeItem("userInfo");
-    const { data } = await axios.get("/api/logout");
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/logout`);
     dispatch({
       type: USER_LOGOUT_SUCCESS,
       payload: data,
@@ -92,7 +92,7 @@ export const userLogoutAction = () => async (dispatch) => {
 export const userProfileAction = () => async (dispatch) => {
   dispatch({ type: USER_LOAD_REQUEST });
   try {
-    const { data } = await axios.get("/api/me");
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/me`);
     dispatch({
       type: USER_LOAD_SUCCESS,
       payload: data,
@@ -110,7 +110,7 @@ export const allUserAction = (page, pageSize) => async (dispatch) => {
   dispatch({ type: ALL_USER_LOAD_REQUEST });
   try {
     const { data } = await axios.get(
-      `/api/allusers?pageNumber=${page}&pageSize=${pageSize}`
+      `${process.env.BASE_URL}/api/allusers?pageNumber=${page}&pageSize=${pageSize}`
     );
     dispatch({
       type: ALL_USER_LOAD_SUCCESS,
@@ -127,7 +127,7 @@ export const allUserAction = (page, pageSize) => async (dispatch) => {
 export const allShowUserAction = () => async (dispatch) => {
   dispatch({ type: ALL_USER_LOAD_REQUEST });
   try {
-    const { data } = await axios.get("/api/showallusers");
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/showallusers`);
     dispatch({
       type: ALL_USER_LOAD_SUCCESS,
       payload: data,
@@ -144,7 +144,7 @@ export const userApplyJobAction = (Job) => async (dispatch) => {
   dispatch({ type: USER_APPLY_JOB_REQUEST });
 
   try {
-    const { data } = await axios.post("/api/user/jobhistory", Job);
+    const { data } = await axios.post( `${process.env.BASE_URL}/api/user/jobhistory`, Job);
 
     dispatch({
       type: USER_APPLY_JOB_SUCCESS,
@@ -164,7 +164,7 @@ export const userDeleteAction = (id) => async (dispatch) => {
   dispatch({ type: USER_DELETE_REQUEST });
 
   try {
-    const { data } = await axios.delete(`/api/admin/user/delete/${id}`);
+    const { data } = await axios.delete(`${process.env.BASE_URL}/api/admin/user/delete/${id}`);
 
     dispatch({
       type: USER_DELETE_SUCCESS,
@@ -187,7 +187,7 @@ export function editUserAction(id, formdata) {
     try {
       console.log(formdata);
       console.log(id);
-      const { data } = await axios.patch(`/api/user/edit/${id}`, formdata);
+      const { data } = await axios.patch(`${process.env.BASE_URL}/api/user/edit/${id}`, formdata);
       console.log(data);
       dispatch({
         type: EDIT_USER_SUCCESS,

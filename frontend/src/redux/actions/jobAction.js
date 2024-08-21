@@ -42,7 +42,7 @@ export const jobLoadAction =
       dispatch({ type: JOB_LOAD_REQUEST });
       try {
         const { data } = await axios.get(
-          `/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&location=${location}&minSalary=${minSalary}&maxSalary=${maxSalary}`
+          `${process.env.BASE_URL}/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&location=${location}&minSalary=${minSalary}&maxSalary=${maxSalary}`
         );
         dispatch({
           type: JOB_LOAD_SUCCESS,
@@ -60,7 +60,7 @@ export const jobLoadAction =
 export const jobLoadSingleAction = (id) => async (dispatch) => {
   dispatch({ type: JOB_LOAD_SINGLE_REQUEST });
   try {
-    const { data } = await axios.get(`/api/job/${id}`);
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/job/${id}`);
     dispatch({
       type: JOB_LOAD_SINGLE_SUCCESS,
       payload: data,
@@ -78,7 +78,7 @@ export const registerAjobAction = (job) => async (dispatch) => {
   dispatch({ type: REGISTER_JOB_REQUEST });
 
   try {
-    const { data } = await axios.post("/api/job/create", job);
+    const { data } = await axios.post(`${process.env.BASE_URL}/api/job/create`, job);
     console.log(data);
     dispatch({
       type: REGISTER_JOB_SUCCESS,
@@ -97,7 +97,7 @@ export const registerAjobAction = (job) => async (dispatch) => {
 export const allJobLoadAction = () => async (dispatch) => {
   dispatch({ type: JOB_LOAD_REQUEST });
   try {
-    const { data } = await axios.get("/api/jobs/showalljobs");
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/jobs/showalljobs`);
     dispatch({
       type: JOB_LOAD_SUCCESS,
       payload: data,
@@ -117,7 +117,7 @@ export const deleteAjobAction = (id) => async (dispatch) => {
 
   try {
     console.log(id);
-    const { data } = await axios.delete(`/api/jobs/delete/${id}`);
+    const { data } = await axios.delete(`${process.env.BASE_URL}/api/jobs/delete/${id}`);
     console.log(data);
     console.log(data);
     dispatch({
@@ -138,7 +138,7 @@ export const deleteAjobAction = (id) => async (dispatch) => {
 export const adminLoadAction = (id) => async (dispatch) => {
   dispatch({ type: ADMIN_JOB_LOAD_REQUEST });
   try {
-    const { data } = await axios.get(`/api/jobs/showByUser/${id}`);
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/jobs/showByUser/${id}`);
 
     dispatch({
       type: ADMIN_JOB_LOAD_SUCCESS,
@@ -155,7 +155,7 @@ export const adminLoadAction = (id) => async (dispatch) => {
 export const editJobAction = (job_id, formdata, id) => async (dispatch) => {
   dispatch({ type: EDIT_JOB_REQUEST });
   try {
-    const { data } = await axios.patch(`/api/job/update/${job_id}`, formdata);
+    const { data } = await axios.patch(`${process.env.BASE_URL}/api/job/update/${job_id}`, formdata);
     console.log(data);
     dispatch({
       type: EDIT_JOB_SUCCESS,
@@ -173,7 +173,7 @@ export const editJobAction = (job_id, formdata, id) => async (dispatch) => {
 export const userApplyLoadJobAction = (id) => async (dispatch) => {
   dispatch({ type: USER_APPLY_JOB_REQUEST });
   try {
-    const { data } = await axios.get(`/api/admin/applied-jobs/${id}`);
+    const { data } = await axios.get(`${process.env.BASE_URL}/api/admin/applied-jobs/${id}`);
     dispatch({
       type: USER_APPLY_JOB_SUCCESS,
       payload: data,
@@ -190,7 +190,7 @@ export const showAllJobsCreatedByCompanyAction =
     dispatch({ type: SHOW_COMPANY_JOB_REQUEST });
     try {
       const { data } = await axios.get(
-        `/api/jobs/companyjobshow/${id}?search=${searchQuery}`
+        `${process.env.BASE_URL}/api/jobs/companyjobshow/${id}?search=${searchQuery}`
       );
       dispatch({
         type: SHOW_COMPANY_JOB_SUCCESS,
@@ -207,7 +207,7 @@ export const showAllJobsCreatedByCompanyAction =
 export const updateJobStatusAction = (updatedData) => async (dispatch) => {
   dispatch({ type: UPDATE_JOB_REQUEST });
   try {
-    const { data } = await axios.patch(`/api/updatestatus`, updatedData);
+    const { data } = await axios.patch(`${process.env.BASE_URL}/api/updatestatus`, updatedData);
     dispatch({
       type: UPDATE_JOB_SUCCESS,
       payload: data,

@@ -41,7 +41,7 @@ const ResetPassword1 = () => {
     if (newPassword && confirmPassword) {
       axios
         .patch(
-          `http://localhost:8000/api/resetPassword/${token}`,
+          `${process.env.BASE_URL}/api/resetPassword/${token}`,
           {
             password: newPassword,
             passwordConfirm: confirmPassword,
