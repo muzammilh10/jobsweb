@@ -16,7 +16,6 @@ import WorkIcon from "@mui/icons-material/Work";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
-import { BASE_URL } from "../config";
 
 const pages = ["Home", "Log In"];
 
@@ -79,7 +78,7 @@ const Navbar = () => {
               textDecoration: "none",
             }}
           >
-            {BASE_URL}
+            JOB PORTAL
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
