@@ -160,14 +160,7 @@ const Navbar = () => {
                 </Link>
               </Button>
             )}
-            <Button onClick={handleSearch}>
-              <Link
-                to="/search"
-                style={{ color: "white", textDecoration: "none" }}
-              >
-                Preparation
-              </Link>
-            </Button>
+
           </Box>
 
           <Box sx={{ flexGrow: 0, ml: 1 }}>
@@ -211,11 +204,11 @@ const Navbar = () => {
                     <Link
                       style={{
                         textDecoration: "none",
-                        color: palette.secondary.main,
+                       color: palette.secondary.main,
                       }}
-                      to="/admin/chart"
+                      to="/admin/users"
                     >
-                      Recruiter Dashboard
+                      Admin Dashboard
                     </Link>
                   </Typography>
                 </MenuItem>
@@ -243,7 +236,7 @@ const Navbar = () => {
                         textDecoration: "none",
                         color: palette.secondary.main,
                       }}
-                      to="/mainadmin/chart"
+                      to="/mainadmin/users"
                     >
                       Admin Dashboard
                     </Link>

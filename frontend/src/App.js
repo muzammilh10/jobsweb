@@ -27,20 +27,12 @@ import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import ResetPassword from "./pages/ResetPassword";
 import ResetPassword1 from "./pages/ResetPassword1";
-import YoutubeVideo from "./component/youtube/YoutubeViedo";
-import { CometChat } from "@cometchat-pro/chat";
-import AdminChat from "./pages/admin/AdminChat";
-import UserChat from "./pages/user/UserChat";
 import MainAdminRoute from "./component/MainAdmin";
 import DashAllUsers from "./component/mainadmin/DashUser";
 import DashAdminInfo from "./component/mainadmin/DashAdminInfo";
 import DashAllJobs from "./component/mainadmin/DashAllJobs";
 import DashAllCategory from "./component/mainadmin/DashAllCategory";
-import MainAdminChat from "./component/mainadmin/MainAdminChat";
-import DashChart from "./component/mainadmin/DashChart";
-import Chart from "./pages/admin/Chart";
 import CardAllElement from "./component/companyAllJobCard";
-import CardElement from "./component/companyAllJobCard";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
@@ -52,30 +44,14 @@ const DashJobsHOC = Layout(DashJobs);
 const DashCategoryHOC = Layout(DashCategory);
 const DashCreateJobHOC = Layout(DashCreateJob);
 const DashCreateCategoryHOC = Layout(DashCreateCategory);
-const DashAdminChatHOC = Layout(AdminChat);
-const DashUSerChatHOC = Layout(UserChat);
 const DashAllUsersHOC = Layout(DashAllUsers);
 const DashAdminInfoHOC = Layout(DashAdminInfo);
 const DashAllJobsHOC = Layout(DashAllJobs);
 const DashAllCategoryHOC = Layout(DashAllCategory);
-const MainAdminChatHOC = Layout(MainAdminChat);
-const MainAdminDashChartHOC = Layout(DashChart);
-const ChartHOC = Layout(Chart);
 
 const appID = "2409544426dbdcb4";
 const region = "us";
-const appSetting = new CometChat.AppSettingsBuilder()
-  .subscribePresenceForAllUsers()
-  .setRegion(region)
-  .build();
-CometChat.init(appID, appSetting).then(
-  () => {
-    console.log("Initialization completed successfully");
-  },
-  (error) => {
-    console.log("Initialization failed with error:", error);
-  }
-);
+
 
 const App = () => {
   const { mode } = useSelector((state) => state.mode);
@@ -94,7 +70,6 @@ const App = () => {
               <Route path="/search/:keyword" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<LogIn />} />
-              <Route path="/search" element={<YoutubeVideo />} />
               <Route path="/job/:job._id" element={<SingleJob />} />
               <Route path="/job/:id" element={<SingleJob />} />
               <Route path="/company/:id" element={<CardAllElement />} />
@@ -147,22 +122,7 @@ const App = () => {
                   </AdminRoute>
                 }
               />
-              <Route
-                path="/admin/chat"
-                element={
-                  <AdminRoute>
-                    <DashAdminChatHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/chart"
-                element={
-                  <AdminRoute>
-                    <ChartHOC />
-                  </AdminRoute>
-                }
-              />
+  
               <Route
                 path="/mainadmin"
                 element={
@@ -195,22 +155,7 @@ const App = () => {
                   </MainAdminRoute>
                 }
               />
-              <Route
-                path="/mainadmin/chat"
-                element={
-                  <MainAdminRoute>
-                    <MainAdminChatHOC />
-                  </MainAdminRoute>
-                }
-              />
-              <Route
-                path="/mainadmin/chart"
-                element={
-                  <MainAdminRoute>
-                    <MainAdminDashChartHOC />
-                  </MainAdminRoute>
-                }
-              />
+
 
               <Route
                 path="/user/dashboard"
@@ -236,14 +181,7 @@ const App = () => {
                   </UserRoute>
                 }
               />
-              <Route
-                path="/user/chat"
-                element={
-                  <UserRoute>
-                    <DashUSerChatHOC />
-                  </UserRoute>
-                }
-              />
+
               <Route path="/user/ResetPassword" element={<ResetPassword />} />
               <Route
                 path="/user/resetPassword/:token"

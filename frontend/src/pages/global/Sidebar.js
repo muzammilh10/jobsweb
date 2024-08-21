@@ -9,7 +9,6 @@ import {
 import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import ChatIcon from "@mui/icons-material/Chat";
 import { Box, useTheme } from "@mui/material";
 import WorkIcon from "@mui/icons-material/Work";
 import CategoryIcon from "@mui/icons-material/Category";
@@ -95,12 +94,6 @@ const SidebarAdm = () => {
               {userInfo && userInfo.role.role === 1 && (
                 <>
                   <MenuItem
-                    component={<Link to="/admin/chart" />}
-                    icon={<SignalCellularAltIcon />}
-                  >
-                    <div style={{ color: "black" }}> Chart </div>
-                  </MenuItem>
-                  <MenuItem
                     component={<Link to="/admin/users" />}
                     icon={<GroupAddIcon />}
                   >
@@ -125,12 +118,7 @@ const SidebarAdm = () => {
                   >
                     <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
-                  <MenuItem
-                    component={<Link to="/admin/chat" />}
-                    icon={<ChatIcon />}
-                  >
-                    <div style={{ color: "black" }}>Chat </div>
-                  </MenuItem>
+            
                 </>
               )}
               {userInfo && userInfo.role.role === 0 && (
@@ -147,22 +135,12 @@ const SidebarAdm = () => {
                   >
                     <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
-                  <MenuItem
-                    component={<Link to="/user/chat" />}
-                    icon={<ChatIcon />}
-                  >
-                    <div style={{ color: "black" }}> Chat </div>
-                  </MenuItem>
+             
                 </>
               )}
               {userInfo && userInfo.role.role === 2 && (
                 <>
-                  <MenuItem
-                    component={<Link to="/mainadmin/chart" />}
-                    icon={<SignalCellularAltIcon />}
-                  >
-                    <div style={{ color: "black" }}>Chart</div>
-                  </MenuItem>
+          
                   <MenuItem
                     component={<Link to="/mainadmin" />}
                     icon={<Person3Icon />}
@@ -182,12 +160,7 @@ const SidebarAdm = () => {
                   >
                     <div style={{ color: "black" }}> Personal Info </div>
                   </MenuItem>
-                  <MenuItem
-                    component={<Link to="/mainadmin/chat" />}
-                    icon={<ChatIcon />}
-                  >
-                    <div style={{ color: "black" }}>Chat</div>
-                  </MenuItem>
+                  
                 </>
               )}
             </Menu>
