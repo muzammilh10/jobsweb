@@ -34,28 +34,27 @@ export const jobLoadAction =
   (
     pageNumber,
     keyword = "",
-    cat = "",
     location = "",
     minSalary = 0,
     maxSalary = Number.MAX_SAFE_INTEGER
   ) =>
-  async (dispatch) => {
-    dispatch({ type: JOB_LOAD_REQUEST });
-    try {
-      const { data } = await axios.get(
-        `/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&cat=${cat}&location=${location}&minSalary=${minSalary}&maxSalary=${maxSalary}`
-      );
-      dispatch({
-        type: JOB_LOAD_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: JOB_LOAD_FAIL,
-        payload: error.response.data.error,
-      });
-    }
-  };
+    async (dispatch) => {
+      dispatch({ type: JOB_LOAD_REQUEST });
+      try {
+        const { data } = await axios.get(
+          `/api/jobs/show/?pageNumber=${pageNumber}&keyword=${keyword}&location=${location}&minSalary=${minSalary}&maxSalary=${maxSalary}`
+        );
+        dispatch({
+          type: JOB_LOAD_SUCCESS,
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: JOB_LOAD_FAIL,
+          payload: error.response.data.error,
+        });
+      }
+    };
 
 // single job action
 export const jobLoadSingleAction = (id) => async (dispatch) => {
@@ -193,7 +192,6 @@ export const showAllJobsCreatedByCompanyAction =
       const { data } = await axios.get(
         `/api/jobs/companyjobshow/${id}?search=${searchQuery}`
       );
-      console.log(data);
       dispatch({
         type: SHOW_COMPANY_JOB_SUCCESS,
         payload: data,

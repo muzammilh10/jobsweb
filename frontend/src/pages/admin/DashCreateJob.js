@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { adminJobTypeLoadAction } from "../../redux/actions/jobTypeAction";
 import { registerAjobAction } from "../../redux/actions/jobAction";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +20,6 @@ const validationSchema = yup.object({
   salary: yup.string("Enter a salary").required("Salary is required"),
   Duration: yup.string("Enter a Duration").required("Salary is Duration"),
   location: yup.string("Enter a location").required("Location is required"),
-  jobType: yup.string("Enter a Category").required("Category is required"),
 });
 
 const DashCreateJob = () => {
@@ -33,11 +31,9 @@ const DashCreateJob = () => {
     const userInfo = localStorage.getItem("userInfo");
     const user = JSON.parse(userInfo);
     const id = user.role._id;
-    dispatch(adminJobTypeLoadAction(id));
   }, []);
 
-  const { jobType } = useSelector((state) => state.jobType);
-  console.log({jobType})
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -45,8 +41,7 @@ const DashCreateJob = () => {
       companyName: "",
       salary: "",
       location: "",
-      jobType: "",
-      Duration: "",
+       Duration: "",
       AdditionalInformation: "",
     },
     validationSchema: validationSchema,
@@ -217,30 +212,6 @@ const DashCreateJob = () => {
               helperText={formik.touched.location && formik.errors.location}
             />
 
-            <TextField
-              sx={{ mb: 3 }}
-              fullWidth
-              className="px-2 my-2"
-              variant="outlined"
-              name="jobType"
-              id="jobType"
-              select
-              label="Catessdsgory"
-              value={formik.values.jobType}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.jobType && Boolean(formik.errors.jobType)}
-              helperText={formik.touched.jobType && formik.errors.jobType}
-            >
-              <MenuItem key={""} value={""}></MenuItem>
-
-              {jobType?.jobs &&
-                jobType.jobs.map((cat) => (
-                  <MenuItem key={cat._id} value={cat._id}>
-                    {cat.jobTypeName}
-                  </MenuItem>
-                ))}
-            </TextField>
 
             <Button fullWidth variant="contained" type="submit">
               Create job

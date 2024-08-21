@@ -41,7 +41,6 @@ const jobSchema = new mongoose.Schema(
     jobType: {
       type: ObjectId,
       ref: "JobType",
-      required: true,
     },
     user: {
       type: ObjectId,

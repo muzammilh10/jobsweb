@@ -16,7 +16,6 @@ exports.createJob = async (req, res, next) => {
       Duration: req.body.Duration,
       location: req.body.location,
       AdditionalInformation: req.body.AdditionalInformation,
-      jobType: req.body.jobType,
       user: req.user.id,
     });
     res.status(201).json({
@@ -50,7 +49,6 @@ exports.updateJob = async (req, res, next) => {
     const job = await Job.findByIdAndUpdate(req.params.job_id, req.body, {
       new: true,
     })
-      .populate("jobType", "jobTypeName")
       .populate("user", "firstName lastName");
     console.log(job);
     res.status(200).json({
@@ -72,14 +70,6 @@ exports.showJobs = async (req, res, next) => {
       }
     : {};
 
-  // Filter by category
-  let ids = [];
-  const jobTypeCategory = await JobType.find({}, { _id: 1 });
-  jobTypeCategory.forEach((cat) => {
-    ids.push(cat._id);
-  });
-  let cat = req.query.cat;
-  let categ = cat !== "" ? cat : ids;
 
   // Jobs by location
   let locations = [];
@@ -104,20 +94,17 @@ exports.showJobs = async (req, res, next) => {
   const page = Number(req.query.pageNumber);
   const count = await Job.find({
     ...keyword,
-    jobType: categ,
     location: locationFilter,
     ...salaryFilter,
   }).countDocuments();
   try {
     const jobs = await Job.find({
       ...keyword,
-      jobType: categ,
       location: locationFilter,
       ...salaryFilter,
       isDeleted: false,
     })
       .sort({ createdAt: -1 })
-      .populate("jobType", "jobTypeName")
       .populate("user", "firstName profilePhoto")
       .skip(pageSize * (page - 1))
       .limit(pageSize);

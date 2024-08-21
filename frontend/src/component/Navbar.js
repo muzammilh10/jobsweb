@@ -206,7 +206,7 @@ const Navbar = () => {
                         textDecoration: "none",
                        color: palette.secondary.main,
                       }}
-                      to="/admin/users"
+                      to="/admin/jobs"
                     >
                       Admin Dashboard
                     </Link>

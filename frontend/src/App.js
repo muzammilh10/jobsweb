@@ -15,12 +15,9 @@ import UserJobsHistory from "./pages/user/UserJobsHistory";
 import UserInfoDashboard from "./pages/user/UserInfoDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import SingleJob from "./pages/SingleJob";
-import DashUsers from "./pages/admin/DashUsers";
 import DashJobs from "./pages/admin/DashJobs";
 import Register from "./pages/Register";
-import DashCategory from "./pages/admin/DashCategory";
 import DashCreateJob from "./pages/admin/DashCreateJob";
-import DashCreateCategory from "./pages/admin/DashCreateCategory";
 import { createTheme } from "@mui/material/styles";
 import { themeColors } from "./theme";
 import { useSelector } from "react-redux";
@@ -31,7 +28,6 @@ import MainAdminRoute from "./component/MainAdmin";
 import DashAllUsers from "./component/mainadmin/DashUser";
 import DashAdminInfo from "./component/mainadmin/DashAdminInfo";
 import DashAllJobs from "./component/mainadmin/DashAllJobs";
-import DashAllCategory from "./component/mainadmin/DashAllCategory";
 import CardAllElement from "./component/companyAllJobCard";
 
 //HOC
@@ -39,15 +35,11 @@ const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC = Layout(UserInfoDashboard);
 const AdminDashboardHOC = Layout(AdminDashboard);
-const DashUsersHOC = Layout(DashUsers);
 const DashJobsHOC = Layout(DashJobs);
-const DashCategoryHOC = Layout(DashCategory);
 const DashCreateJobHOC = Layout(DashCreateJob);
-const DashCreateCategoryHOC = Layout(DashCreateCategory);
 const DashAllUsersHOC = Layout(DashAllUsers);
 const DashAdminInfoHOC = Layout(DashAdminInfo);
 const DashAllJobsHOC = Layout(DashAllJobs);
-const DashAllCategoryHOC = Layout(DashAllCategory);
 
 const appID = "2409544426dbdcb4";
 const region = "us";
@@ -83,14 +75,6 @@ const App = () => {
                 }
               />
               <Route
-                path="/admin/users"
-                element={
-                  <AdminRoute>
-                    <DashUsersHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
                 path="/admin/jobs"
                 element={
                   <AdminRoute>
@@ -99,26 +83,10 @@ const App = () => {
                 }
               />
               <Route
-                path="/admin/category"
-                element={
-                  <AdminRoute>
-                    <DashCategoryHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
                 path="/admin/job/create"
                 element={
                   <AdminRoute>
                     <DashCreateJobHOC />
-                  </AdminRoute>
-                }
-              />
-              <Route
-                path="/admin/category/create"
-                element={
-                  <AdminRoute>
-                    <DashCreateCategoryHOC />
                   </AdminRoute>
                 }
               />
@@ -146,15 +114,7 @@ const App = () => {
                     <DashAllJobsHOC />
                   </MainAdminRoute>
                 }
-              />
-              <Route
-                path="/mainadmin/allcategory"
-                element={
-                  <MainAdminRoute>
-                    <DashAllCategoryHOC />
-                  </MainAdminRoute>
-                }
-              />
+              />``
 
 
               <Route

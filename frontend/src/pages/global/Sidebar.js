@@ -94,24 +94,11 @@ const SidebarAdm = () => {
               {userInfo && userInfo.role.role === 1 && (
                 <>
                   <MenuItem
-                    component={<Link to="/admin/users" />}
-                    icon={<GroupAddIcon />}
-                  >
-                    {" "}
-                    <div style={{ color: "black" }}> Users </div>
-                  </MenuItem>
-                  <MenuItem
                     component={<Link to="/admin/jobs" />}
                     icon={<WorkIcon />}
                   >
                     <div style={{ color: "black" }}> Jobs </div>
                   </MenuItem>
-                  <MenuItem
-                    component={<Link to="/admin/category" />}
-                    icon={<CategoryIcon />}
-                  >
-                    <div style={{ color: "black" }}> Category </div>{" "}
-                  </MenuItem>{" "}
                   <MenuItem
                     component={<Link to="/admin/info" />}
                     icon={<Person3Icon />}

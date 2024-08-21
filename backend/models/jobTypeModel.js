@@ -5,13 +5,11 @@ const jobTypeSchema = new mongoose.Schema(
     jobTypeName: {
       type: String,
       trim: true,
-      required: [true, "job category is require"],
       maxlength: 32,
     },
     user: {
       type: ObjectId,
       ref: "User",
-      required: true,
     },
   },
   { timestamps: true }
