@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 const validationSchema = yup.object({
   email: yup
@@ -31,7 +32,7 @@ const ResetPassword = () => {
   useEffect(() => {
     if (Object.keys(email).length !== 0) {
       axios
-        .post(`${process.env.BASE_URL}/api/forgetpassword`, email)
+        .post(`${BASE_URL}/api/forgetpassword`, email)
         .then((res) => {
           console.log(res);
           toast.success("Email sent successfully!");

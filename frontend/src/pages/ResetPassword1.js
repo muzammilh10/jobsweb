@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../config";
 
 const validationSchema = yup.object({
   newPassword: yup
@@ -41,7 +42,7 @@ const ResetPassword1 = () => {
     if (newPassword && confirmPassword) {
       axios
         .patch(
-          `${process.env.BASE_URL}/api/resetPassword/${token}`,
+          `${BASE_URL}/api/resetPassword/${token}`,
           {
             password: newPassword,
             passwordConfirm: confirmPassword,
