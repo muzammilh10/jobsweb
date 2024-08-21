@@ -38,6 +38,7 @@ app.use(cookieParser());
 app.use(cors({
   origin: [
     "https://jobsweb-heph.vercel.app",
+    "https://jobsweb-jet.vercel.app",
     "https://jobsweb-heph-git-main-muzammilh10s-projects.vercel.app",
     "https://jobsweb-heph-jihoev46i-muzammilh10s-projects.vercel.app"
   ],
