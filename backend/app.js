@@ -33,7 +33,12 @@ app.use(
   })
 );
 app.use(cookieParser());
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: ["https://jobsweb-umnl-git-main-muzammilh10s-projects.vercel.app"], // corrected the typo in the URL
+  methods: ["POST", "GET", "PATCH" ], // methods should be an array
+  credentials: true
+}));
 
 //routes moddleware
 app.use("/api", authRoutes);
