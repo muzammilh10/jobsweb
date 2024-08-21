@@ -4,7 +4,7 @@
   "description": "job portal",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "jay kapuriya",
   "license": "ISC",
