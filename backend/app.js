@@ -34,11 +34,17 @@ app.use(
 );
 app.use(cookieParser());
 // app.use(cors());
+
 app.use(cors({
-  origin: ["https://jobsweb-umnl-git-main-muzammilh10s-projects.vercel.app"], // corrected the typo in the URL
-  methods: ["POST", "GET", "PATCH" ], // methods should be an array
+  origin: [
+    "https://jobsweb-heph.vercel.app",
+    "https://jobsweb-heph-git-main-muzammilh10s-projects.vercel.app",
+    "https://jobsweb-heph-jihoev46i-muzammilh10s-projects.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"], // Allowing all methods
   credentials: true
 }));
+
 
 //routes moddleware
 app.use("/api", authRoutes);
