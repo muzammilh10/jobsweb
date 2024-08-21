@@ -41,6 +41,13 @@ app.use("/api", userRoutes);
 app.use("/api", jobTypeRoute);
 app.use("/api", jobRoute);
 
+app.get('*',(req,res,next)=>{
+  res.status(200).json({
+    message:'bad request'
+  })
+})
+
+
 //error middlewar
 app.use(errorHandler);
 //port
