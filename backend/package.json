@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js"
   },
-  "author": "jay kapuriya",
+  "author": "Muzammil Hasan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
